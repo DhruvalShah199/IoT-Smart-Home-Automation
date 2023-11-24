@@ -165,7 +165,7 @@ public class SHServerController {
     
     public String cleaningCycleComplete() {
     	String complete = "";
-    	if (vacuumRobot != null) {
+    	if (vacuumRobot != null && vacuumRobot.isCleaning() == false) {
     		complete = vacuumRobot.cleaningCycleCompleted();
     	}
     	return complete;
@@ -203,6 +203,13 @@ public class SHServerController {
     	if (doorbell != null) {
     		doorbell.activateNightMode(isNightModeOn);
     	}
+    }
+    
+    public boolean displayDoorbellStatus() {
+    	if (doorbell != null) {
+    		return doorbell.isOn();
+    	}
+    	return false;
     }
 
 }
