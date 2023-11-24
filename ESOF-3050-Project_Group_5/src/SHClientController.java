@@ -1331,7 +1331,12 @@ public class SHClientController {
     private TextField turnOnLightMM;
 
     
-   
+    public void initializeSmartLight() {
+        changeBrightnessComboBox();
+        changeColorComboBox();
+        turnOnLightComboBox();
+        turnOffLightComboBox();
+    }
    private void switchSceneSmartLightAutomationPage(String fxmlFileName) {
         try {
             Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
