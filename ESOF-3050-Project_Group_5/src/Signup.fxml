@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="SignUpPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="createNewPasswordLabel" layoutX="239.0" layoutY="39.0" text="SIGN UP" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="usernameLabelSignUp" layoutX="37.0" layoutY="115.0" prefHeight="30.0" prefWidth="199.0" text="CREATE USERNAME:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="usernameTextFieldSignUp" layoutX="271.0" layoutY="116.0" prefHeight="23.0" prefWidth="196.0" promptText="Enter Valid Username" />
+      <Label fx:id="createPasswordLabelSignUp" layoutX="41.0" layoutY="178.0" prefHeight="30.0" prefWidth="199.0" text="CREATE PASSWORD:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="createPasswordTextFieldSignUp" layoutX="271.0" layoutY="178.0" prefHeight="25.0" prefWidth="196.0" promptText="Enter Password" />
+      <Label fx:id="confirmPasswordLabelSignUp" layoutX="37.0" layoutY="239.0" text="CONFIRM PASSWORD:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="confirmPasswordTextFieldSignUp" layoutX="271.0" layoutY="239.0" prefHeight="25.0" prefWidth="196.0" promptText="Confirm Password" />
+      <Button fx:id="signUpButtonSignupPage" layoutX="193.0" layoutY="312.0" mnemonicParsing="false" onAction="#signUpButtonPressedSignupPage" prefHeight="25.0" prefWidth="156.0" text="SIGN UP">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <Polygon fx:id="signUpPolygon" fill="DODGERBLUE" layoutX="543.0" layoutY="72.0" points="-194.0, -72.0, 57.0, 41.0, 57.0, -72.0" stroke="BLACK" strokeType="INSIDE" />
+      <Button fx:id="loginButtonSignUp" layoutX="279.0" layoutY="362.0" mnemonicParsing="false" onAction="#loginButtonPressedSignUp" style="-fx-background-color: black;" text="Click Here to Login" textFill="#076ef5" />
+      <Label layoutX="182.0" layoutY="366.0" text="Already A User?" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

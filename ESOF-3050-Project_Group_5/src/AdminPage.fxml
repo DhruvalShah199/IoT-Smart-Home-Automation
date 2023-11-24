@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="mainPagePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="595.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="adminPageLabel" layoutX="46.0" layoutY="64.0" text="ADMIN PAGE" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="viewDevicesButtonAdminPage" layoutX="27.0" layoutY="230.0" mnemonicParsing="false" onAction="#viewDevicesButtonPressedAdminPage" prefHeight="29.0" prefWidth="175.0" text="VIEW DEVICES">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="automationRulesButtonAdminPage" layoutX="27.0" layoutY="310.0" mnemonicParsing="false" onAction="#automationRulesButtonPressedAdminPage" prefHeight="29.0" prefWidth="175.0" text="AUTOMATION RULES">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="goBackButtonAdminPage" layoutX="16.0" layoutY="14.0" mnemonicParsing="false" onAction="#goBackButtonPressedAdminPage" style="-fx-background-color: black; -fx-text-fill: white;" text="Logout">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="addNewDevicesButtonAdminPage1" layoutX="27.0" layoutY="157.0" mnemonicParsing="false" onAction="#addNewDevicesButtonPressedAdminPage" prefHeight="29.0" prefWidth="175.0" text="ADD NEW DEVICE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <ListView fx:id="listViewAdminPage" layoutX="254.0" layoutY="41.0" prefHeight="337.0" prefWidth="323.0" />
+   </children>
+</Pane>

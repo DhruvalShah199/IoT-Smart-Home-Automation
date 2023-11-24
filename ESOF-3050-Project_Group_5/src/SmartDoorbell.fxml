@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="smartDoorbellPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="418.0" prefWidth="704.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="316.0" fitWidth="181.0" layoutX="14.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@doorbell.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="smartDoorbellLabel" layoutX="276.0" layoutY="14.0" text="SMART DOORBELL" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="turnOnCameraButton" layoutX="296.0" layoutY="159.0" mnemonicParsing="false" onAction="#turnOnCameraButtonPressed" prefHeight="29.0" prefWidth="196.0" text="TURN ON CAMERA">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="activateNightModeButton" layoutX="296.0" layoutY="229.0" mnemonicParsing="false" onAction="#activateNightModeButtonPressed" prefHeight="29.0" prefWidth="196.0" text="ACTIVATE NIGHT MODE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+      <Label fx:id="smartDoorbellLabelHidden" layoutX="84.0" layoutY="367.0" prefHeight="41.0" prefWidth="537.0" />
+      <Button fx:id="goBackButtonSmartDoorbellPage" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#goBackButtonPressedSmartDoorbellPage" style="-fx-background-color: black; -fx-text-fill: white;" text="Go Back">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <ButtonBar layoutX="262.0" layoutY="84.0" prefHeight="40.0" prefWidth="247.0">
+        <buttons>
+            <Button fx:id="turnOnDoorbellButton" mnemonicParsing="false" onAction="#turnOnDoorbellButtonPressed" style="-fx-background-color: green;" text="ON" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+          <Button fx:id="turnOffDoorbellButton" mnemonicParsing="false" onAction="#turnOffDoorbellButtonPressed" prefHeight="26.0" prefWidth="143.0" style="-fx-background-color: red;" text="OFF">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+        </buttons>
+      </ButtonBar>
+      <Button fx:id="getStatusButtonSmartDoorbell" layoutX="296.0" layoutY="296.0" mnemonicParsing="false" onAction="#getStatusButtonPressedSmartDoorbell" prefHeight="29.0" prefWidth="196.0" text="GET STATUS">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>
