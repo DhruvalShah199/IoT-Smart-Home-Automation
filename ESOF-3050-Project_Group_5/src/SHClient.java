@@ -430,10 +430,7 @@ public class SHClient extends AbstractClient{
 	        	// Perform action when 
 	        	Platform.runLater(() -> clientController.setLabelVacuumRobot("Vacuum Robot Not Cleaning"));
 	        }
-	        else if (messageString.equals("cyclecompleted")) {
-	        	// Perform action when 
-	        	Platform.runLater(() -> clientController.setLabelVacuumRobot("Vacuum Robot Cleaning Cycle Completed"));
-	        }
+	        
 	        
 	        
 	        // Now compare messageString with messages for different doorbell functions

@@ -168,10 +168,6 @@ public class SHServer extends AbstractServer {
 		else if(messageString.equals("startcleaning")) {
 			String startCleaning = serverController.startCleaning();
 			sendToAllClients(startCleaning);
-			if(!serverController.displayVacuumRobotStatus()) {
-				String cleaning = serverController.cleaningCycleComplete();
-				sendToAllClients(cleaning);
-			}
 		}
 		else if(messageString.equals("stopcleaning")) {
 			String stopCleaning = serverController.stopCleaning();
