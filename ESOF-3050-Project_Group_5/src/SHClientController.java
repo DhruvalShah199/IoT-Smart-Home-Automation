@@ -1330,7 +1330,7 @@ public class SHClientController {
     @FXML
     private TextField turnOnLightMM;
 
-   
+    
    
    private void switchSceneSmartLightAutomationPage(String fxmlFileName) {
         try {
