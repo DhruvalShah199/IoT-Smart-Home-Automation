@@ -359,21 +359,7 @@ public class SHClient extends AbstractClient{
 	        }
 	        
 	        
-	        // Now compare messageString with messages for different doorbell functions
 	        
-	        // Compare messageString with messages turn on doorbell
-	        else if (messageString.equals("turnondoorbell")) {
-	            // Perform action when the doorbell is on
-	        	Platform.runLater(() -> clientController.setLabelSmartDoorbell("Doorbell is ON!"));
-	        } 
-	        else if (messageString.equals("turnoffdoorbell")) {
-	            // Action when doorbell is off
-	            Platform.runLater(() -> clientController.setLabelSmartDoorbell("Doorbell is OFF"));
-	        } 
-	        else if (messageString.equals("turnoncamera")) {
-	            // Action when camera is on
-	            Platform.runLater(() -> clientController.setLabelSmartDoorbell("Camera is ON"));
-	        }
 	        
 	        // Now compare messageString with messages for different lock functions
 	        
@@ -403,6 +389,63 @@ public class SHClient extends AbstractClient{
 	        	// Action when the check the status of the SmartLock
 	        	Platform.runLater(() -> clientController.setLabelSmartLock("Status of the Smart Lock: UNLOCKED"));
         
+	        }
+	        
+	        // Now compare messageString with messages for different vacuum robot functions
+	        
+	        else if (messageString.equals("startedcleaning")) {
+	        	// Perform action when 
+	        	Platform.runLater(() -> clientController.setLabelVacuumRobot("Vacuum Robot STARTED CLEANING"));
+	        } 
+	        else if (messageString.equals("alreadycleaning")) {
+	        	// Perform action when 
+	        	Platform.runLater(() -> clientController.setLabelVacuumRobot("Cleaning Cycle Already in Progress"));
+	        } 
+	        else if (messageString.equals("dusksackfull")) {
+	        	// Perform action when 
+	        	Platform.runLater(() -> clientController.setLabelVacuumRobot("Dust Sack Full"));
+	        	//Set Alert Here
+	        } 
+	        else if (messageString.equals("stopedcleaning")) {
+	        	// Perform action when 
+	        	Platform.runLater(() -> clientController.setLabelVacuumRobot("Vacuum Robot STOPED CLEANING"));
+	        } 
+	        else if (messageString.equals("nocleaning")) {
+	        	// Perform action when 
+	        	Platform.runLater(() -> clientController.setLabelVacuumRobot("No Cleaning Cycle To Stop"));
+	        }
+	        else if (messageString.equals("dustsackalerton")) {
+	        	// Perform action when 
+	        	Platform.runLater(() -> clientController.setLabelVacuumRobot("Empty Dust Sack Alert ON"));
+	        }
+	        else if (messageString.equals("dustsackalertoff")) {
+	        	// Perform action when 
+	        	Platform.runLater(() -> clientController.setLabelVacuumRobot("Empty Dust Sack Alert OFF"));
+	        }
+	        else if (messageString.equals("vacuumcleaning")) {
+	        	// Perform action when 
+	        	Platform.runLater(() -> clientController.setLabelVacuumRobot("Vacuum Robot Cleaning"));
+	        }
+	        else if (messageString.equals("vacuumnotcleaning")) {
+	        	// Perform action when 
+	        	Platform.runLater(() -> clientController.setLabelVacuumRobot("Vacuum Robot Not Cleaning"));
+	        }
+	        
+	        
+	        // Now compare messageString with messages for different doorbell functions
+	        
+	        // Compare messageString with messages turn on doorbell
+	        else if (messageString.equals("turnondoorbell")) {
+	            // Perform action when the doorbell is on
+	        	Platform.runLater(() -> clientController.setLabelSmartDoorbell("Doorbell is ON!"));
+	        } 
+	        else if (messageString.equals("turnoffdoorbell")) {
+	            // Action when doorbell is off
+	            Platform.runLater(() -> clientController.setLabelSmartDoorbell("Doorbell is OFF"));
+	        } 
+	        else if (messageString.equals("turnoncamera")) {
+	            // Action when camera is on
+	            Platform.runLater(() -> clientController.setLabelSmartDoorbell("Camera is ON"));
 	        }
 	        
 		}

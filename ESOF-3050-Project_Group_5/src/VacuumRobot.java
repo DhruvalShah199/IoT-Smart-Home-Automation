@@ -22,9 +22,9 @@ public class VacuumRobot extends SmartDevice {
         // Logic to tell vacuum to start cleaning
     	String cleaning;
     	if (isCleaning) {
-            cleaning = "Cleaning is already in progress.";
+            cleaning = "alreadycleaning";
         } else if (dustSackFull && dustSackAlertOn) {
-            cleaning = "Dust sack is full. Please empty the dust sack before starting a new cleaning cycle.";
+            cleaning = "dusksackfull";
         } else {
             isCleaning = true;
             TimerTask task = new TimerTask() {
@@ -34,7 +34,7 @@ public class VacuumRobot extends SmartDevice {
                 }
             };
             timer.schedule(task, CLEANING_CYCLE_TIME);
-            cleaning = "Cleaning cycle started.";
+            cleaning = "startedcleaning";
         }
     	return cleaning;
     }
@@ -47,9 +47,9 @@ public class VacuumRobot extends SmartDevice {
             isCleaning = false;
             timer.cancel(); // Stop the cleaning immediately
             timer = new Timer(); // Timer needs to be reset after cancellation
-            cleaning = "Cleaning cycle stopped.";
+            cleaning = "stopedcleaning";
         } else {
-            cleaning = "No cleaning cycle is in progress to stop.";
+            cleaning = "nocleaning";
         }
     	return cleaning;
     }
@@ -76,7 +76,7 @@ public class VacuumRobot extends SmartDevice {
 		// Logic to set the empty dust sack alert
 		String dustSackAlert;
         this.dustSackAlertOn = alertOn;
-        dustSackAlert = "Empty dust sack alert is " + (alertOn ? "on" : "off");
+        dustSackAlert = "dustsackalert" + (alertOn ? "on" : "off");
         return dustSackAlert;
     }
 	
