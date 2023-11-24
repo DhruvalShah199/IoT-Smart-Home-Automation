@@ -163,6 +163,14 @@ public class SHServerController {
         return alert;
     }
     
+    public String cleaningCycleComplete() {
+    	String complete = "";
+    	if (vacuumRobot != null) {
+    		complete = vacuumRobot.cleaningCycleCompleted();
+    	}
+    	return complete;
+    }
+    
     public boolean displayVacuumRobotStatus() {
     	if (vacuumRobot != null) {
     		return vacuumRobot.isCleaning();

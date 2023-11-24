@@ -4,7 +4,7 @@ import java.util.TimerTask;
 public class VacuumRobot extends SmartDevice {
 
 	// Vacuum Robot-specific attributes
-	private static final long CLEANING_CYCLE_TIME = 120000; // 2 minutes in milliseconds
+	private static final long CLEANING_CYCLE_TIME = 60000; // 1 minutes in milliseconds
     private static final int MAX_CLEANING_CYCLES_BEFORE_EMPTYING = 2;
     private Timer timer = new Timer();
     private boolean isCleaning = false;
@@ -54,13 +54,14 @@ public class VacuumRobot extends SmartDevice {
     	return cleaning;
     }
     
-    private void cleaningCycleCompleted() {
+    public String cleaningCycleCompleted() {
         isCleaning = false;
         cleaningCyclesCompleted++;
-        System.out.println("Cleaning cycle completed.");
+        String completeStatement = "";
         if (cleaningCyclesCompleted >= MAX_CLEANING_CYCLES_BEFORE_EMPTYING) {
             dustSackFull = true;
         }
+		return completeStatement = "cyclecompleted";
     }
 
 //    public synchronized void emptyDustSack() {
