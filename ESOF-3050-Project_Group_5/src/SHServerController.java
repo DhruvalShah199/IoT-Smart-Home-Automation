@@ -139,23 +139,31 @@ public class SHServerController {
 
     
     //Methods for Vacuum Robot
-    public void startCleaning(boolean isCleaning) {
+    public String startCleaning() {
+    	String isCleaning = "";
         if (vacuumRobot != null) {
-            vacuumRobot.startCleaning(isCleaning);
+            isCleaning = vacuumRobot.startCleaning();
         }
+        return isCleaning;
     }
 
-    public void stopCleaning(boolean isCleaning) {
+    public String stopCleaning() {
+    	String isCleaning = "";
         if (vacuumRobot != null) {
-            vacuumRobot.stopCleaning(isCleaning);
+        	isCleaning = vacuumRobot.stopCleaning();
         }
+        return isCleaning;
     }
     
-    public void emptyDustSackVacuumRobotAlert(boolean emptyDustSack) {
+    public String emptyDustSackVacuumRobotAlert(boolean emptyDustSack) {
+    	String alert = "";
         if (vacuumRobot != null) {
-            vacuumRobot.emptyDustSackAlert(emptyDustSack);
+        	alert =vacuumRobot.setDustSackAlert(emptyDustSack);
         }
+        return alert;
     }
+    
+    
 
     
     //Methods for Smart Doorbell

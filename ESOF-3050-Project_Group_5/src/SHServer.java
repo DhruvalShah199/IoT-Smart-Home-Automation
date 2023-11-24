@@ -163,6 +163,25 @@ public class SHServer extends AbstractServer {
 			}
 		}
 		
+		
+		//To handle messages from vacuum robot
+		else if(messageString.equals("startcleaning")) {
+			String startCleaning = serverController.startCleaning();
+			sendToAllClients(startCleaning);
+		}
+		else if(messageString.equals("stopcleaning")) {
+			String stopCleaning = serverController.stopCleaning();
+			sendToAllClients(stopCleaning);
+		}
+		else if(messageString.equals("dustsackalerton")) {
+			String dustSackAlert = serverController.emptyDustSackVacuumRobotAlert(true);
+			sendToAllClients(dustSackAlert);
+		}
+		else if(messageString.equals("dustsackalertoff")) {
+			String dustSackAlert = serverController.emptyDustSackVacuumRobotAlert(false);
+			sendToAllClients(dustSackAlert);
+		}
+		
 
 		else {
 			System.out.println("The message received from Client is invalid");

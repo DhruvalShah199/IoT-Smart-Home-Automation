@@ -216,6 +216,20 @@ public class SHClient extends AbstractClient{
 		}
 	}
 	
+	public void emptyDustSackAlert(boolean alert) {
+		try {
+			if(alert == true) {
+				sendToServer("dustsackalerton");
+			}
+			else if(alert == false) {
+				sendToServer("dustsackalertoff");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void getStatusVacuumRobot() {
 		// sends message to get vacuum robot status to server
 		try {

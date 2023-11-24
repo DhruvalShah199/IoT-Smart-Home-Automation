@@ -1029,7 +1029,15 @@ public class SHClientController {
 
     @FXML
     void emptyDustSackAlertToggleButtonPressed(ActionEvent event) {
-    	// Have to implement method to use toggle button
+    	if (this.client != null && emptyDustSackAlertToggleButton.isSelected() == true) {
+    		client.emptyDustSackAlert(true);
+        } else if (emptyDustSackAlertToggleButton.isSelected() == false) {
+        	client.emptyDustSackAlert(false);
+        }
+    	else {
+            System.out.println("Client connection is not initialized.");
+            // Consider re-attempting to connect or notify the user
+        }
     }
 
     @FXML
