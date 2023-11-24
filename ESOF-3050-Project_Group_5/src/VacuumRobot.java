@@ -61,6 +61,7 @@ public class VacuumRobot extends SmartDevice {
         if (cleaningCyclesCompleted >= MAX_CLEANING_CYCLES_BEFORE_EMPTYING) {
             dustSackFull = true;
         }
+        System.out.println("Cycle complete");
 		return completeStatement = "cyclecompleted";
     }
 
