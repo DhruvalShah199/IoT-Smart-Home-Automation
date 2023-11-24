@@ -1387,7 +1387,6 @@ public class SHClientController {
     }
     
     
-    
     public void changeColorComboBox() {
         // Populate the choice box with the time options
     	colorComboBoxSmartLightAutomation.setItems(FXCollections.observableArrayList(
