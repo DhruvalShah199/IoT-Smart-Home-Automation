@@ -1330,13 +1330,7 @@ public class SHClientController {
     @FXML
     private TextField turnOnLightMM;
 
-    
-    public void initializeSmartLight() {
-        changeBrightnessComboBox();
-        changeColorComboBox();
-        turnOnLightComboBox();
-        turnOffLightComboBox();
-    }
+   
    private void switchSceneSmartLightAutomationPage(String fxmlFileName) {
         try {
             Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
@@ -1349,6 +1343,10 @@ public class SHClientController {
                     
                     // Load the FXML file
                     Parent root = loader.load();
+                    
+                    
+                    // Manually call your custom initialization method here
+                    initialize1(); // This must be called after loader.load() and before setting the scene
                     
                     // Return the created scene
                     return new Scene(root);
@@ -1364,29 +1362,33 @@ public class SHClientController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-    
-    public void changeBrightnessComboBox() {
-        // Populate the choice box with the time options
-    	changeBrightnessChoiceBoxSmartLightAutomation.setItems(FXCollections.observableArrayList(
-            "1 minute",
-            "2 minutes",
-            "5 minutes",
-            "10 minutes",
-            "15 minutes",
-            "30 minutes",
-            "1 hour",
-            "2 hours",
-            "5 hours",
-            "8 hours",
-            "12 hours"
-        ));
         
-        // Set the default value if needed, for example, "1 minute"
-    	changeBrightnessChoiceBoxSmartLightAutomation.setValue("1 minute");
     }
     
-    
+   
+
+   private void initialize1() {
+       populateChangeBrightnessComboBox();
+       
+   }
+
+   private void populateChangeBrightnessComboBox() {
+       // Populate the choice box with the time options
+       changeBrightnessChoiceBoxSmartLightAutomation.setItems(FXCollections.observableArrayList(
+           "1 minute",
+           "2 minutes",
+           "5 minutes",
+           "10 minutes",
+           "15 minutes",
+           "30 minutes",
+           "1 hour",
+           "2 hours",
+           "5 hours",
+           "8 hours",
+           "12 hours"
+       ));
+       changeBrightnessChoiceBoxSmartLightAutomation.setValue("1 minute"); // Set default value
+   }
     public void changeColorComboBox() {
         // Populate the choice box with the time options
     	colorComboBoxSmartLightAutomation.setItems(FXCollections.observableArrayList(
