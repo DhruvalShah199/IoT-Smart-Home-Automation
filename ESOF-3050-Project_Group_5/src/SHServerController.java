@@ -163,8 +163,14 @@ public class SHServerController {
         return alert;
     }
     
+    public boolean displayVacuumRobotStatus() {
+    	if (vacuumRobot != null) {
+    		return vacuumRobot.isCleaning();
+    	}
+    	return false;
+	}
     
-
+    
     
     //Methods for Smart Doorbell
     public void turnOnDoorbell(String onOrOff) {

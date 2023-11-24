@@ -181,6 +181,26 @@ public class SHServer extends AbstractServer {
 			String dustSackAlert = serverController.emptyDustSackVacuumRobotAlert(false);
 			sendToAllClients(dustSackAlert);
 		}
+		else if(messageString.equals("getvacuumrobotstatus")) {
+			boolean status = serverController.displayVacuumRobotStatus();
+			if(status == true) {
+				try {
+					client.sendToClient("vacuumcleaning");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else if(status == false) {
+				try {
+					client.sendToClient("vacuumnotcleaning");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
 		
 
 		else {
