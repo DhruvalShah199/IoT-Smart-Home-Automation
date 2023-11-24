@@ -57,12 +57,13 @@ public class VacuumRobot extends SmartDevice {
     public String cleaningCycleCompleted() {
         isCleaning = false;
         cleaningCyclesCompleted++;
-        String completeStatement = "";
+        String completeStatement = "cyclecompleted";;
+        System.out.println("Cycle complete");
         if (cleaningCyclesCompleted >= MAX_CLEANING_CYCLES_BEFORE_EMPTYING) {
             dustSackFull = true;
         }
         System.out.println("Cycle complete");
-		return completeStatement = "cyclecompleted";
+		return completeStatement;
     }
 
 //    public synchronized void emptyDustSack() {
