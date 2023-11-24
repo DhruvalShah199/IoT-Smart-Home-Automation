@@ -202,7 +202,41 @@ public class SHServer extends AbstractServer {
 		}
 		
 		
+		//To handle messages from smart doorbell
+		else if(messageString.equals("turnondoorbell")) {
+			serverController.turnOnDoorbell("on");
+			boolean printStatus = serverController.getStatus();
+			sendToAllClients("doorbellon");
+			System.out.println("Updated doorbell status: " + printStatus);
+		}
+		else if(messageString.equals("turnoffdoorbell")) {
+			serverController.turnOffDoorbell("off");
+			boolean printStatus = serverController.getStatus();
+			sendToAllClients("doorbelloff");
+			System.out.println("Updated doorbell status: " + printStatus);
+		}
+		else if(messageString.equals("doorbellstatus")) {
+			boolean status = serverController.displayDoorbellStatus();
+			System.out.println(status);
+			if(status == true) {
+				try {
+					client.sendToClient("doorbellstatuson");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else if(status == false) {
+				try {
+					client.sendToClient("doorbellstatusoff");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 
+		
 		else {
 			System.out.println("The message received from Client is invalid");
 		}		
