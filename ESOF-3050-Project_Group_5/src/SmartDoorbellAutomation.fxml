@@ -95,7 +95,7 @@
                   </TextField>
                </children>
             </Pane>
-            <Button fx:id="activateNightModeAtButton" mnemonicParsing="false" onAction="#activateNightModeButtonPressedAutomation" prefHeight="29.0" prefWidth="80.0" text="SET" GridPane.columnIndex="2">
+            <Button fx:id="activateNightModeAtButton" mnemonicParsing="false" onAction="#activateNightModeAtButtonPressed" prefHeight="29.0" prefWidth="80.0" text="SET" GridPane.columnIndex="2">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
