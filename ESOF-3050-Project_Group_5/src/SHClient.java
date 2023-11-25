@@ -301,7 +301,7 @@ public class SHClient extends AbstractClient{
 
 	public void turnOnCameraDoorbell() {
 		// Sends turn on doorbell camera message
-		if(setDoorbellOn(true)) {
+		if(isDoorbellOn() == true) {
 			try {
 				sendToServer("turnoncamera");
 				TimerTask task = new TimerTask() {

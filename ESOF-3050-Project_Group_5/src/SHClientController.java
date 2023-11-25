@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
@@ -579,9 +580,11 @@ public class SHClientController {
     @FXML
     private Label adjustBrightnessLabel;
 
-    @FXML Slider adjustBrightnessSlider;
+    @FXML 
+    public Slider adjustBrightnessSlider;
 
-    @FXML Label brightnessLabelLightPage;
+    @FXML 
+    public Label brightnessLabelLightPage;
 
     @FXML
     private Label changeColorLabel;
@@ -597,6 +600,9 @@ public class SHClientController {
 
     @FXML
     private Label smartLightLabel;
+    
+    @FXML
+    private Label smartLightTitleLabel;
 
     @FXML
     private Pane smartLightPane;
@@ -668,6 +674,18 @@ public class SHClientController {
             // Consider re-attempting to connect or notify the user
         	}
     }
+    
+    @FXML
+    void colorPickerChangeValue(ActionEvent event) {
+    	String color = String.valueOf(colorPickerSmartLight.getValue());
+    	if (this.client != null) {
+            this.client.changeColor(color);
+        }
+    	else {
+            System.out.println("Client connection is not initialized.");
+            // Consider re-attempting to connect or notify the user
+        	}
+    }
 
     @FXML
     void turnOnLightButtonPressed(ActionEvent event) {
@@ -694,6 +712,11 @@ public class SHClientController {
     
     public void setLabelSmartLight(String lbl) {
     	smartLightLabel.setText(lbl);
+    }
+    
+    public void changeTitleColor(String col) {
+    	Color colorValue = Color.web(col);
+    	smartLightTitleLabel.setTextFill(colorValue);
     }
     
     public void initialize() {
@@ -908,6 +931,7 @@ public class SHClientController {
     void decreaseTemperaturePressed(ActionEvent event) {
     	if (this.client != null) {
     		client.decreaseTemperature();
+    		showTemperature(true);
         } else {
             System.out.println("Client connection is not initialized.");
             // Consider re-attempting to connect or notify the user
@@ -933,6 +957,7 @@ public class SHClientController {
     void increaseTemperatureButtonPressed(ActionEvent event) {
     	if (this.client != null) {
     		client.increaseTemperature();
+    		showTemperature(true);
         } else {
             System.out.println("Client connection is not initialized.");
             // Consider re-attempting to connect or notify the user
@@ -943,6 +968,7 @@ public class SHClientController {
     void turnOffThermostatButtonPressed(ActionEvent event) {
     	if (this.client != null) {
     		client.turnOffThermostat();
+    		showTemperature(false);
         } else {
             System.out.println("Client connection is not initialized.");
             // Consider re-attempting to connect or notify the user
@@ -953,11 +979,16 @@ public class SHClientController {
     void turnOnThermostatButtonPressed(ActionEvent event) {
     	if (this.client != null) {
     		client.turnOnThermostat();
+    		showTemperature(true);
         } else {
             System.out.println("Client connection is not initialized.");
             // Consider re-attempting to connect or notify the user
         }
     }
+    
+    public void showTemperature(boolean show) {
+        Platform.runLater(() -> temperatureLabelThermostat.setVisible(show));
+     }
     
     @FXML
     void getStatusButtonPressedThermostat(ActionEvent event) {
@@ -1088,7 +1119,7 @@ public class SHClientController {
     //-----------------------------Smart Doorbell Page-------------------------------------------
     
     @FXML
-    private Button activateNightModeButton;
+    private ToggleButton activateNightModeToggleButton;
 
     @FXML
     private Button goBackButtonSmartDoorbellPage;
@@ -1145,13 +1176,16 @@ public class SHClientController {
     }
 
 	@FXML
-	void activateNightModeButtonPressed(ActionEvent event) {
-		if (this.client != null) {
-			client.activateNightMode();
-        } else {
+	void activateNightModeToggleButtonPressed(ActionEvent event) {
+		if (this.client != null && activateNightModeToggleButton.isSelected() == true) {
+    		client.activateNightMode(true);
+        } else if (activateNightModeToggleButton.isSelected() == false) {
+        	client.activateNightMode(false);
+        }
+    	else {
             System.out.println("Client connection is not initialized.");
             // Consider re-attempting to connect or notify the user
-        }
+    	}
 	}
 	
 	@FXML
@@ -1450,7 +1484,63 @@ public class SHClientController {
     
     
     
-      
+  //-----------------------------Smart Doorbell Automation Rules Page-------------------------------------------
+    @FXML
+    private Button activateNightModeAtButton;
+
+    @FXML
+    private ComboBox<?> activateNightModeComboBoxSmartDoorbellAutomation;
+
+    @FXML
+    private ComboBox<?> activateNightModeDoorbellAmPmComboBox;
+
+    @FXML
+    private TextField activateNightModeHH;
+
+    @FXML
+    private TextField activateNightModeMM;
+
+    @FXML
+    private Button goBackButtonSmartDoorbellAutomationPage;
+
+    @FXML
+    private Label smartDoorbellAutomationLabelHidden;
+
+    @FXML
+    private Label smartDoorbellLabelAutomationPage;
+
+    @FXML
+    private Pane smartDoorbellPaneAutomation;
+
+    @FXML
+    private Button turnOnCameraAtButton;
+
+    @FXML
+    private ComboBox<?> turnOnCameraDoorbellAmPmComboBox;
+
+    @FXML
+    private TextField turnOnCameraHH;
+
+    @FXML
+    private TextField turnOnCameraMM;
+
+    @FXML
+    void activateNightModeAtButtonPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void goBackButtonPressedSmartLDoorbellAutomation(ActionEvent event) {
+
+    }
+
+    @FXML
+    void turnOnCameraAtButtonPressed(ActionEvent event) {
+
+    }
+    
+    
+    
   //-----------------------------Smart Thermostat Automation Rules Page-------------------------------------------
     @FXML
     private ChoiceBox<?> changeModeChoiceBoxSmartThermostatAutomation;
@@ -1735,94 +1825,6 @@ public class SHClientController {
     @FXML
     void goBackButtonPressedVacuumRobotAutomation(ActionEvent event) {
     	switchSceneVacuumRobotAutomationPage("AutomationRules.fxml");
-    }
-
-    
-    
-    
-  //-----------------------------Smart Doorbell Automation Rules Page-------------------------------------------
-    @FXML
-    private Button activateNightModeAtButton;
-
-    @FXML
-    private ComboBox<?> activateNightModeComboBoxSmartDoorbellAutomation;
-
-    @FXML
-    private ComboBox<?> activateNightModeDoorbellAmPmComboBox;
-
-    @FXML
-    private TextField activateNightModeHH;
-
-    @FXML
-    private TextField activateNightModeMM;
-
-    @FXML
-    private Button goBackButtonSmartDoorbellAutomationPage;
-
-    @FXML
-    private Label smartDoorbellAutomationLabelHidden;
-
-    @FXML
-    private Label smartDoorbellLabelAutomationPage;
-
-    @FXML
-    private Pane smartDoorbellPaneAutomation;
-
-    @FXML
-    private Button turnOnCameraAtButton;
-
-    @FXML
-    private ComboBox<?> turnOnCameraDoorbellAmPmComboBox;
-
-    @FXML
-    private TextField turnOnCameraHH;
-
-    @FXML
-    private TextField turnOnCameraMM;
-
-    @FXML
-    void activateNightModeAutomationButtonPressed(ActionEvent event) {
-
-    }
-
-    @FXML
-    void turnOnCameraAtButtonPressed(ActionEvent event) {
-
-    }
-    
-   private void switchSceneSmartDoorbellAutomationPage(String fxmlFileName) {
-        try {
-            Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
-                try {
-                	// Create a loader for the FXML
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-                    
-                    // Set the current instance as the controller
-                    loader.setController(this);
-                    
-                    // Load the FXML file
-                    Parent root = loader.load();
-                    
-                    // Return the created scene
-                    return new Scene(root);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return null;
-                }
-            });
-
-            Stage stage = (Stage) smartDoorbellPaneAutomation.getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-   
-    @FXML
-    void goBackButtonPressedSmartLDoorbellAutomation(ActionEvent event) {
-    	switchSceneSmartDoorbellAutomationPage("AutomationRules.fxml");
     }
     
 }
