@@ -1347,7 +1347,7 @@ public class SHClientController {
                     
                     
                     // Manually call your custom initialization method here
-                    initializeSmartLight(); // This must be called after loader.load() and before setting the scene
+                    initializeSmartLight(); 
                     
                     // Return the created scene
                     return new Scene(root);
