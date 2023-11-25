@@ -1,5 +1,6 @@
 import java.io.IOException;
 
+import com.github.sarxos.webcam.Webcam;
 import com.lloseng.ocsf.client.AbstractClient;
 
 import javafx.application.Platform;
@@ -253,6 +254,8 @@ public class SHClient extends AbstractClient{
 	public void turnOnCameraDoorbell() {
 		// Sends turn on doorbell camera message
 		try {
+			Webcam camera = Webcam.getDefault();
+			camera.open();
 			sendToServer("turnoncamera");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

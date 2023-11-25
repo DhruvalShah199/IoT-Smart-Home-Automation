@@ -22,6 +22,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 
+
 public class SHClientController {
 	private SHClient client;
 	private Map<String, Scene> sceneCache = new HashMap<>();
@@ -471,7 +472,7 @@ public class SHClientController {
         }
     }
     
-    
+  
     
     //-----------------------------View Devices Page-------------------------------------------
     
