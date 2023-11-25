@@ -1350,7 +1350,7 @@ public class SHClientController {
     private Pane smartLightPaneAutomation;
 
     @FXML
-    private ComboBox<String> turnOffLightAmPmComboBox;
+    private ComboBox <String> turnOffLightAmPmComboBox;
 
     @FXML
     private Button turnOffLightAtButton;
@@ -1386,7 +1386,7 @@ public class SHClientController {
                     
                     
                     // Manually call your custom initialization method here
-                    initializeSmartLight(); 
+                    initializeSmartLight(); // This must be called after loader.load() and before setting the scene
                     
                     // Return the created scene
                     return new Scene(root);
@@ -1415,7 +1415,7 @@ public class SHClientController {
    private void populateChangeBrightnessChoiceBox() {
        // Populate the choice box with the time options
 	   ObservableList<String> options = FXCollections.observableArrayList(
-		   "1 minute",
+			"1 minute",
            "2 minutes",
            "5 minutes",
            "10 minutes",
@@ -1450,8 +1450,7 @@ public class SHClientController {
     
     
     
-    
-    
+      
   //-----------------------------Smart Thermostat Automation Rules Page-------------------------------------------
     @FXML
     private ChoiceBox<?> changeModeChoiceBoxSmartThermostatAutomation;
