@@ -78,7 +78,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="colorComboBoxSmartLightAutomation" prefHeight="26.0" prefWidth="184.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <ChoiceBox fx:id="colorChoiceBoxSmartLightAutomation" prefHeight="26.0" prefWidth="184.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <Label text="TURN ON LIGHT AT" textFill="WHITE" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="15.0" />

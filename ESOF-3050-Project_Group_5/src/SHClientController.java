@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -1298,7 +1299,7 @@ public class SHClientController {
     private ColorPicker changeColorPickerSmartLight;
 
     @FXML
-    private ChoiceBox<String> colorComboBoxSmartLightAutomation;
+    private ChoiceBox<String> colorChoiceBoxSmartLightAutomation;
 
     @FXML
     private Button goBackButtonSmartLightAutomationPage;
@@ -1330,7 +1331,7 @@ public class SHClientController {
     @FXML
     private TextField turnOnLightMM;
 
-   
+    
    private void switchSceneSmartLightAutomationPage(String fxmlFileName) {
         try {
             Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
@@ -1368,11 +1369,11 @@ public class SHClientController {
    
 
    private void initialize1() {
-       populateChangeBrightnessComboBox();
+       populateChangeBrightnessChoiceBox();
        
    }
 
-   private void populateChangeBrightnessComboBox() {
+   private void populateChangeBrightnessChoiceBox() {
        // Populate the choice box with the time options
        changeBrightnessChoiceBoxSmartLightAutomation.setItems(FXCollections.observableArrayList(
            "1 minute",
@@ -1389,66 +1390,7 @@ public class SHClientController {
        ));
        changeBrightnessChoiceBoxSmartLightAutomation.setValue("1 minute"); // Set default value
    }
-    public void changeColorComboBox() {
-        // Populate the choice box with the time options
-    	colorComboBoxSmartLightAutomation.setItems(FXCollections.observableArrayList(
-            "1 minute",
-            "2 minutes",
-            "5 minutes",
-            "10 minutes",
-            "15 minutes",
-            "30 minutes",
-            "1 hour",
-            "2 hours",
-            "5 hours",
-            "8 hours",
-            "12 hours"
-        ));
-        
-        // Set the default value if needed, for example, "1 minute"
-    	colorComboBoxSmartLightAutomation.setValue("1 minute");
-    }
-    
-    public void turnOnLightComboBox() {
-        // Populate the choice box with the time options
-    	turnOnLightAmPmComboBox.setItems(FXCollections.observableArrayList(
-            "1 minute",
-            "2 minutes",
-            "5 minutes",
-            "10 minutes",
-            "15 minutes",
-            "30 minutes",
-            "1 hour",
-            "2 hours",
-            "5 hours",
-            "8 hours",
-            "12 hours"
-        ));
-        
-        // Set the default value if needed, for example, "1 minute"
-    	turnOnLightAmPmComboBox.setValue("1 minute");
-    }
-    
-    public void turnOffLightComboBox() {
-        // Populate the choice box with the time options
-    	turnOffLightAmPmComboBox.setItems(FXCollections.observableArrayList(
-            "1 minute",
-            "2 minutes",
-            "5 minutes",
-            "10 minutes",
-            "15 minutes",
-            "30 minutes",
-            "1 hour",
-            "2 hours",
-            "5 hours",
-            "8 hours",
-            "12 hours"
-        ));
-        
-        // Set the default value if needed, for example, "1 minute"
-    	turnOffLightAmPmComboBox.setValue("1 minute");
-    }
-    
+   
     
     @FXML
     void goBackButtonPressedSmartLightAutomation(ActionEvent event) {
