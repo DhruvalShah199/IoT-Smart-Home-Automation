@@ -363,7 +363,7 @@ public class SHClient extends AbstractClient{
 			}
 	        else if (messageString.contains("0x")){
 	        	Platform.runLater(()-> {
-	        		clientController.setLabelSmartLight("The Color of the Smart Light Changes to:" + messageString);
+	        		clientController.setLabelSmartLight("The Color of the Smart Light Changed to: " + messageString);
 	        		//clientController.changeTitleColor(messageString);
 	        	});
 	        }
