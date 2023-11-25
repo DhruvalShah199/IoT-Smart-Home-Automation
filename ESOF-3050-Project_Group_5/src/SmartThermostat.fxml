@@ -100,7 +100,7 @@
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Label fx:id="temperatureLabelThermostat" alignment="CENTER" layoutX="30.0" layoutY="18.0" prefHeight="17.0" prefWidth="118.0" text="25" textFill="WHITE">
+                  <Label fx:id="temperatureLabelThermostat" alignment="CENTER" layoutX="30.0" layoutY="18.0" prefHeight="17.0" prefWidth="118.0" text="25" textFill="WHITE" visible="false">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

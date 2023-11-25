@@ -573,8 +573,6 @@ public class SHClientController {
     
     //-----------------------------Smart Light Page-------------------------------------------
     
-    private boolean lightIsOn = false;
-    
     @FXML
     private Label adjustBrightnessLabel;
 
@@ -605,6 +603,8 @@ public class SHClientController {
 
     @FXML
     private Button turnOnLightButton;
+    
+    private boolean lightIsOn = false;
     
     BigDecimal brightness = new BigDecimal(100); //Brightness is set to 50% by default
     
@@ -665,7 +665,7 @@ public class SHClientController {
     	else {
             System.out.println("Client connection is not initialized.");
             // Consider re-attempting to connect or notify the user
-        	}
+        }
     }
 
     @FXML
@@ -678,16 +678,17 @@ public class SHClientController {
     	else {
             System.out.println("Client connection is not initialized.");
             // Consider re-attempting to connect or notify the user
-        	}
+        }
     }
     
     @FXML
     void getStatusButtonPressedSmartLight(ActionEvent event) {
     	if (this.client != null) {
     	client.getStatusSmartLight();
-    	} else {
-        System.out.println("Client connection is not initialized.");
-        // Consider re-attempting to connect or notify the user
+    	} 
+    	else {
+    		System.out.println("Client connection is not initialized.");
+    		// Consider re-attempting to connect or notify the user
     	}
     }
     
@@ -864,6 +865,8 @@ public class SHClientController {
     @FXML
     private Button thermostatOnButton;
     
+    private boolean thermostatIsOn = false;
+    
     private void switchSceneSmartThermostatPage(String fxmlFileName) {
         try {
             Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
@@ -942,6 +945,8 @@ public class SHClientController {
     void turnOffThermostatButtonPressed(ActionEvent event) {
     	if (this.client != null) {
     		client.turnOffThermostat();
+    		setThermostatStatus(false); // Thermostat is off
+    		showTemperature(false);
         } else {
             System.out.println("Client connection is not initialized.");
             // Consider re-attempting to connect or notify the user
@@ -952,10 +957,22 @@ public class SHClientController {
     void turnOnThermostatButtonPressed(ActionEvent event) {
     	if (this.client != null) {
     		client.turnOnThermostat();
+    		setThermostatStatus(true); // Thermostat is on
+    		showTemperature(true);
         } else {
             System.out.println("Client connection is not initialized.");
             // Consider re-attempting to connect or notify the user
         }
+    }
+    
+ // Methods to update thermostat status and temperature visibility
+    public void setThermostatStatus(boolean isOn) {
+        thermostatIsOn = isOn;
+        showTemperature(isOn);
+    }
+
+    public void showTemperature(boolean show) {
+       Platform.runLater(() -> temperatureLabelThermostat.setVisible(show));
     }
     
     @FXML
@@ -1087,7 +1104,7 @@ public class SHClientController {
     //-----------------------------Smart Doorbell Page-------------------------------------------
     
     @FXML
-    private Button activateNightModeButton;
+    private ToggleButton activateNightModeToggleButton;
 
     @FXML
     private Button goBackButtonSmartDoorbellPage;
@@ -1144,14 +1161,17 @@ public class SHClientController {
     }
 
 	@FXML
-	void activateNightModeButtonPressed(ActionEvent event) {
-		if (this.client != null) {
-			client.activateNightMode();
-        } else {
+    void activateNightModeToggleButtonPressed(ActionEvent event) {
+		if (this.client != null && activateNightModeToggleButton.isSelected() == true) {
+			client.activateNightMode(true);
+        } else if (activateNightModeToggleButton.isSelected() == false) {
+        	client.activateNightMode(false);
+        }
+    	else {
             System.out.println("Client connection is not initialized.");
             // Consider re-attempting to connect or notify the user
         }
-	}
+    }
 	
 	@FXML
 	void goBackButtonPressedSmartDoorbellPage(ActionEvent event) {

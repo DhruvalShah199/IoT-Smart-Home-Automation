@@ -248,13 +248,23 @@ public class SHClient extends AbstractClient{
 	
 	
 	//Methods to send messages for Smart Doorbell
-	public void activateNightMode() {
+	public void activateNightMode(boolean nightMode) {
 		// Sends message activate night mode to server
-		try {
-			sendToServer("activatenightmode");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(nightMode == true) {
+			try {
+				sendToServer("activatenightmode");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if(nightMode == false) {
+			try {
+				sendToServer("deactivatenightmode");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -351,11 +361,16 @@ public class SHClient extends AbstractClient{
 	        // Now compare messageString with messages for smart thermostat functions
 	        
 	        else if (messageString.equals("thermostaton")){
-	        	Platform.runLater(()->clientController.setLabelThermostat("The Thermostat is Turned ON"));
+	        	Platform.runLater(()->{
+	        		clientController.setLabelThermostat("The Thermostat is Turned ON");
+	        		clientController.showTemperature(true);
+	        	});
 	        }
 	        else if (messageString.equals("thermostatoff")){
-	        	Platform.runLater(()->clientController.setLabelThermostat("The Thermostat is Turned OFF"));
-	        	Platform.runLater(()->clientController.setTempeartureLabelThermostat(""));
+	        	Platform.runLater(()->{
+	        		clientController.setLabelThermostat("The Thermostat is Turned OFF");
+	        		clientController.showTemperature(false);
+	        	});
 	        }
 	        else if (messageString.equals("cool")){
 	        	Platform.runLater(()->clientController.setLabelThermostat("The Mode set for Thermostat is: COOL"));
@@ -371,7 +386,10 @@ public class SHClient extends AbstractClient{
 	        }
 	        else if (messageString.startsWith("temperature")){
 	        	String temperature = messageString.replaceAll("[^\\d]", "");
-	        	Platform.runLater(()->clientController.setTempeartureLabelThermostat(temperature));
+	        	Platform.runLater(()->{
+	        	clientController.setTempeartureLabelThermostat(temperature);
+	        	clientController.showTemperature(true);
+	        	});
 	        }
 	        
 	        
@@ -463,7 +481,7 @@ public class SHClient extends AbstractClient{
 	        else if (messageString.equals("cameraon")) {
 	            // Action when camera is on
 	            Platform.runLater(() -> {
-	            clientController.setLabelSmartDoorbell("Camera is ON");
+	            clientController.setLabelSmartDoorbell("Doorbell Camera is ON");
 	            clientController.switchSceneSmartDoorbellPage("DoorbellCamera.fxml");
 	            });
 	        }
@@ -474,9 +492,15 @@ public class SHClient extends AbstractClient{
 	        else if (messageString.equals("cameraoff")) {
 	            // Action when camera is on
 	        	Platform.runLater(() -> {
-	        		clientController.setLabelSmartDoorbell("Camera is OFF");
+	        		clientController.setLabelSmartDoorbell("Doorbell Camera OFF");
 	        		clientController.switchSceneDoorbellCameraPage("SmartDoorbell.fxml");
 	        	});
+	        }
+	        else if (messageString.equals("nightmodeon")){
+	        	Platform.runLater(()->clientController.setLabelSmartDoorbell("Night Mode ACTIVATED"));
+	        }
+	        else if (messageString.equals("nightmodeoff")){
+	        	Platform.runLater(()->clientController.setLabelSmartDoorbell("Night Mode DE-ACTIVATED"));
 	        }
 	        else if (messageString.equals("doorbellstatuson")){
 	        	Platform.runLater(()->clientController.setLabelSmartDoorbell("The Status of Smart Doorbell is: ON"));

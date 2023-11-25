@@ -136,6 +136,14 @@ public class SHServerController {
     	}
     	return false;
 	}
+    
+    public int displayTemperature() {
+    	int temperature = 0;
+    	if (thermostat != null) {
+    		temperature =  thermostat.getTemperature();
+    	}
+    	return temperature;
+    }
 
     
     //Methods for Vacuum Robot
@@ -199,10 +207,11 @@ public class SHServerController {
         }
     }
     
-    public void activateNightModeDoorbell(boolean isNightModeOn) {
+    public boolean activateNightModeDoorbell(boolean isNightModeOn) {
     	if (doorbell != null) {
     		doorbell.setNightModeOn(isNightModeOn);
     	}
+    	return doorbell.isNightModeOn();
     }
     
     public boolean displayDoorbellStatus() {
