@@ -1311,7 +1311,7 @@ public class SHClientController {
     private Pane smartLightPaneAutomation;
 
     @FXML
-    private ComboBox<String> turnOffLightAmPmComboBox;
+    private ComboBox <String> turnOffLightAmPmComboBox;
 
     @FXML
     private Button turnOffLightAtButton;
@@ -1411,8 +1411,7 @@ public class SHClientController {
     
     
     
-    
-    
+      
   //-----------------------------Smart Thermostat Automation Rules Page-------------------------------------------
     @FXML
     private ChoiceBox<?> changeModeChoiceBoxSmartThermostatAutomation;
