@@ -1376,7 +1376,7 @@ public class SHClientController {
    private void populateChangeBrightnessChoiceBox() {
        // Populate the choice box with the time options
 	   ObservableList<String> options = FXCollections.observableArrayList(
-			"1 minute",
+		   "1 minute",
            "2 minutes",
            "5 minutes",
            "10 minutes",
