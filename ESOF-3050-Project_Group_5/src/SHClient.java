@@ -257,6 +257,17 @@ public class SHClient extends AbstractClient{
 	
 	
 	//Methods to send messages for Smart Doorbell
+	private boolean doorbellOn = false;
+	
+	public boolean isDoorbellOn() {
+		return doorbellOn;
+	}
+
+	public boolean setDoorbellOn(boolean doorbellOn) {
+		this.doorbellOn = doorbellOn;
+		return doorbellOn;
+	}
+	
 	public void activateNightMode(boolean nightMode) {
 		// Sends message activate/deactivate night mode to server
 		if (nightMode == true) {
@@ -281,6 +292,7 @@ public class SHClient extends AbstractClient{
 		// Sends turn off doorbell message
 		try {
 			sendToServer("turnoffdoorbell");
+			setDoorbellOn(false);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -289,7 +301,7 @@ public class SHClient extends AbstractClient{
 
 	public void turnOnCameraDoorbell() {
 		// Sends turn on doorbell camera message
-		if(turnOnDoorbell()) {
+		if(setDoorbellOn(true)) {
 			try {
 				sendToServer("turnoncamera");
 				TimerTask task = new TimerTask() {
@@ -313,15 +325,15 @@ public class SHClient extends AbstractClient{
 		
 	}
 
-	public boolean turnOnDoorbell() {
+	public void turnOnDoorbell() {
 		// Sends turn on doorbell message
 		try {
 			sendToServer("turnondoorbell");
+			setDoorbellOn(true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return true;
 		
 	}
 	
@@ -503,7 +515,7 @@ public class SHClient extends AbstractClient{
 	        }
 	        else if (messageString.equals("turnondoorbell")) {
 	            // Perform action when the doorbell is off
-	        	Platform.runLater(() -> clientController.setLabelSmartDoorbell("Turn ON Doorbell to turn on the camera"));
+	        	Platform.runLater(() -> clientController.setLabelSmartDoorbell("Turn ON Doorbell to Turn On the Camera"));
 	        }
 	        else if (messageString.equals("cameraoff")) {
 	            // Action when camera is on

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="smartDoorbellPaneAutomation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="704.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="smartDoorbellPaneAutomation" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="704.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="smartDoorbellLabelAutomationPage" layoutX="274.0" layoutY="13.0" text="SMART DOORBELL" textFill="WHITE">
          <font>
@@ -95,7 +95,7 @@
                   </TextField>
                </children>
             </Pane>
-            <Button fx:id="activateNightModeAtButton" mnemonicParsing="false" onAction="#activateNightModeButtonPressed" prefHeight="29.0" prefWidth="80.0" text="SET" GridPane.columnIndex="2">
+            <Button fx:id="activateNightModeAtButton" mnemonicParsing="false" onAction="#activateNightModeButtonPressedAutomation" prefHeight="29.0" prefWidth="80.0" text="SET" GridPane.columnIndex="2">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
