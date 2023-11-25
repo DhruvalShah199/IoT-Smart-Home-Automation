@@ -3,6 +3,8 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +23,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.ImageView;
 
 
 public class SHClientController {
@@ -1030,7 +1033,15 @@ public class SHClientController {
 
     @FXML
     void emptyDustSackAlertToggleButtonPressed(ActionEvent event) {
-    	// Have to implement method to use toggle button
+    	if (this.client != null && emptyDustSackAlertToggleButton.isSelected() == true) {
+    		client.emptyDustSackAlert(true);
+        } else if (emptyDustSackAlertToggleButton.isSelected() == false) {
+        	client.emptyDustSackAlert(false);
+        }
+    	else {
+            System.out.println("Client connection is not initialized.");
+            // Consider re-attempting to connect or notify the user
+        }
     }
 
     @FXML
@@ -1103,7 +1114,8 @@ public class SHClientController {
     @FXML
     private Button turnOnDoorbellButton;
     
-    private void switchSceneSmartDoorbellPage(String fxmlFileName) {
+    
+    public void switchSceneSmartDoorbellPage(String fxmlFileName) {
         try {
             Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
                 try {
@@ -1191,7 +1203,43 @@ public class SHClientController {
 		smartDoorbellLabelHidden.setText(lbl);
     }
     
+	
+	//-----------------------------DoorbellCamera Page-------------------------------------------
+	@FXML
+    private ImageView cameraView;
+
+    @FXML
+    private Pane doorbellCameraPane;
     
+    public void switchSceneDoorbellCameraPage(String fxmlFileName) {
+        try {
+            Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
+                try {
+                	// Create a loader for the FXML
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+                    
+                    // Set the current instance as the controller
+                    loader.setController(this);
+                    
+                    // Load the FXML file
+                    Parent root = loader.load();
+                    
+                    // Return the created scene
+                    return new Scene(root);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            });
+
+            Stage stage = (Stage) doorbellCameraPane.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     
     //-----------------------------Automation Rules Page-------------------------------------------
     
@@ -1219,7 +1267,7 @@ public class SHClientController {
     @FXML
     private Button vacuumButtonAutomationRules;
     
-    private void switchSceneSetAutomationRulePage(String fxmlFileName) {
+    public void switchSceneSetAutomationRulePage(String fxmlFileName) {
         try {
             Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
                 try {
@@ -1281,7 +1329,7 @@ public class SHClientController {
     
   //-----------------------------Smart Light Automation Rules Page-------------------------------------------
     @FXML
-    private ChoiceBox<?> changeBrightnessChoiceBoxSmartLight;
+    private ChoiceBox<String> changeBrightnessChoiceBoxSmartLightAutomation;
 
     @FXML
     private TextField changeBrightnessTextFieldSmartLight;
@@ -1290,7 +1338,7 @@ public class SHClientController {
     private ColorPicker changeColorPickerSmartLight;
 
     @FXML
-    private ChoiceBox<?> colorComboBoxSmartLight;
+    private ChoiceBox<String> colorChoiceBoxSmartLightAutomation;
 
     @FXML
     private Button goBackButtonSmartLightAutomationPage;
@@ -1302,16 +1350,16 @@ public class SHClientController {
     private Pane smartLightPaneAutomation;
 
     @FXML
+    private ComboBox<String> turnOffLightAmPmComboBox;
+
+    @FXML
     private Button turnOffLightAtButton;
 
     @FXML
     private TextField turnOffLightMM;
 
     @FXML
-    private ComboBox<?> turnOnLightAmPmComboBox;
-
-    @FXML
-    private ComboBox<?> turnOnLightAmPmComboBox1;
+    private ComboBox<String> turnOnLightAmPmComboBox;
 
     @FXML
     private Button turnOnLightAtButton;
@@ -1322,7 +1370,8 @@ public class SHClientController {
     @FXML
     private TextField turnOnLightMM;
 
-    private void switchSceneSmartLightAutomationPage(String fxmlFileName) {
+    
+   private void switchSceneSmartLightAutomationPage(String fxmlFileName) {
         try {
             Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
                 try {
@@ -1334,6 +1383,10 @@ public class SHClientController {
                     
                     // Load the FXML file
                     Parent root = loader.load();
+                    
+                    
+                    // Manually call your custom initialization method here
+                    initializeSmartLight(); 
                     
                     // Return the created scene
                     return new Scene(root);
@@ -1349,7 +1402,35 @@ public class SHClientController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
     }
+    
+   
+
+   private void initializeSmartLight() {
+       populateChangeBrightnessChoiceBox();
+       
+   }
+
+   private void populateChangeBrightnessChoiceBox() {
+       // Populate the choice box with the time options
+	   ObservableList<String> options = FXCollections.observableArrayList(
+		   "1 minute",
+           "2 minutes",
+           "5 minutes",
+           "10 minutes",
+           "15 minutes",
+           "30 minutes",
+           "1 hour",
+           "2 hours",
+           "5 hours",
+           "8 hours",
+           "12 hours"
+       );
+	   changeBrightnessChoiceBoxSmartLightAutomation.setItems(options);
+       changeBrightnessChoiceBoxSmartLightAutomation.setValue("1 minute"); // Set default value
+   }
+   
     
     @FXML
     void goBackButtonPressedSmartLightAutomation(ActionEvent event) {
@@ -1369,9 +1450,11 @@ public class SHClientController {
     
     
     
+    
+    
   //-----------------------------Smart Thermostat Automation Rules Page-------------------------------------------
     @FXML
-    private ChoiceBox<?> changeModeComboBoxSmartThermostatAutomation;
+    private ChoiceBox<?> changeModeChoiceBoxSmartThermostatAutomation;
 
     @FXML
     private ToggleButton coolToggleButtonSmartThermostatAutomation;
@@ -1414,8 +1497,8 @@ public class SHClientController {
 
     @FXML
     private TextField turnOnThermostatMM;
-    
-    
+
+  
     @FXML
     void setTurnOffThermostatAutomationButtonPressed(ActionEvent event) {
 
@@ -1425,7 +1508,6 @@ public class SHClientController {
     void setTurnOnThermostatAutomationButtonPressed(ActionEvent event) {
 
     }
-    
     private void switchSceneSmartThermostatAutomationPage(String fxmlFileName) {
         try {
             Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
@@ -1467,7 +1549,7 @@ public class SHClientController {
     private TextField LockDoorMM;
 
     @FXML
-    private ChoiceBox<?> breakInComboBoxSmartLock;
+    private ChoiceBox<?> breakInChoiceBoxSmartLock;
 
     @FXML
     private TextField getBreakInHH;
@@ -1485,7 +1567,7 @@ public class SHClientController {
     private Button lockDoorButtonAutomationPage;
 
     @FXML
-    private ChoiceBox<?> lockDoorComboBoxSmartLock;
+    private ChoiceBox<?> lockDoorChoiceBoxSmartLock;
 
     @FXML
     private TextField lockDoorHH;
@@ -1509,7 +1591,7 @@ public class SHClientController {
     private Button unlockDoorButtonAutomation;
 
     @FXML
-    private ChoiceBox<?> unlockDoorComboBoxSmartLock;
+    private ChoiceBox<?> unlockDoorChoiceBoxSmartLock;
 
     @FXML
     private TextField unlockDoorHH;
@@ -1520,6 +1602,7 @@ public class SHClientController {
     @FXML
     private ComboBox<?> unlockSmartLockAmPmComboBox;
 
+  
     @FXML
     void lockDoorButtonPressedAutomationPage(ActionEvent event) {
 
@@ -1534,8 +1617,6 @@ public class SHClientController {
     void unlockDoorButtonPressedAutomationPage(ActionEvent event) {
 
     }
-
-    
     private void switchSceneSmartLockAutomationPage(String fxmlFileName) {
         try {
             Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {

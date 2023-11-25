@@ -139,24 +139,46 @@ public class SHServerController {
 
     
     //Methods for Vacuum Robot
-    public void startCleaning(boolean isCleaning) {
+    public String startCleaning() {
+    	String isCleaning = "";
         if (vacuumRobot != null) {
-            vacuumRobot.startCleaning(isCleaning);
+            isCleaning = vacuumRobot.startCleaning();
         }
+        return isCleaning;
     }
 
-    public void stopCleaning(boolean isCleaning) {
+    public String stopCleaning() {
+    	String isCleaning = "";
         if (vacuumRobot != null) {
-            vacuumRobot.stopCleaning(isCleaning);
+        	isCleaning = vacuumRobot.stopCleaning();
         }
+        return isCleaning;
     }
     
-    public void emptyDustSackVacuumRobotAlert(boolean emptyDustSack) {
+    public String emptyDustSackVacuumRobotAlert(boolean emptyDustSack) {
+    	String alert = "";
         if (vacuumRobot != null) {
-            vacuumRobot.emptyDustSackAlert(emptyDustSack);
+        	alert =vacuumRobot.setDustSackAlert(emptyDustSack);
         }
+        return alert;
     }
-
+    
+    public String cleaningCycleComplete() {
+    	String complete = "";
+    	if (vacuumRobot != null && vacuumRobot.isCleaning() == false) {
+    		complete = vacuumRobot.cleaningCycleCompleted();
+    	}
+    	return complete;
+    }
+    
+    public boolean displayVacuumRobotStatus() {
+    	if (vacuumRobot != null) {
+    		return vacuumRobot.isCleaning();
+    	}
+    	return false;
+	}
+    
+    
     
     //Methods for Smart Doorbell
     public void turnOnDoorbell(String onOrOff) {
@@ -173,14 +195,21 @@ public class SHServerController {
     
     public void turnOnCameraDoorbell(boolean isCameraOn) {
         if (doorbell != null) {
-            doorbell.turnOnCamera(isCameraOn);
+            doorbell.setCameraOn(isCameraOn);
         }
     }
     
     public void activateNightModeDoorbell(boolean isNightModeOn) {
     	if (doorbell != null) {
-    		doorbell.activateNightMode(isNightModeOn);
+    		doorbell.setNightModeOn(isNightModeOn);
     	}
+    }
+    
+    public boolean displayDoorbellStatus() {
+    	if (doorbell != null) {
+    		return doorbell.isOn();
+    	}
+    	return false;
     }
 
 }

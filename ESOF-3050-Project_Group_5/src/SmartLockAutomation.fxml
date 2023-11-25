@@ -54,9 +54,9 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="lockDoorComboBoxSmartLock" prefHeight="26.0" prefWidth="184.0" GridPane.columnIndex="1" />
-            <ChoiceBox fx:id="unlockDoorComboBoxSmartLock" prefHeight="26.0" prefWidth="184.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <ChoiceBox fx:id="breakInComboBoxSmartLock" prefHeight="26.0" prefWidth="184.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ChoiceBox fx:id="lockDoorChoiceBoxSmartLock" prefHeight="26.0" prefWidth="184.0" GridPane.columnIndex="1" />
+            <ChoiceBox fx:id="unlockDoorChoiceBoxSmartLock" prefHeight="26.0" prefWidth="184.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ChoiceBox fx:id="breakInChoiceBoxSmartLock" prefHeight="26.0" prefWidth="184.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <GridPane layoutX="29.0" layoutY="89.0" prefHeight="124.0" prefWidth="492.0">

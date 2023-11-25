@@ -1,4 +1,6 @@
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.github.sarxos.webcam.Webcam;
 import com.lloseng.ocsf.client.AbstractClient;
@@ -8,6 +10,8 @@ import javafx.application.Platform;
 public class SHClient extends AbstractClient{
 	
 	private SHClientController clientController; // Object for SHCLientContoller class
+	
+	private Timer timer = new Timer();
 	
 	public SHClient(String host, int port, SHClientController clientController	) {
 		super(host, port);
@@ -217,6 +221,20 @@ public class SHClient extends AbstractClient{
 		}
 	}
 	
+	public void emptyDustSackAlert(boolean alert) {
+		try {
+			if(alert == true) {
+				sendToServer("dustsackalerton");
+			}
+			else if(alert == false) {
+				sendToServer("dustsackalertoff");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void getStatusVacuumRobot() {
 		// sends message to get vacuum robot status to server
 		try {
@@ -257,6 +275,18 @@ public class SHClient extends AbstractClient{
 			Webcam camera = Webcam.getDefault();
 			camera.open();
 			sendToServer("turnoncamera");
+			TimerTask task = new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+						sendToServer("turnoffcamera");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                }
+            };
+            timer.schedule(task, 10000);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -348,21 +378,7 @@ public class SHClient extends AbstractClient{
 	        }
 	        
 	        
-	        // Now compare messageString with messages for different doorbell functions
 	        
-	        // Compare messageString with messages turn on doorbell
-	        else if (messageString.equals("turnondoorbell")) {
-	            // Perform action when the doorbell is on
-	        	Platform.runLater(() -> clientController.setLabelSmartDoorbell("Doorbell is ON!"));
-	        } 
-	        else if (messageString.equals("turnoffdoorbell")) {
-	            // Action when doorbell is off
-	            Platform.runLater(() -> clientController.setLabelSmartDoorbell("Doorbell is OFF"));
-	        } 
-	        else if (messageString.equals("turnoncamera")) {
-	            // Action when camera is on
-	            Platform.runLater(() -> clientController.setLabelSmartDoorbell("Camera is ON"));
-	        }
 	        
 	        // Now compare messageString with messages for different lock functions
 	        
@@ -394,6 +410,83 @@ public class SHClient extends AbstractClient{
         
 	        }
 	        
+	        // Now compare messageString with messages for different vacuum robot functions
+	        
+	        else if (messageString.equals("startedcleaning")) {
+	        	// Perform action when 
+	        	Platform.runLater(() -> clientController.setLabelVacuumRobot("Vacuum Robot STARTED CLEANING"));
+	        } 
+	        else if (messageString.equals("alreadycleaning")) {
+	        	// Perform action when 
+	        	Platform.runLater(() -> clientController.setLabelVacuumRobot("Cleaning Cycle Already in Progress"));
+	        } 
+	        else if (messageString.equals("dusksackfull")) {
+	        	// Perform action when 
+	        	Platform.runLater(() -> clientController.setLabelVacuumRobot("Dust Sack Full"));
+	        	//Set Alert Here
+	        } 
+	        else if (messageString.equals("stopedcleaning")) {
+	        	// Perform action when 
+	        	Platform.runLater(() -> clientController.setLabelVacuumRobot("Vacuum Robot STOPED CLEANING"));
+	        } 
+	        else if (messageString.equals("nocleaning")) {
+	        	// Perform action when 
+	        	Platform.runLater(() -> clientController.setLabelVacuumRobot("No Cleaning Cycle To Stop"));
+	        }
+	        else if (messageString.equals("dustsackalerton")) {
+	        	// Perform action when 
+	        	Platform.runLater(() -> clientController.setLabelVacuumRobot("Empty Dust Sack Alert ON"));
+	        }
+	        else if (messageString.equals("dustsackalertoff")) {
+	        	// Perform action when 
+	        	Platform.runLater(() -> clientController.setLabelVacuumRobot("Empty Dust Sack Alert OFF"));
+	        }
+	        else if (messageString.equals("vacuumcleaning")) {
+	        	// Perform action when 
+	        	Platform.runLater(() -> clientController.setLabelVacuumRobot("Vacuum Robot Cleaning"));
+	        }
+	        else if (messageString.equals("vacuumnotcleaning")) {
+	        	// Perform action when 
+	        	Platform.runLater(() -> clientController.setLabelVacuumRobot("Vacuum Robot Not Cleaning"));
+	        }
+	        
+	        
+	        
+	        // Now compare messageString with messages for different doorbell functions
+	        
+	        // Compare messageString with messages turn on doorbell
+	        else if (messageString.equals("doorbellon")) {
+	            // Perform action when the doorbell is on
+	        	Platform.runLater(() -> clientController.setLabelSmartDoorbell("Doorbell is ON"));
+	        } 
+	        else if (messageString.equals("doorbelloff")) {
+	            // Action when doorbell is off
+	            Platform.runLater(() -> clientController.setLabelSmartDoorbell("Doorbell is OFF"));
+	        } 
+	        else if (messageString.equals("cameraon")) {
+	            // Action when camera is on
+	            Platform.runLater(() -> {
+	            clientController.setLabelSmartDoorbell("Camera is ON");
+	            clientController.switchSceneSmartDoorbellPage("DoorbellCamera.fxml");
+	            });
+	        }
+	        else if (messageString.equals("turnondoorbell")) {
+	            // Perform action when the doorbell is on
+	        	Platform.runLater(() -> clientController.setLabelSmartDoorbell("Turn ON Doorbell to turn on the camera"));
+	        }
+	        else if (messageString.equals("cameraoff")) {
+	            // Action when camera is on
+	        	Platform.runLater(() -> {
+	        		clientController.setLabelSmartDoorbell("Camera is OFF");
+	        		clientController.switchSceneDoorbellCameraPage("SmartDoorbell.fxml");
+	        	});
+	        }
+	        else if (messageString.equals("doorbellstatuson")){
+	        	Platform.runLater(()->clientController.setLabelSmartDoorbell("The Status of Smart Doorbell is: ON"));
+	        }
+	        else if (messageString.equals("doorbellstatusoff")){
+	        	Platform.runLater(()->clientController.setLabelSmartDoorbell("The Status of Smart Doorbell is: OFF"));
+	        }
 		}
 		else if (msg instanceof Integer) {
 			Integer messageInt = (Integer) msg;

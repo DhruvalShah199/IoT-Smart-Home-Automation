@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.lloseng.ocsf.server.AbstractServer;
 import com.lloseng.ocsf.server.ConnectionToClient;
 
@@ -10,7 +11,7 @@ public class SHServer extends AbstractServer {
 	private List <ConnectionToClient> client;
 	
 	// Creating an object of SHServerController class to access its methods
-	private SHServerController serverController;   
+	private SHServerController serverController;
 
 	public SHServer(int port) {
 		super(port);
@@ -163,7 +164,95 @@ public class SHServer extends AbstractServer {
 			}
 		}
 		
+		
+		//To handle messages from vacuum robot
+		else if(messageString.equals("startcleaning")) {
+			String startCleaning = serverController.startCleaning();
+			sendToAllClients(startCleaning);
+		}
+		else if(messageString.equals("stopcleaning")) {
+			String stopCleaning = serverController.stopCleaning();
+			sendToAllClients(stopCleaning);
+		}
+		else if(messageString.equals("dustsackalerton")) {
+			String dustSackAlert = serverController.emptyDustSackVacuumRobotAlert(true);
+			sendToAllClients(dustSackAlert);
+		}
+		else if(messageString.equals("dustsackalertoff")) {
+			String dustSackAlert = serverController.emptyDustSackVacuumRobotAlert(false);
+			sendToAllClients(dustSackAlert);
+		}
+		else if(messageString.equals("getvacuumrobotstatus")) {
+			boolean status = serverController.displayVacuumRobotStatus();
+			if(status == true) {
+				try {
+					client.sendToClient("vacuumcleaning");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else if(status == false) {
+				try {
+					client.sendToClient("vacuumnotcleaning");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		
+		//To handle messages from smart doorbell
+		else if(messageString.equals("turnondoorbell")) {
+			serverController.turnOnDoorbell("on");
+			boolean printStatus = serverController.getStatus();
+			sendToAllClients("doorbellon");
+			System.out.println("Updated doorbell status: " + printStatus);
+		}
+		else if(messageString.equals("turnoffdoorbell")) {
+			serverController.turnOffDoorbell("off");
+			boolean printStatus = serverController.getStatus();
+			sendToAllClients("doorbelloff");
+			System.out.println("Updated doorbell status: " + printStatus);
+		}
+		else if(messageString.equals("turnoncamera")) {
+			boolean status = serverController.displayDoorbellStatus();
+			if(status == true) {
+				serverController.turnOnCameraDoorbell(status);
+				sendToAllClients("cameraon");
+			}
+			else {
+				sendToAllClients("turnondoorbell");
+			}
+			
+		}
+		else if(messageString.equals("turnoffcamera")) {
+			serverController.turnOnCameraDoorbell(false);
+			sendToAllClients("cameraoff");
+		}
+		else if(messageString.equals("doorbellstatus")) {
+			boolean status = serverController.displayDoorbellStatus();
+			System.out.println(status);
+			if(status == true) {
+				try {
+					client.sendToClient("doorbellstatuson");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else if(status == false) {
+				try {
+					client.sendToClient("doorbellstatusoff");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 
+		
 		else {
 			System.out.println("The message received from Client is invalid");
 		}		
