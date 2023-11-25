@@ -1,10 +1,7 @@
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import com.github.sarxos.webcam.Webcam;
 import com.lloseng.ocsf.client.AbstractClient;
-
 import javafx.application.Platform;
 
 public class SHClient extends AbstractClient{
@@ -272,8 +269,6 @@ public class SHClient extends AbstractClient{
 	public void turnOnCameraDoorbell() {
 		// Sends turn on doorbell camera message
 		try {
-			Webcam webcam = Webcam.getDefault();
-			webcam.open();
 			sendToServer("turnoncamera");
 			TimerTask task = new TimerTask() {
                 @Override
@@ -287,7 +282,8 @@ public class SHClient extends AbstractClient{
                 }
             };
             timer.schedule(task, 10000);
-		} catch (IOException e) {
+		} 
+		catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
