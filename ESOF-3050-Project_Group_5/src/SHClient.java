@@ -272,8 +272,8 @@ public class SHClient extends AbstractClient{
 	public void turnOnCameraDoorbell() {
 		// Sends turn on doorbell camera message
 		try {
-			Webcam camera = Webcam.getDefault();
-			camera.open();
+			Webcam webcam = Webcam.getDefault();
+			webcam.open();
 			sendToServer("turnoncamera");
 			TimerTask task = new TimerTask() {
                 @Override
