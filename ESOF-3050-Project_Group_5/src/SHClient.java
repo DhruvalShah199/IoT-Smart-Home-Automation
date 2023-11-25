@@ -289,29 +289,31 @@ public class SHClient extends AbstractClient{
 
 	public void turnOnCameraDoorbell() {
 		// Sends turn on doorbell camera message
-		try {
-			sendToServer("turnoncamera");
-			TimerTask task = new TimerTask() {
-                @Override
-                public void run() {
-                    try {
-						sendToServer("turnoffcamera");
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-                }
-            };
-            timer.schedule(task, 10000);
-		} 
-		catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(turnOnDoorbell()) {
+			try {
+				sendToServer("turnoncamera");
+				TimerTask task = new TimerTask() {
+	                @Override
+	                public void run() {
+	                    try {
+							sendToServer("turnoffcamera");
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+	                }
+	            };
+	            timer.schedule(task, 10000);
+			} 
+			catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}
 
-	public void turnOnDoorbell() {
+	public boolean turnOnDoorbell() {
 		// Sends turn on doorbell message
 		try {
 			sendToServer("turnondoorbell");
@@ -319,6 +321,7 @@ public class SHClient extends AbstractClient{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return true;
 		
 	}
 	
@@ -377,11 +380,16 @@ public class SHClient extends AbstractClient{
 	        // Now compare messageString with messages for smart thermostat functions
 	        
 	        else if (messageString.equals("thermostaton")){
-	        	Platform.runLater(()->clientController.setLabelThermostat("The Thermostat is Turned ON"));
+	        	Platform.runLater(()-> {
+	        		clientController.setLabelThermostat("The Thermostat is Turned ON");
+	        		clientController.showTemperature(true);
+	        	});
 	        }
 	        else if (messageString.equals("thermostatoff")){
-	        	Platform.runLater(()->clientController.setLabelThermostat("The Thermostat is Turned OFF"));
-	        	Platform.runLater(()->clientController.setTempeartureLabelThermostat(""));
+	        	Platform.runLater(()-> {
+	        		clientController.setLabelThermostat("The Thermostat is Turned OFF");
+	        		clientController.showTemperature(false);
+	        	});
 	        }
 	        else if (messageString.equals("cool")){
 	        	Platform.runLater(()->clientController.setLabelThermostat("The Mode set for Thermostat is: COOL"));
