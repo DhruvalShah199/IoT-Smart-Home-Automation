@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.lloseng.ocsf.server.AbstractServer;
 import com.lloseng.ocsf.server.ConnectionToClient;
 
@@ -10,7 +11,7 @@ public class SHServer extends AbstractServer {
 	private List <ConnectionToClient> client;
 	
 	// Creating an object of SHServerController class to access its methods
-	private SHServerController serverController;   
+	private SHServerController serverController;
 
 	public SHServer(int port) {
 		super(port);
@@ -214,6 +215,14 @@ public class SHServer extends AbstractServer {
 			boolean printStatus = serverController.getStatus();
 			sendToAllClients("doorbelloff");
 			System.out.println("Updated doorbell status: " + printStatus);
+		}
+		else if(messageString.equals("turnoncamera")) {
+			serverController.turnOnCameraDoorbell(true);
+			sendToAllClients("cameraon");
+		}
+		else if(messageString.equals("turnoffcamera")) {
+			serverController.turnOnCameraDoorbell(false);
+			sendToAllClients("cameraoff");
 		}
 		else if(messageString.equals("doorbellstatus")) {
 			boolean status = serverController.displayDoorbellStatus();

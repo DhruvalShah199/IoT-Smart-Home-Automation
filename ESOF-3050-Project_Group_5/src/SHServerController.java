@@ -195,13 +195,13 @@ public class SHServerController {
     
     public void turnOnCameraDoorbell(boolean isCameraOn) {
         if (doorbell != null) {
-            doorbell.turnOnCamera(isCameraOn);
+            doorbell.setCameraOn(isCameraOn);
         }
     }
     
     public void activateNightModeDoorbell(boolean isNightModeOn) {
     	if (doorbell != null) {
-    		doorbell.activateNightMode(isNightModeOn);
+    		doorbell.setNightModeOn(isNightModeOn);
     	}
     }
     

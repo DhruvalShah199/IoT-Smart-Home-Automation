@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="smartDoorbellPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="418.0" prefWidth="704.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="smartDoorbellPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="418.0" prefWidth="704.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="316.0" fitWidth="181.0" layoutX="14.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -30,7 +30,10 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Button>
-      <Label fx:id="smartDoorbellLabelHidden" layoutX="84.0" layoutY="367.0" prefHeight="41.0" prefWidth="537.0" />
+      <Label fx:id="smartDoorbellLabelHidden" layoutX="84.0" layoutY="367.0" prefHeight="41.0" prefWidth="537.0" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
       <Button fx:id="goBackButtonSmartDoorbellPage" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#goBackButtonPressedSmartDoorbellPage" style="-fx-background-color: black; -fx-text-fill: white;" text="Go Back">
          <font>
             <Font name="System Bold" size="14.0" />

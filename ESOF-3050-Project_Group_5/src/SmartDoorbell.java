@@ -1,8 +1,6 @@
 public class SmartDoorbell extends SmartDevice {
 
 	// Doorbell-specific attributes
-	private boolean isOn;
-	private boolean isOff;
 	private boolean isCameraOn;
 	private boolean isNightModeOn;
 
@@ -11,16 +9,22 @@ public class SmartDoorbell extends SmartDevice {
 		// TODO Auto-generated constructor stub
 	}
 
-
-	public void turnOnCamera(boolean isCameraOn) {
-		// Logic to turn on doorbell camera
-		
+	public boolean isCameraOn() {
+		return isCameraOn;
 	}
 
 
-	public void activateNightMode(boolean isNightModeOn) {
-		// Logic to activate night mode
-		
+	public void setCameraOn(boolean isCameraOn) {
+		this.isCameraOn = isCameraOn;
+	}
+
+	public boolean isNightModeOn() {
+		return isNightModeOn;
+	}
+
+
+	public void setNightModeOn(boolean isNightModeOn) {
+		this.isNightModeOn = isNightModeOn;
 	}
 
 }
