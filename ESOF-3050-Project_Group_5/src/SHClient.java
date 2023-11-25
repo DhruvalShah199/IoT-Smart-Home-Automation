@@ -50,6 +50,17 @@ public class SHClient extends AbstractClient{
 		}
 	}
 	
+	public void changeColor(String colorValue) {
+		// sends message to change smart light color status to server
+		try {
+			sendToServer(colorValue);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public void getStatusSmartLight() {
 		// sends message to get smart light status to server
 		try {
@@ -246,13 +257,23 @@ public class SHClient extends AbstractClient{
 	
 	
 	//Methods to send messages for Smart Doorbell
-	public void activateNightMode() {
-		// Sends message activate night mode to server
-		try {
-			sendToServer("activatenightmode");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public void activateNightMode(boolean nightMode) {
+		// Sends message activate/deactivate night mode to server
+		if (nightMode == true) {
+			try {
+				sendToServer("activatenightmode");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if (nightMode == false) {
+			try {
+				sendToServer("deactivatenightmode");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -337,6 +358,12 @@ public class SHClient extends AbstractClient{
 	        }
 	        else if (messageString.equals("lightstatusoff")){
 	        	Platform.runLater(()->clientController.setLabelSmartLight("The Status of Smart Light is: OFF"));
+	        }
+	        else if (messageString.contains("0x")){
+	        	Platform.runLater(()-> {
+	        		clientController.setLabelSmartLight("The Smart Light Color changes to: " + messageString);
+	        		clientController.changeTitleColor(messageString);
+	        	});
 	        }
 	        else if (messageString.startsWith("brightness")) {
 	            String brightness = messageString.split(":")[1];
@@ -467,7 +494,7 @@ public class SHClient extends AbstractClient{
 	            });
 	        }
 	        else if (messageString.equals("turnondoorbell")) {
-	            // Perform action when the doorbell is on
+	            // Perform action when the doorbell is off
 	        	Platform.runLater(() -> clientController.setLabelSmartDoorbell("Turn ON Doorbell to turn on the camera"));
 	        }
 	        else if (messageString.equals("cameraoff")) {
@@ -476,6 +503,12 @@ public class SHClient extends AbstractClient{
 	        		clientController.setLabelSmartDoorbell("Camera is OFF");
 	        		clientController.switchSceneDoorbellCameraPage("SmartDoorbell.fxml");
 	        	});
+	        }
+	        else if (messageString.equals("nightmodeon")){
+	        	Platform.runLater(()->clientController.setLabelSmartDoorbell("Night Mode ACTIVATED"));
+	        }
+	        else if (messageString.equals("nightmodeoff")){
+	        	Platform.runLater(()->clientController.setLabelSmartDoorbell("Night Mode DE-ACTIVATED"));
 	        }
 	        else if (messageString.equals("doorbellstatuson")){
 	        	Platform.runLater(()->clientController.setLabelSmartDoorbell("The Status of Smart Doorbell is: ON"));
