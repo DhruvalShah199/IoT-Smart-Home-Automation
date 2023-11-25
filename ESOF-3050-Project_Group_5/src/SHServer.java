@@ -217,8 +217,15 @@ public class SHServer extends AbstractServer {
 			System.out.println("Updated doorbell status: " + printStatus);
 		}
 		else if(messageString.equals("turnoncamera")) {
-			serverController.turnOnCameraDoorbell(true);
-			sendToAllClients("cameraon");
+			boolean status = serverController.displayDoorbellStatus();
+			if(status == true) {
+				serverController.turnOnCameraDoorbell(status);
+				sendToAllClients("cameraon");
+			}
+			else {
+				sendToAllClients("turnondoorbell");
+			}
+			
 		}
 		else if(messageString.equals("turnoffcamera")) {
 			serverController.turnOnCameraDoorbell(false);

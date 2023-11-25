@@ -1114,7 +1114,7 @@ public class SHClientController {
     private Button turnOnDoorbellButton;
     
     
-    private void switchSceneSmartDoorbellPage(String fxmlFileName) {
+    public void switchSceneSmartDoorbellPage(String fxmlFileName) {
         try {
             Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
                 try {
@@ -1170,7 +1170,6 @@ public class SHClientController {
 	
 	@FXML
 	void turnOnCameraButtonPressed(ActionEvent event) {
-		switchSceneSmartDoorbellPage("DoorbellCamera.fxml");
 		if (this.client != null) {
 			client.turnOnCameraDoorbell();
         } else {

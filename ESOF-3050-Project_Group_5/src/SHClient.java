@@ -454,7 +454,7 @@ public class SHClient extends AbstractClient{
 	        // Compare messageString with messages turn on doorbell
 	        else if (messageString.equals("doorbellon")) {
 	            // Perform action when the doorbell is on
-	        	Platform.runLater(() -> clientController.setLabelSmartDoorbell("Doorbell is ON!"));
+	        	Platform.runLater(() -> clientController.setLabelSmartDoorbell("Doorbell is ON"));
 	        } 
 	        else if (messageString.equals("doorbelloff")) {
 	            // Action when doorbell is off
@@ -462,7 +462,14 @@ public class SHClient extends AbstractClient{
 	        } 
 	        else if (messageString.equals("cameraon")) {
 	            // Action when camera is on
-	            Platform.runLater(() -> clientController.setLabelSmartDoorbell("Camera is ON"));
+	            Platform.runLater(() -> {
+	            clientController.setLabelSmartDoorbell("Camera is ON");
+	            clientController.switchSceneSmartDoorbellPage("DoorbellCamera.fxml");
+	            });
+	        }
+	        else if (messageString.equals("turnondoorbell")) {
+	            // Perform action when the doorbell is on
+	        	Platform.runLater(() -> clientController.setLabelSmartDoorbell("Turn ON Doorbell to turn on the camera"));
 	        }
 	        else if (messageString.equals("cameraoff")) {
 	            // Action when camera is on
@@ -470,6 +477,12 @@ public class SHClient extends AbstractClient{
 	        		clientController.setLabelSmartDoorbell("Camera is OFF");
 	        		clientController.switchSceneDoorbellCameraPage("SmartDoorbell.fxml");
 	        	});
+	        }
+	        else if (messageString.equals("doorbellstatuson")){
+	        	Platform.runLater(()->clientController.setLabelSmartDoorbell("The Status of Smart Doorbell is: ON"));
+	        }
+	        else if (messageString.equals("doorbellstatusoff")){
+	        	Platform.runLater(()->clientController.setLabelSmartDoorbell("The Status of Smart Doorbell is: OFF"));
 	        }
 		}
 		else if (msg instanceof Integer) {
