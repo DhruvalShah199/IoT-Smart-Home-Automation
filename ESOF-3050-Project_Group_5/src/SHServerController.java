@@ -51,6 +51,14 @@ public class SHServerController {
     	}
     }
     
+    public String displayLightColor() {
+    	String color = "";
+    	if (light != null) {
+    		color = light.getColor();
+    	}
+    	return color;
+    }
+    
     public boolean displayLightStatus() {
     	if (light != null) {
     		return light.isOn();

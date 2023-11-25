@@ -20,7 +20,7 @@
             <Image url="@bulb.png" />
          </image>
       </ImageView>
-      <Label fx:id="smartLightLabel" layoutX="253.0" layoutY="14.0" style="-fx-text-fill: white;" text="SMART LIGHT" textFill="WHITE">
+      <Label fx:id="smartLightTitleLabel" layoutX="253.0" layoutY="14.0" style="-fx-text-fill: white;" text="SMART LIGHT" textFill="WHITE">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -44,7 +44,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="adjustBrightnessLabel" prefHeight="19.0" prefWidth="145.0" text="Adjust Brightness :" textFill="WHITE" >
+            <Label fx:id="adjustBrightnessLabel" prefHeight="19.0" prefWidth="145.0" text="Adjust Brightness :" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -56,7 +56,7 @@
             </Label>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <ColorPicker fx:id="colorPickerSmartLight" editable="true" layoutY="26.0" prefHeight="26.0" prefWidth="174.0" />
+                  <ColorPicker fx:id="colorPickerSmartLight" editable="true" layoutY="26.0" onAction="#colorPickerChangeValue" prefHeight="26.0" prefWidth="174.0" />
                </children>
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">

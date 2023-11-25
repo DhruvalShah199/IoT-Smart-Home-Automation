@@ -45,6 +45,12 @@ public class SHServer extends AbstractServer {
 	        serverController.adjustLightBrightness(brightness);
 	        sendToAllClients("brightness:" + brightness);
 	    }
+		else if(messageString.contains("0x")) {
+			serverController.changeLightColor(messageString);
+			String color = serverController.displayLightColor();
+			sendToAllClients(color);
+			
+		}
 		else if(messageString.equals("getlightstatus")) {
 			boolean status = serverController.displayLightStatus();
 			System.out.println(status);

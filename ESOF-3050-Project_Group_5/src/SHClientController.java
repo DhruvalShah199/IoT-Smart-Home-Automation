@@ -15,6 +15,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
@@ -577,9 +579,14 @@ public class SHClientController {
     @FXML
     private Label adjustBrightnessLabel;
 
-    @FXML Slider adjustBrightnessSlider;
+    @FXML 
+    public Slider adjustBrightnessSlider;
 
-    @FXML Label brightnessLabelLightPage;
+    @FXML 
+    public Label brightnessLabelLightPage;
+    
+    @FXML
+    private Label smartLightTitleLabel;
 
     @FXML
     private Label changeColorLabel;
@@ -683,6 +690,18 @@ public class SHClientController {
     }
     
     @FXML
+    void colorPickerChangeValue(ActionEvent event) {
+    	String colorValue = String.valueOf(colorPickerSmartLight.getValue());
+    	if (this.client != null) {
+        	client.changeColor(colorValue);
+        	} 
+        	else {
+        		System.out.println("Client connection is not initialized.");
+        		// Consider re-attempting to connect or notify the user
+        	}
+    }
+    
+    @FXML
     void getStatusButtonPressedSmartLight(ActionEvent event) {
     	if (this.client != null) {
     	client.getStatusSmartLight();
@@ -695,6 +714,11 @@ public class SHClientController {
     
     public void setLabelSmartLight(String lbl) {
     	smartLightLabel.setText(lbl);
+    }
+    
+    public void changeTitleColor(Paint col) {
+    	
+    	smartLightTitleLabel.setTextFill(col);
     }
     
     public void initialize() {

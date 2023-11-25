@@ -1,11 +1,10 @@
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import com.github.sarxos.webcam.Webcam;
 import com.lloseng.ocsf.client.AbstractClient;
-
 import javafx.application.Platform;
+//import com.github.sarxos.webcam.Webcam;
+
 
 public class SHClient extends AbstractClient{
 	
@@ -47,6 +46,16 @@ public class SHClient extends AbstractClient{
 		// sends turn off light message to server
 		try {
 			sendToServer("turnofflight");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void changeColor(String color) {
+		// sends message to change smart light color to server
+		try {
+			sendToServer(color);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -282,8 +291,8 @@ public class SHClient extends AbstractClient{
 	public void turnOnCameraDoorbell() {
 		// Sends turn on doorbell camera message
 		try {
-			Webcam camera = Webcam.getDefault();
-			camera.open();
+//			Webcam camera = Webcam.getDefault();
+//			camera.open();
 			sendToServer("turnoncamera");
 			TimerTask task = new TimerTask() {
                 @Override
@@ -351,6 +360,12 @@ public class SHClient extends AbstractClient{
 	        }
 	        else if (messageString.equals("lightstatusoff")){
 	        	Platform.runLater(()->clientController.setLabelSmartLight("The Status of Smart Light is: OFF"));
+			}
+	        else if (messageString.contains("0x")){
+	        	Platform.runLater(()-> {
+	        		clientController.setLabelSmartLight("The Color of the Smart Light Changes to:" + messageString);
+	        		//clientController.changeTitleColor(messageString);
+	        	});
 	        }
 	        else if (messageString.startsWith("brightness")) {
 	            String brightness = messageString.split(":")[1];

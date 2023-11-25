@@ -24,10 +24,13 @@ public class SmartLight extends SmartDevice {
             this.brightness = brightness;
         }
     }
+    
+    public String getColor() {
+        return color;
+    }
 
     public void changeColor(String color) {
         this.color = color;
-        // Additional logic to change color if required
     }
 
 }
