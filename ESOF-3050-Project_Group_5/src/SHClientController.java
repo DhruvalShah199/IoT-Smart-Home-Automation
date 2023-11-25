@@ -23,8 +23,6 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.image.ImageView;
-
 
 public class SHClientController {
 	private SHClient client;
@@ -475,7 +473,7 @@ public class SHClientController {
         }
     }
     
-  
+    
     
     //-----------------------------View Devices Page-------------------------------------------
     
@@ -711,6 +709,23 @@ public class SHClientController {
 	            }
 	        });
     	}
+    	// Now, set up the ChoiceBox for changing brightness.
+        ObservableList<String> options = FXCollections.observableArrayList(
+            "1 minute",
+            "2 minutes",
+            "5 minutes",
+            "10 minutes",
+            "15 minutes",
+            "30 minutes",
+            "1 hour",
+            "2 hours",
+            "5 hours",
+            "8 hours",
+            "12 hours"
+        );
+        changeBrightnessChoiceBoxSmartLightAutomation.setItems(options);
+        changeBrightnessChoiceBoxSmartLightAutomation.setValue("1 minute"); // Set a default value
+    }
 //    	else {
 //    		System.out.println("adjustBrightnessSlider is null. Check your FXML file 'fx:id' tags.");
 //    	}
@@ -1114,8 +1129,7 @@ public class SHClientController {
     @FXML
     private Button turnOnDoorbellButton;
     
-    
-    public void switchSceneSmartDoorbellPage(String fxmlFileName) {
+    private void switchSceneSmartDoorbellPage(String fxmlFileName) {
         try {
             Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
                 try {
@@ -1203,43 +1217,7 @@ public class SHClientController {
 		smartDoorbellLabelHidden.setText(lbl);
     }
     
-	
-	//-----------------------------DoorbellCamera Page-------------------------------------------
-	@FXML
-    private ImageView cameraView;
-
-    @FXML
-    private Pane doorbellCameraPane;
     
-    public void switchSceneDoorbellCameraPage(String fxmlFileName) {
-        try {
-            Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
-                try {
-                	// Create a loader for the FXML
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-                    
-                    // Set the current instance as the controller
-                    loader.setController(this);
-                    
-                    // Load the FXML file
-                    Parent root = loader.load();
-                    
-                    // Return the created scene
-                    return new Scene(root);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return null;
-                }
-            });
-
-            Stage stage = (Stage) doorbellCameraPane.getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     
     //-----------------------------Automation Rules Page-------------------------------------------
     
@@ -1267,7 +1245,7 @@ public class SHClientController {
     @FXML
     private Button vacuumButtonAutomationRules;
     
-    public void switchSceneSetAutomationRulePage(String fxmlFileName) {
+    private void switchSceneSetAutomationRulePage(String fxmlFileName) {
         try {
             Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
                 try {
