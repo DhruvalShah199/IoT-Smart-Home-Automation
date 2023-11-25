@@ -1,10 +1,12 @@
 public class SmartLight extends SmartDevice {
     // Light-specific attributes
     private int brightness;
-    private String color;
+    private String color = "0xffffff";
 
     public SmartLight(String id) {
         super(id);
+        this.brightness = 100;
+        this.color = "0xffffff";
         // Initialize attributes
     }
     
@@ -22,10 +24,13 @@ public class SmartLight extends SmartDevice {
             this.brightness = brightness;
         }
     }
+    
+    public String getColor() {
+        return color;
+    }
 
     public void changeColor(String color) {
         this.color = color;
-        // Additional logic to change color if required
     }
 
 }
