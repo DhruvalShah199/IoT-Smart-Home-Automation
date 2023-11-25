@@ -1347,7 +1347,7 @@ public class SHClientController {
                     
                     
                     // Manually call your custom initialization method here
-                    initialize1(); // This must be called after loader.load() and before setting the scene
+                    initializeSmartLight(); // This must be called after loader.load() and before setting the scene
                     
                     // Return the created scene
                     return new Scene(root);
@@ -1368,15 +1368,15 @@ public class SHClientController {
     
    
 
-   private void initialize1() {
+   private void initializeSmartLight() {
        populateChangeBrightnessChoiceBox();
        
    }
 
    private void populateChangeBrightnessChoiceBox() {
        // Populate the choice box with the time options
-       changeBrightnessChoiceBoxSmartLightAutomation.setItems(FXCollections.observableArrayList(
-           "1 minute",
+	   ObservableList<String> options = FXCollections.observableArrayList(
+			"1 minute",
            "2 minutes",
            "5 minutes",
            "10 minutes",
@@ -1387,7 +1387,8 @@ public class SHClientController {
            "5 hours",
            "8 hours",
            "12 hours"
-       ));
+       );
+	   changeBrightnessChoiceBoxSmartLightAutomation.setItems(options);
        changeBrightnessChoiceBoxSmartLightAutomation.setValue("1 minute"); // Set default value
    }
    
