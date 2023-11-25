@@ -1414,7 +1414,7 @@ public class SHClientController {
     
   //-----------------------------Smart Thermostat Automation Rules Page-------------------------------------------
     @FXML
-    private ChoiceBox<?> changeModeComboBoxSmartThermostatAutomation;
+    private ChoiceBox<?> changeModeChoiceBoxSmartThermostatAutomation;
 
     @FXML
     private ToggleButton coolToggleButtonSmartThermostatAutomation;
@@ -1457,8 +1457,8 @@ public class SHClientController {
 
     @FXML
     private TextField turnOnThermostatMM;
-    
-    
+
+  
     @FXML
     void setTurnOffThermostatAutomationButtonPressed(ActionEvent event) {
 
@@ -1468,7 +1468,6 @@ public class SHClientController {
     void setTurnOnThermostatAutomationButtonPressed(ActionEvent event) {
 
     }
-    
     private void switchSceneSmartThermostatAutomationPage(String fxmlFileName) {
         try {
             Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
@@ -1510,7 +1509,7 @@ public class SHClientController {
     private TextField LockDoorMM;
 
     @FXML
-    private ChoiceBox<?> breakInComboBoxSmartLock;
+    private ChoiceBox<?> breakInChoiceBoxSmartLock;
 
     @FXML
     private TextField getBreakInHH;
@@ -1528,7 +1527,7 @@ public class SHClientController {
     private Button lockDoorButtonAutomationPage;
 
     @FXML
-    private ChoiceBox<?> lockDoorComboBoxSmartLock;
+    private ChoiceBox<?> lockDoorChoiceBoxSmartLock;
 
     @FXML
     private TextField lockDoorHH;
@@ -1552,7 +1551,7 @@ public class SHClientController {
     private Button unlockDoorButtonAutomation;
 
     @FXML
-    private ChoiceBox<?> unlockDoorComboBoxSmartLock;
+    private ChoiceBox<?> unlockDoorChoiceBoxSmartLock;
 
     @FXML
     private TextField unlockDoorHH;
@@ -1563,6 +1562,7 @@ public class SHClientController {
     @FXML
     private ComboBox<?> unlockSmartLockAmPmComboBox;
 
+  
     @FXML
     void lockDoorButtonPressedAutomationPage(ActionEvent event) {
 
@@ -1577,8 +1577,6 @@ public class SHClientController {
     void unlockDoorButtonPressedAutomationPage(ActionEvent event) {
 
     }
-
-    
     private void switchSceneSmartLockAutomationPage(String fxmlFileName) {
         try {
             Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {

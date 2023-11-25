@@ -60,8 +60,8 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <ComboBox fx:id="startCleaningComboBoxVacuumRobotAutomation" prefHeight="25.0" prefWidth="201.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ComboBox fx:id="stopCleaningComboBoxVacuumRobotAutomation" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ComboBox fx:id="startCleaningChoiceBoxVacuumRobotAutomation" prefHeight="25.0" prefWidth="201.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox fx:id="stopCleaningChoiceBoxVacuumRobotAutomation" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
                   <ComboBox fx:id="startCleaningAmPmComboBox" layoutX="127.0" layoutY="13.0" prefHeight="29.0" prefWidth="50.0" />

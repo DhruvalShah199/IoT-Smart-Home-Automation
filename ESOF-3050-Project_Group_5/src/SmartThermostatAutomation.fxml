@@ -50,7 +50,7 @@
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Label>
-                        <ChoiceBox fx:id="changeModeComboBoxSmartThermostatAutomation" layoutX="119.0" layoutY="87.0" prefHeight="26.0" prefWidth="134.0" />
+                        <ChoiceBox fx:id="changeModeChoiceBoxSmartThermostatAutomation" layoutX="119.0" layoutY="87.0" prefHeight="26.0" prefWidth="134.0" />
                      </children>
                   </Pane>
                </children>
