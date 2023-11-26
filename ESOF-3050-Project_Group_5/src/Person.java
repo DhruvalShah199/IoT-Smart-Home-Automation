@@ -38,4 +38,7 @@ public abstract class Person {
 	public void setRole(PersonRole role) {
 		this.role = role;
 	}
+	
+	Person newUser = new User(username, password);
+	Person newAdmin = new Admin(username, password);
 }

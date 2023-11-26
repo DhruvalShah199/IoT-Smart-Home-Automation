@@ -4,4 +4,5 @@ public class User extends Person {
     }
 
     // User-specific functionality
+  
 }
