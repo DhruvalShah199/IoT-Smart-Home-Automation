@@ -1523,6 +1523,40 @@ public class SHClientController {
 
     @FXML
     private TextField turnOnCameraMM;
+    
+    private void switchSceneSmartDoorbellAutomationPage(String fxmlFileName) {
+        try {
+            Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
+                try {
+                	// Create a loader for the FXML
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+                    
+                    // Set the current instance as the controller
+                    loader.setController(this);
+                    
+                    // Load the FXML file
+                    Parent root = loader.load();
+                    
+                    
+                    // Manually call your custom initialization method here
+                    initializeSmartLight(); // This must be called after loader.load() and before setting the scene
+                    
+                    // Return the created scene
+                    return new Scene(root);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            });
+
+            Stage stage = (Stage) smartDoorbellPaneAutomation.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }
 
     @FXML
     void activateNightModeAtButtonPressed(ActionEvent event) {
@@ -1531,7 +1565,7 @@ public class SHClientController {
 
     @FXML
     void goBackButtonPressedSmartLDoorbellAutomation(ActionEvent event) {
-
+    	switchSceneSmartDoorbellAutomationPage("AutomationRules.fxml");
     }
 
     @FXML
