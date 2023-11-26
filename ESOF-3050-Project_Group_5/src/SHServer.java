@@ -268,7 +268,6 @@ public class SHServer extends AbstractServer {
 				}
 			}
 		}
-
 		
 		else {
 			System.out.println("The message received from Client is invalid");
