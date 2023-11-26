@@ -26,7 +26,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
 
-
 public class SHClientController {
 	private SHClient client;
 	private Map<String, Scene> sceneCache = new HashMap<>();
