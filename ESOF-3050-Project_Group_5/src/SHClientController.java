@@ -38,7 +38,6 @@ public class SHClientController {
 	        System.out.println("Error: Client connection is null.");
 	    }
 	}
-	//
 	
 //	public String userAdminLogin;
 //	 public void setUserInfo() {
