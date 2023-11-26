@@ -1416,8 +1416,8 @@ public class SHClientController {
                     
                     // Load the FXML file
                     Parent root = loader.load();
-                    
-                    this.setupChoiceBox();
+                             
+                 
                   
                     // Return the created scene
                     return new Scene(root);
@@ -1426,7 +1426,7 @@ public class SHClientController {
                     return null;
                 }
             });
-
+            this.setupChoiceBox();
             Stage stage = (Stage) smartLightPaneAutomation.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
@@ -1435,6 +1435,7 @@ public class SHClientController {
         }
         
     }
+
     
    public void setupChoiceBox() {
 
