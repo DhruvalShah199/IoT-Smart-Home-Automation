@@ -45,8 +45,7 @@ public class SHClientController {
 //	 }
 //	public String getUserInfo() {
 //		return this.userAdminLogin;
-//	}
-	
+//	}	
 	
 	public String userAdmin;
 	
@@ -70,9 +69,6 @@ public class SHClientController {
 		            }
 		        });
 	    	}
-	//    	else {
-	//    		System.out.println("adjustBrightnessSlider is null. Check your FXML file 'fx:id' tags.");
-	//    	}
 	    	
 	    	setupChoiceBoxesSmartLight();
 	    	setupChoiceBoxesSmartDoorbell();
@@ -89,8 +85,8 @@ public class SHClientController {
 	
 	
 	//-----------------------------Smart Home Automation Page-------------------------------------------
-   
-	@FXML
+	
+    @FXML
     private Button connectButtonSmartHomeAutomationPage;
 
     @FXML
@@ -227,6 +223,7 @@ public class SHClientController {
     	// Switch scene to the signup page here
     	switchSceneWelcomePage("Signup.fxml");
     }
+    
     
     
     //-----------------------------Sign Up Page-------------------------------------------
@@ -925,7 +922,8 @@ public class SHClientController {
             Stage stage = (Stage) smartThermostatPane.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -1070,7 +1068,8 @@ public class SHClientController {
             Stage stage = (Stage) vacuumRobotPane.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -1251,7 +1250,9 @@ public class SHClientController {
     }
     
 	
+	
 	//-----------------------------DoorbellCamera Page-------------------------------------------
+	
 	@FXML
     private ImageView cameraView;
 
@@ -1288,6 +1289,7 @@ public class SHClientController {
     }
 
     
+
     //-----------------------------Automation Rules Page-------------------------------------------
     
 	@FXML
@@ -1375,7 +1377,7 @@ public class SHClientController {
     
     
     
-  //-----------------------------Smart Light Automation Rules Page-------------------------------------------
+    //-----------------------------Smart Light Automation Rules Page-------------------------------------------
     @FXML
     private ChoiceBox<String> changeBrightnessChoiceBoxSmartLightAutomation;
 
@@ -1506,7 +1508,7 @@ public class SHClientController {
     
     
     
-  //-----------------------------Smart Doorbell Automation Rules Page-------------------------------------------
+    //-----------------------------Smart Doorbell Automation Rules Page-------------------------------------------
     @FXML
     private Button activateNightModeAtButton;
 
@@ -1559,8 +1561,6 @@ public class SHClientController {
                     // Load the FXML file
                     Parent root = loader.load();
                     
-                    
-                   
                     // Return the created scene
                     return new Scene(root);
                 } catch (Exception e) {
@@ -1619,7 +1619,7 @@ public class SHClientController {
     
     
     
-  //-----------------------------Smart Thermostat Automation Rules Page-------------------------------------------
+    //-----------------------------Smart Thermostat Automation Rules Page-------------------------------------------
     @FXML
     private ChoiceBox<String> changeModeChoiceBoxSmartThermostatAutomation;
 
@@ -1735,7 +1735,7 @@ public class SHClientController {
    
     
     
-  //-----------------------------Smart Lock Automation Rules Page-------------------------------------------
+    //-----------------------------Smart Lock Automation Rules Page-------------------------------------------
     @FXML
     private TextField LockDoorMM;
 
@@ -1895,7 +1895,7 @@ public class SHClientController {
     
     
     
-  //-----------------------------Vacuum Robot Automation Rules Page-------------------------------------------
+    //-----------------------------Vacuum Robot Automation Rules Page-------------------------------------------
     @FXML
     private Button goBackButtonVacuumRobotAutomationPage;
 
