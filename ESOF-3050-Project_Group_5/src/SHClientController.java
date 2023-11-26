@@ -421,7 +421,6 @@ public class SHClientController {
 //           }
     }
     
-   
     @FXML
     void signUpButtonPressedLoginPage(ActionEvent event) {
     	// Handle signup button click
@@ -1597,7 +1596,7 @@ public class SHClientController {
  		        "8 hours",
  		        "12 hours"
  		    ));
- 	
+ 		   
  		    // Populating the AM/PM ComboBoxes
  		    ObservableList<String> amPmOptions = FXCollections.observableArrayList("AM", "PM");
  		    activateNightModeDoorbellAmPmComboBox.setItems(amPmOptions);
@@ -1724,7 +1723,7 @@ public class SHClientController {
   		        "8 hours",
   		        "12 hours"
   		    ));
-  	
+  		   
   		    // Populating the AM/PM ComboBoxes
   		    ObservableList<String> amPmOptions = FXCollections.observableArrayList("AM", "PM");
   		    turnOffThermostatAmPmComboBox.setItems(amPmOptions);
@@ -1998,6 +1997,7 @@ public class SHClientController {
     		        "5 hours",
     		        "8 hours",
     		        "12 hours");
+    			
     			// Populating the AM/PM ComboBoxes
     		    ObservableList<String> amPmOptions = FXCollections.observableArrayList("AM", "PM");
     		    
