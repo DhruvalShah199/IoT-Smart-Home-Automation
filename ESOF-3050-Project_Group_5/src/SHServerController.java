@@ -51,6 +51,14 @@ public class SHServerController {
     	}
     }
     
+    public String displayLightColor() {
+    	String color = "";
+    	if (light != null) {
+    		color = light.getColor();
+    	}
+    	return color;
+    }
+    
     public boolean displayLightStatus() {
     	if (light != null) {
     		return light.isOn();
@@ -58,6 +66,7 @@ public class SHServerController {
     	return false;
     }
 
+    
     
     //Methods for Smart Lock    
     public String lockDoor(String isLockedUnlocked) {
@@ -136,6 +145,14 @@ public class SHServerController {
     	}
     	return false;
 	}
+    
+    public int displayTemperature() {
+    	int temperature = 0;
+    	if (thermostat != null) {
+    		temperature =  thermostat.getTemperature();
+    	}
+    	return temperature;
+    }
 
     
     //Methods for Vacuum Robot
@@ -199,10 +216,11 @@ public class SHServerController {
         }
     }
     
-    public void activateNightModeDoorbell(boolean isNightModeOn) {
+    public boolean activateNightModeDoorbell(boolean isNightModeOn) {
     	if (doorbell != null) {
     		doorbell.setNightModeOn(isNightModeOn);
     	}
+    	return doorbell.isNightModeOn();
     }
     
     public boolean displayDoorbellStatus() {
