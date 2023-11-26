@@ -1403,7 +1403,7 @@ public class SHClientController {
     @FXML
     private TextField turnOnLightMM;
 
-    
+       
    private void switchSceneSmartLightAutomationPage(String fxmlFileName) {
         try {
             Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
@@ -1417,10 +1417,8 @@ public class SHClientController {
                     // Load the FXML file
                     Parent root = loader.load();
                     
-                    
-                    // Manually call your custom initialization method here
-                    initializeSmartLight(); // This must be called after loader.load() and before setting the scene
-                    
+                    this.setupChoiceBox();
+                  
                     // Return the created scene
                     return new Scene(root);
                 } catch (Exception e) {
@@ -1438,17 +1436,11 @@ public class SHClientController {
         
     }
     
-   
+   public void setupChoiceBox() {
 
-   private void initializeSmartLight() {
-       populateChangeBrightnessChoiceBox();
-       
-   }
-
-   private void populateChangeBrightnessChoiceBox() {
        // Populate the choice box with the time options
 	   ObservableList<String> options = FXCollections.observableArrayList(
-			"1 minute",
+		   "1 minute",
            "2 minutes",
            "5 minutes",
            "10 minutes",
@@ -1537,9 +1529,7 @@ public class SHClientController {
                     Parent root = loader.load();
                     
                     
-                    // Manually call your custom initialization method here
-                    initializeSmartLight(); // This must be called after loader.load() and before setting the scene
-                    
+                   
                     // Return the created scene
                     return new Scene(root);
                 } catch (Exception e) {
