@@ -79,8 +79,8 @@ public class SHClientController {
 	    	setupChoiceBoxesSmartDoorbell();
 	    	setupChoiceBoxesSmartThermostat();
 	    	setupChoiceBoxesSmartLock();
-	    	setupChoiceBoxesVacuumRobot();
-	    	}
+	    	setupComboBoxesVacuumRobot();
+	    }
     	catch (Exception e) {
             e.printStackTrace();
             // Handle the exception appropriately
@@ -1910,7 +1910,7 @@ public class SHClientController {
     private Button startCleaningButtonVacuumAutomation;
 
     @FXML
-    private ComboBox<String> startCleaningComboBoxVacuumRobotAutomation;
+    private ComboBox<String> startCleaningChoiceBoxVacuumRobotAutomation;
 
     @FXML
     private TextField startCleaningMM;
@@ -1922,7 +1922,7 @@ public class SHClientController {
     private Button stopCleaningButtonVacuumAutomation;
 
     @FXML
-    private ComboBox<String> stopCleaningComboBoxVacuumRobotAutomation;
+    private ComboBox<String> stopCleaningChoiceBoxVacuumRobotAutomation;
 
     @FXML
     private TextField stopCleaningHH;
@@ -1938,30 +1938,6 @@ public class SHClientController {
 
     @FXML
     private Pane vacuumRobotPaneAutomation;
-    
-    private void setupChoiceBoxesVacuumRobot() {
-   	   if (startCleaningComboBoxVacuumRobotAutomation != null && stopCleaningComboBoxVacuumRobotAutomation != null) {
-   		    // Populating the minutes/hours and AM/PM ComboBoxes
-   		   	ObservableList<String> minutesHoursOptions = (FXCollections.observableArrayList(
-		        "1 minute", 
-		        "2 minutes", 
-		        "5 minutes",
-		        "10 minutes",
-		        "15 minutes",
-		        "30 minutes",
-		        "1 hour",
-		        "2 hours",
-		        "5 hours",
-		        "8 hours",
-		        "12 hours"
-   		   	));
-   		    ObservableList<String> amPmOptions = FXCollections.observableArrayList("AM", "PM");
-   		    startCleaningComboBoxVacuumRobotAutomation.setItems(minutesHoursOptions);
-   		    stopCleaningComboBoxVacuumRobotAutomation.setItems(minutesHoursOptions);	
-   		    startCleaningAmPmComboBox.setItems(amPmOptions);
-   		    stopCleaningAmPmComboBox.setItems(amPmOptions);
-   	   }
-      }
 
     @FXML
     void startCleaningButtonPressedVacuumAutomation(ActionEvent event) {
@@ -2001,6 +1977,31 @@ public class SHClientController {
             e.printStackTrace();
         }
     }
+    
+    private void setupComboBoxesVacuumRobot() {
+    	   if (startCleaningChoiceBoxVacuumRobotAutomation != null && stopCleaningChoiceBoxVacuumRobotAutomation != null) {
+    			// Populating the minutes/hours ComboBoxes
+    			ObservableList<String> mmHhOptions = FXCollections.observableArrayList(
+    				"1 minute", 
+    		        "2 minutes", 
+    		        "5 minutes",
+    		        "10 minutes",
+    		        "15 minutes",
+    		        "30 minutes",
+    		        "1 hour",
+    		        "2 hours",
+    		        "5 hours",
+    		        "8 hours",
+    		        "12 hours");
+    			// Populating the AM/PM ComboBoxes
+    		    ObservableList<String> amPmOptions = FXCollections.observableArrayList("AM", "PM");
+    		    
+    		    startCleaningChoiceBoxVacuumRobotAutomation.setItems(mmHhOptions);
+    		    stopCleaningChoiceBoxVacuumRobotAutomation.setItems(mmHhOptions);
+    		    startCleaningAmPmComboBox.setItems(amPmOptions);
+    		    stopCleaningAmPmComboBox.setItems(amPmOptions);
+    	   }
+       }
 
     @FXML
     void goBackButtonPressedVacuumRobotAutomation(ActionEvent event) {
