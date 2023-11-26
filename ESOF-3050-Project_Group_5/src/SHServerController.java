@@ -1,5 +1,4 @@
 public class SHServerController {
-	
 	private SmartLight light;
     private SmartLock lock;
     private Thermostat thermostat;
