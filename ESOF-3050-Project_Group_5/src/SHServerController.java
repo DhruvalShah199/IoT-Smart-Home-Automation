@@ -14,7 +14,9 @@ public class SHServerController {
         doorbell = new SmartDoorbell("doorbell1");
     }
 
-    //Methods for Smart Light
+    
+    
+    //-----------------------------------Methods for Smart Light-----------------------------------
     public void turnOnLight(String onOrOff) {
         if (light != null) {
             light.turnOnOff(onOrOff);
@@ -67,7 +69,7 @@ public class SHServerController {
 
     
     
-    //Methods for Smart Lock    
+    //-----------------------------------Methods for Smart Lock-------------------------------------    
     public String lockDoor(String isLockedUnlocked) {
         if (lock != null) {
         	lock.turnOnOff("on");
@@ -103,7 +105,7 @@ public class SHServerController {
     
     
     
-    //Methods for Thermostat
+    //----------------------------------Methods for Thermostat------------------------------
     public int getThermostatTemperature() {
     	int temperature = 0;
     	if (thermostat != null) {
@@ -154,7 +156,7 @@ public class SHServerController {
     }
 
     
-    //Methods for Vacuum Robot
+    //---------------------------------Methods for Vacuum Robot-------------------------
     public String startCleaning() {
     	String isCleaning = "";
         if (vacuumRobot != null) {
@@ -196,7 +198,7 @@ public class SHServerController {
     
     
     
-    //Methods for Smart Doorbell
+    //--------------------------------Methods for Smart Doorbell-----------------------------
     public void turnOnDoorbell(String onOrOff) {
         if (doorbell != null) {
             doorbell.turnOnOff(onOrOff);
