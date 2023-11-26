@@ -69,7 +69,6 @@ public class SHClientController {
 		            }
 		        });
 	    	}
-	    	
 	    	setupChoiceBoxesSmartLight();
 	    	setupChoiceBoxesSmartDoorbell();
 	    	setupChoiceBoxesSmartThermostat();
