@@ -1426,7 +1426,6 @@ public class SHClientController {
                     return null;
                 }
             });
-            this.setupChoiceBox();
             Stage stage = (Stage) smartLightPaneAutomation.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
@@ -1437,25 +1436,25 @@ public class SHClientController {
     }
 
     
-   public void setupChoiceBox() {
-
-       // Populate the choice box with the time options
-	   ObservableList<String> options = FXCollections.observableArrayList(
-		   "1 minute",
-           "2 minutes",
-           "5 minutes",
-           "10 minutes",
-           "15 minutes",
-           "30 minutes",
-           "1 hour",
-           "2 hours",
-           "5 hours",
-           "8 hours",
-           "12 hours"
-       );
-	   changeBrightnessChoiceBoxSmartLightAutomation.setItems(options);
-       changeBrightnessChoiceBoxSmartLightAutomation.setValue("1 minute"); // Set default value
-   }
+//   public void setupChoiceBox() {
+//
+//       // Populate the choice box with the time options
+//	   ObservableList<String> options = FXCollections.observableArrayList(
+//		   "1 minute",
+//           "2 minutes",
+//           "5 minutes",
+//           "10 minutes",
+//           "15 minutes",
+//           "30 minutes",
+//           "1 hour",
+//           "2 hours",
+//           "5 hours",
+//           "8 hours",
+//           "12 hours"
+//       );
+//	   changeBrightnessChoiceBoxSmartLightAutomation.setItems(options);
+//       changeBrightnessChoiceBoxSmartLightAutomation.setValue("1 minute"); // Set default value
+//   }
    
     
     @FXML
@@ -1654,8 +1653,8 @@ public class SHClientController {
     void goBackButtonPressedSmartThermostatAutomation(ActionEvent event) {
     	switchSceneSmartThermostatAutomationPage("AutomationRules.fxml");
     }
-
    
+    
     
   //-----------------------------Smart Lock Automation Rules Page-------------------------------------------
     @FXML
