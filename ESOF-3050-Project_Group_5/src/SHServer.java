@@ -45,6 +45,12 @@ public class SHServer extends AbstractServer {
 	        serverController.adjustLightBrightness(brightness);
 	        sendToAllClients("brightness:" + brightness);
 	    }
+		else if(messageString.contains("0x")) {
+			serverController.changeLightColor(messageString);
+			String color = serverController.displayLightColor();
+			sendToAllClients(color);
+			
+		}
 		else if(messageString.equals("getlightstatus")) {
 			boolean status = serverController.displayLightStatus();
 			System.out.println(status);
@@ -92,12 +98,12 @@ public class SHServer extends AbstractServer {
 			String mode = serverController.changeThermostatMode("heat");
 			sendToAllClients(mode);
 		}
-		else if(messageString.equals("increase")) {
+		else if(messageString.equals("increase") && serverController.displayTemperature() < 35) {
 			int temperature = serverController.increaseOrDecreaseThermostatTemperature("increase");
 			String tempString = Integer.toString(temperature);
 			sendToAllClients("temperature"+tempString);
 		}
-		else if(messageString.equals("decrease")) {
+		else if(messageString.equals("decrease") && serverController.displayTemperature() > 15) {
 			int temperature = serverController.increaseOrDecreaseThermostatTemperature("decrease");
 			String tempString = Integer.toString(temperature);
 			sendToAllClients("temperature"+tempString);
@@ -215,6 +221,18 @@ public class SHServer extends AbstractServer {
 			boolean printStatus = serverController.getStatus();
 			sendToAllClients("doorbelloff");
 			System.out.println("Updated doorbell status: " + printStatus);
+		}
+		else if(messageString.equals("activatenightmode")) {
+			boolean nightModeStatus = serverController.activateNightModeDoorbell(true);
+			if(nightModeStatus == true) {
+				sendToAllClients("nightmodeon");
+			}
+		}
+		else if(messageString.equals("deactivatenightmode")) {
+			boolean nightModeStatus = serverController.activateNightModeDoorbell(false);
+			if(nightModeStatus == false) {
+				sendToAllClients("nightmodeoff");
+			}
 		}
 		else if(messageString.equals("turnoncamera")) {
 			boolean status = serverController.displayDoorbellStatus();
