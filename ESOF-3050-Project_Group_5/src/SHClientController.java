@@ -284,7 +284,8 @@ public class SHClientController {
             Stage stage = (Stage) SignUpPane.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -1377,6 +1378,7 @@ public class SHClientController {
     
     
     //-----------------------------Smart Light Automation Rules Page-------------------------------------------
+    
     @FXML
     private ChoiceBox<String> changeBrightnessChoiceBoxSmartLightAutomation;
 
@@ -1442,6 +1444,7 @@ public class SHClientController {
                     return null;
                 }
             });
+            
             Stage stage = (Stage) smartLightPaneAutomation.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
@@ -1508,6 +1511,7 @@ public class SHClientController {
     
     
     //-----------------------------Smart Doorbell Automation Rules Page-------------------------------------------
+    
     @FXML
     private Button activateNightModeAtButton;
 
@@ -1619,6 +1623,7 @@ public class SHClientController {
     
     
     //-----------------------------Smart Thermostat Automation Rules Page-------------------------------------------
+    
     @FXML
     private ChoiceBox<String> changeModeChoiceBoxSmartThermostatAutomation;
 
@@ -1735,6 +1740,7 @@ public class SHClientController {
     
     
     //-----------------------------Smart Lock Automation Rules Page-------------------------------------------
+    
     @FXML
     private TextField LockDoorMM;
 
@@ -1895,6 +1901,7 @@ public class SHClientController {
     
     
     //-----------------------------Vacuum Robot Automation Rules Page-------------------------------------------
+    
     @FXML
     private Button goBackButtonVacuumRobotAutomationPage;
 
