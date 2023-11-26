@@ -1,5 +1,4 @@
 import java.io.IOException;
-
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
@@ -55,6 +54,40 @@ public class SHClientController {
 	public void userAdminLogin(String userOrAdmin) {
 		userAdmin = userOrAdmin;
 	}
+	
+    public void initialize() {
+    	try {
+	    	if (adjustBrightnessSlider != null) {
+		    	adjustBrightnessSlider.setValue(100); // Set default slider value
+		        brightnessLabelLightPage.setText("100%"); // Set default label text
+		        adjustBrightnessSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+		            if (client != null && lightIsOn) {
+		                try {
+		                    client.sendToServer("adjustBrightness:" + newVal.intValue());
+		                    brightnessLabelLightPage.setText(newVal.intValue() + "%");
+		                } catch (IOException e) {
+		                    e.printStackTrace();
+		                }
+		            }
+		        });
+	    	}
+	//    	else {
+	//    		System.out.println("adjustBrightnessSlider is null. Check your FXML file 'fx:id' tags.");
+	//    	}
+	    	
+	    	setupChoiceBoxesSmartLight();
+	    	setupChoiceBoxesSmartDoorbell();
+	    	setupChoiceBoxesSmartThermostat();
+	    	setupChoiceBoxesSmartLock();
+	    	setupComboBoxesVacuumRobot();
+	    }
+    	catch (Exception e) {
+            e.printStackTrace();
+            // Handle the exception appropriately
+        }
+    }
+	
+	
 	
 	//-----------------------------Smart Home Automation Page-------------------------------------------
    
@@ -719,25 +752,6 @@ public class SHClientController {
     	smartLightTitleLabel.setTextFill(colorValue);
     }
     
-    public void initialize() {
-    	if (adjustBrightnessSlider != null) {
-	    	adjustBrightnessSlider.setValue(100); // Set default slider value
-	        brightnessLabelLightPage.setText("100%"); // Set default label text
-	        adjustBrightnessSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
-	            if (client != null && lightIsOn) {
-	                try {
-	                    client.sendToServer("adjustBrightness:" + newVal.intValue());
-	                    brightnessLabelLightPage.setText(newVal.intValue() + "%");
-	                } catch (IOException e) {
-	                    e.printStackTrace();
-	                }
-	            }
-	        });
-    	}
-//    	else {
-//    		System.out.println("adjustBrightnessSlider is null. Check your FXML file 'fx:id' tags.");
-//    	}
-    }
     
     
     //-----------------------------Smart Lock Page-------------------------------------------
@@ -1361,6 +1375,7 @@ public class SHClientController {
     }
     
     
+    
   //-----------------------------Smart Light Automation Rules Page-------------------------------------------
     @FXML
     private ChoiceBox<String> changeBrightnessChoiceBoxSmartLightAutomation;
@@ -1435,29 +1450,45 @@ public class SHClientController {
         }
         
     }
-
     
-//   public void setupChoiceBox() {
-//
-//       // Populate the choice box with the time options
-//	   ObservableList<String> options = FXCollections.observableArrayList(
-//		   "1 minute",
-//           "2 minutes",
-//           "5 minutes",
-//           "10 minutes",
-//           "15 minutes",
-//           "30 minutes",
-//           "1 hour",
-//           "2 hours",
-//           "5 hours",
-//           "8 hours",
-//           "12 hours"
-//       );
-//	   changeBrightnessChoiceBoxSmartLightAutomation.setItems(options);
-//       changeBrightnessChoiceBoxSmartLightAutomation.setValue("1 minute"); // Set default value
-//   }
-   
-    
+   private void setupChoiceBoxesSmartLight() {
+	   if (changeBrightnessChoiceBoxSmartLightAutomation != null && colorChoiceBoxSmartLightAutomation != null) {
+		    // Populating the Change Brightness ChoiceBox with time options
+		    changeBrightnessChoiceBoxSmartLightAutomation.setItems(FXCollections.observableArrayList(
+		        "1 minute", 
+		        "2 minutes", 
+		        "5 minutes",
+		        "10 minutes",
+		        "15 minutes",
+		        "30 minutes",
+		        "1 hour",
+		        "2 hours",
+		        "5 hours",
+		        "8 hours",
+		        "12 hours"
+		    ));
+		    
+		    colorChoiceBoxSmartLightAutomation.setItems(FXCollections.observableArrayList(
+		        "1 minute", 
+		        "2 minutes", 
+		        "5 minutes",
+		        "10 minutes",
+		        "15 minutes",
+		        "30 minutes",
+		        "1 hour",
+		        "2 hours",
+		        "5 hours",
+		        "8 hours",
+		        "12 hours"
+		    ));
+	
+		    // Populating the AM/PM ComboBoxes
+		    ObservableList<String> amPmOptions = FXCollections.observableArrayList("AM", "PM");
+		    turnOnLightAmPmComboBox.setItems(amPmOptions);
+		    turnOffLightAmPmComboBox.setItems(amPmOptions);
+	   }
+   }
+	    
     @FXML
     void goBackButtonPressedSmartLightAutomation(ActionEvent event) {
     	switchSceneSmartLightAutomationPage("AutomationRules.fxml");
@@ -1481,10 +1512,10 @@ public class SHClientController {
     private Button activateNightModeAtButton;
 
     @FXML
-    private ComboBox<?> activateNightModeComboBoxSmartDoorbellAutomation;
+    private ComboBox<String> activateNightModeComboBoxSmartDoorbellAutomation;
 
     @FXML
-    private ComboBox<?> activateNightModeDoorbellAmPmComboBox;
+    private ComboBox<String> activateNightModeDoorbellAmPmComboBox;
 
     @FXML
     private TextField activateNightModeHH;
@@ -1508,7 +1539,7 @@ public class SHClientController {
     private Button turnOnCameraAtButton;
 
     @FXML
-    private ComboBox<?> turnOnCameraDoorbellAmPmComboBox;
+    private ComboBox<String> turnOnCameraDoorbellAmPmComboBox;
 
     @FXML
     private TextField turnOnCameraHH;
@@ -1547,6 +1578,30 @@ public class SHClientController {
         }
         
     }
+    
+    private void setupChoiceBoxesSmartDoorbell() {
+ 	   if (activateNightModeComboBoxSmartDoorbellAutomation != null) {
+ 		    // Populating the Change Brightness ChoiceBox with time options
+ 		   activateNightModeComboBoxSmartDoorbellAutomation.setItems(FXCollections.observableArrayList(
+ 		        "1 minute", 
+ 		        "2 minutes", 
+ 		        "5 minutes",
+ 		        "10 minutes",
+ 		        "15 minutes",
+ 		        "30 minutes",
+ 		        "1 hour",
+ 		        "2 hours",
+ 		        "5 hours",
+ 		        "8 hours",
+ 		        "12 hours"
+ 		    ));
+ 	
+ 		    // Populating the AM/PM ComboBoxes
+ 		    ObservableList<String> amPmOptions = FXCollections.observableArrayList("AM", "PM");
+ 		    activateNightModeDoorbellAmPmComboBox.setItems(amPmOptions);
+ 		    turnOnCameraDoorbellAmPmComboBox.setItems(amPmOptions);
+ 	   }
+    }
 
     @FXML
     void activateNightModeAtButtonPressed(ActionEvent event) {
@@ -1567,7 +1622,7 @@ public class SHClientController {
     
   //-----------------------------Smart Thermostat Automation Rules Page-------------------------------------------
     @FXML
-    private ChoiceBox<?> changeModeChoiceBoxSmartThermostatAutomation;
+    private ChoiceBox<String> changeModeChoiceBoxSmartThermostatAutomation;
 
     @FXML
     private ToggleButton coolToggleButtonSmartThermostatAutomation;
@@ -1597,13 +1652,13 @@ public class SHClientController {
     private TextField turnOfThermstatMM;
 
     @FXML
-    private ComboBox<?> turnOffThermostatAmPmComboBox;
+    private ComboBox<String> turnOffThermostatAmPmComboBox;
 
     @FXML
     private TextField turnOffThermostatHH;
 
     @FXML
-    private ComboBox<?> turnOnThermostatAmPmComboBox;
+    private ComboBox<String> turnOnThermostatAmPmComboBox;
 
     @FXML
     private TextField turnOnThermostatHH;
@@ -1649,6 +1704,30 @@ public class SHClientController {
             e.printStackTrace();
         }
     }
+    
+    private void setupChoiceBoxesSmartThermostat() {
+  	   if (changeModeChoiceBoxSmartThermostatAutomation != null) {
+  		    // Populating the Change Brightness ChoiceBox with time options
+  		   changeModeChoiceBoxSmartThermostatAutomation.setItems(FXCollections.observableArrayList(
+  		        "1 minute", 
+  		        "2 minutes", 
+  		        "5 minutes",
+  		        "10 minutes",
+  		        "15 minutes",
+  		        "30 minutes",
+  		        "1 hour",
+  		        "2 hours",
+  		        "5 hours",
+  		        "8 hours",
+  		        "12 hours"
+  		    ));
+  	
+  		    // Populating the AM/PM ComboBoxes
+  		    ObservableList<String> amPmOptions = FXCollections.observableArrayList("AM", "PM");
+  		    turnOffThermostatAmPmComboBox.setItems(amPmOptions);
+  		    turnOnThermostatAmPmComboBox.setItems(amPmOptions);
+  	   }
+     }
 
     @FXML
     void goBackButtonPressedSmartThermostatAutomation(ActionEvent event) {
@@ -1662,7 +1741,7 @@ public class SHClientController {
     private TextField LockDoorMM;
 
     @FXML
-    private ChoiceBox<?> breakInChoiceBoxSmartLock;
+    private ChoiceBox<String> breakInChoiceBoxSmartLock;
 
     @FXML
     private TextField getBreakInHH;
@@ -1671,7 +1750,7 @@ public class SHClientController {
     private TextField getBreakInMM;
 
     @FXML
-    private ComboBox<?> getBreakInSmartLockAmPmComboBox;
+    private ComboBox<String> getBreakInSmartLockAmPmComboBox;
 
     @FXML
     private Button goBackButtonSmartLockAutomationPage;
@@ -1680,13 +1759,13 @@ public class SHClientController {
     private Button lockDoorButtonAutomationPage;
 
     @FXML
-    private ChoiceBox<?> lockDoorChoiceBoxSmartLock;
+    private ChoiceBox<String> lockDoorChoiceBoxSmartLock;
 
     @FXML
     private TextField lockDoorHH;
 
     @FXML
-    private ComboBox<?> lockSmartLockAmPmComboBox;
+    private ComboBox<String> lockSmartLockAmPmComboBox;
 
     @FXML
     private Button setBreakInAlertAutomationButton;
@@ -1704,7 +1783,7 @@ public class SHClientController {
     private Button unlockDoorButtonAutomation;
 
     @FXML
-    private ChoiceBox<?> unlockDoorChoiceBoxSmartLock;
+    private ChoiceBox<String> unlockDoorChoiceBoxSmartLock;
 
     @FXML
     private TextField unlockDoorHH;
@@ -1713,7 +1792,7 @@ public class SHClientController {
     private TextField unlockDoorMM;
 
     @FXML
-    private ComboBox<?> unlockSmartLockAmPmComboBox;
+    private ComboBox<String> unlockSmartLockAmPmComboBox;
 
   
     @FXML
@@ -1758,11 +1837,64 @@ public class SHClientController {
             e.printStackTrace();
         }
     }
+    
+    private void setupChoiceBoxesSmartLock() {
+   	   if (breakInChoiceBoxSmartLock != null && lockDoorChoiceBoxSmartLock != null && unlockDoorChoiceBoxSmartLock != null) {
+   		    // Populating the Change Brightness ChoiceBox with time options
+   		   	breakInChoiceBoxSmartLock.setItems(FXCollections.observableArrayList(
+   		        "1 minute", 
+   		        "2 minutes", 
+   		        "5 minutes",
+   		        "10 minutes",
+   		        "15 minutes",
+   		        "30 minutes",
+   		        "1 hour",
+   		        "2 hours",
+   		        "5 hours",
+   		        "8 hours",
+   		        "12 hours"
+   		   	));
+   		   	lockDoorChoiceBoxSmartLock.setItems(FXCollections.observableArrayList(
+		        "1 minute", 
+		        "2 minutes", 
+		        "5 minutes",
+		        "10 minutes",
+		        "15 minutes",
+		        "30 minutes",
+		        "1 hour",
+		        "2 hours",
+		        "5 hours",
+		        "8 hours",
+		        "12 hours"
+   		   	));
+   		   	unlockDoorChoiceBoxSmartLock.setItems(FXCollections.observableArrayList(
+		        "1 minute", 
+		        "2 minutes", 
+		        "5 minutes",
+		        "10 minutes",
+		        "15 minutes",
+		        "30 minutes",
+		        "1 hour",
+		        "2 hours",
+		        "5 hours",
+		        "8 hours",
+		        "12 hours"
+   		   	));
+   	
+   		    // Populating the AM/PM ComboBoxes
+   		    ObservableList<String> amPmOptions = FXCollections.observableArrayList("AM", "PM");
+   		    getBreakInSmartLockAmPmComboBox.setItems(amPmOptions);
+   		    lockSmartLockAmPmComboBox.setItems(amPmOptions);
+   		    unlockSmartLockAmPmComboBox.setItems(amPmOptions);
+   	   }
+      }
 
     @FXML
     void goBackButtonPressedSmartLockAutomationPage(ActionEvent event) {
     	 switchSceneSmartLockAutomationPage("AutomationRules.fxml");
     }
+    
+    
     
   //-----------------------------Vacuum Robot Automation Rules Page-------------------------------------------
     @FXML
@@ -1772,25 +1904,25 @@ public class SHClientController {
     private TextField startCleainingHH;
 
     @FXML
-    private ComboBox<?> startCleaningAmPmComboBox;
+    private ComboBox<String> startCleaningAmPmComboBox;
 
     @FXML
     private Button startCleaningButtonVacuumAutomation;
 
     @FXML
-    private ComboBox<?> startCleaningComboBoxVacuumRobotAutomation;
+    private ComboBox<String> startCleaningChoiceBoxVacuumRobotAutomation;
 
     @FXML
     private TextField startCleaningMM;
 
     @FXML
-    private ComboBox<?> stopCleaningAmPmComboBox;
+    private ComboBox<String> stopCleaningAmPmComboBox;
 
     @FXML
     private Button stopCleaningButtonVacuumAutomation;
 
     @FXML
-    private ComboBox<?> stopCleaningComboBoxVacuumRobotAutomation;
+    private ComboBox<String> stopCleaningChoiceBoxVacuumRobotAutomation;
 
     @FXML
     private TextField stopCleaningHH;
@@ -1845,11 +1977,35 @@ public class SHClientController {
             e.printStackTrace();
         }
     }
+    
+    private void setupComboBoxesVacuumRobot() {
+    	   if (startCleaningChoiceBoxVacuumRobotAutomation != null && stopCleaningChoiceBoxVacuumRobotAutomation != null) {
+    			// Populating the minutes/hours ComboBoxes
+    			ObservableList<String> mmHhOptions = FXCollections.observableArrayList(
+    				"1 minute", 
+    		        "2 minutes", 
+    		        "5 minutes",
+    		        "10 minutes",
+    		        "15 minutes",
+    		        "30 minutes",
+    		        "1 hour",
+    		        "2 hours",
+    		        "5 hours",
+    		        "8 hours",
+    		        "12 hours");
+    			// Populating the AM/PM ComboBoxes
+    		    ObservableList<String> amPmOptions = FXCollections.observableArrayList("AM", "PM");
+    		    
+    		    startCleaningChoiceBoxVacuumRobotAutomation.setItems(mmHhOptions);
+    		    stopCleaningChoiceBoxVacuumRobotAutomation.setItems(mmHhOptions);
+    		    startCleaningAmPmComboBox.setItems(amPmOptions);
+    		    stopCleaningAmPmComboBox.setItems(amPmOptions);
+    	   }
+       }
 
     @FXML
     void goBackButtonPressedVacuumRobotAutomation(ActionEvent event) {
     	switchSceneVacuumRobotAutomationPage("AutomationRules.fxml");
     }
-    
 }
 //end of SHClientController.java
