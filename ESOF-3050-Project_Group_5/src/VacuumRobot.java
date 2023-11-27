@@ -11,7 +11,6 @@ public class VacuumRobot extends SmartDevice {
     private int cleaningCyclesCompleted = 0;
     private boolean dustSackFull = false;
     private boolean dustSackAlertOn = false;
-    private String completeStatement = "";
 
     public VacuumRobot(String id) {
 		super(id);
