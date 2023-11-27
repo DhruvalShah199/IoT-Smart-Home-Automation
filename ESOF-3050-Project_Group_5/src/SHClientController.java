@@ -78,6 +78,7 @@ public class SHClientController {
 	    	setupChoiceBoxesSmartThermostat();
 	    	setupChoiceBoxesSmartLock();
 	    	setupComboBoxesVacuumRobot();
+	    	
 	    	file = new File("1067268409-preview.mp4");
 			media = new Media(file.toURI().toString());
 			mediaPlayer = new MediaPlayer(media);
