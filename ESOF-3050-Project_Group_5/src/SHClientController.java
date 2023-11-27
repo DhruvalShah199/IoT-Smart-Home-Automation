@@ -1416,6 +1416,9 @@ public class SHClientController {
 
     @FXML
     private TextField turnOnLightHH;
+    
+    @FXML
+    private TextField turnOffLightHH;
 
     @FXML
     private TextField turnOnLightMM;
@@ -1496,10 +1499,17 @@ public class SHClientController {
     	switchSceneSmartLightAutomationPage("AutomationRules.fxml");
     }
     
+    @FXML
+    void changeColorPickerSmartLightValue(ActionEvent event) {
+
+    }
+    
 
     @FXML
     void turnOffLightAtButtonPressed(ActionEvent event) {
-
+//    	String min = turnOffLightMM.getText();
+//    	String hrs = turnOffLightHH.getText();
+//    	String amPm = turnOffLightAmPmComboBox.
     }
 
     @FXML
