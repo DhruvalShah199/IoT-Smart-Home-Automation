@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -15,6 +16,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Polygon;
@@ -74,6 +78,11 @@ public class SHClientController {
 	    	setupChoiceBoxesSmartThermostat();
 	    	setupChoiceBoxesSmartLock();
 	    	setupComboBoxesVacuumRobot();
+	    	file = new File("1067268409-preview.mp4");
+			media = new Media(file.toURI().toString());
+			mediaPlayer = new MediaPlayer(media);
+			mediaView.setMediaPlayer(mediaPlayer);
+			mediaPlayer.play();
 	    }
     	catch (Exception e) {
             e.printStackTrace();
@@ -1257,6 +1266,11 @@ public class SHClientController {
 
     @FXML
     private Pane doorbellCameraPane;
+    
+    private MediaView mediaView;
+    private MediaPlayer mediaPlayer;
+	private File file;
+	private Media media;
     
     public void switchSceneDoorbellCameraPage(String fxmlFileName) {
         try {
