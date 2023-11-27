@@ -1754,18 +1754,6 @@ public class SHClientController {
     private TextField LockDoorMM;
 
     @FXML
-    private ChoiceBox<String> breakInChoiceBoxSmartLock;
-
-    @FXML
-    private TextField getBreakInHH;
-
-    @FXML
-    private TextField getBreakInMM;
-
-    @FXML
-    private ComboBox<String> getBreakInSmartLockAmPmComboBox;
-
-    @FXML
     private Button goBackButtonSmartLockAutomationPage;
 
     @FXML
@@ -1779,9 +1767,6 @@ public class SHClientController {
 
     @FXML
     private ComboBox<String> lockSmartLockAmPmComboBox;
-
-    @FXML
-    private Button setBreakInAlertAutomationButton;
 
     @FXML
     private Label smartLockAutomationLabelHidden;
@@ -1810,11 +1795,6 @@ public class SHClientController {
   
     @FXML
     void lockDoorButtonPressedAutomationPage(ActionEvent event) {
-
-    }
-
-    @FXML
-    void setBreakInALertAutomationButtonPressed(ActionEvent event) {
 
     }
 
@@ -1852,21 +1832,8 @@ public class SHClientController {
     }
     
     private void setupChoiceBoxesSmartLock() {
-   	   if (breakInChoiceBoxSmartLock != null && lockDoorChoiceBoxSmartLock != null && unlockDoorChoiceBoxSmartLock != null) {
-   		    // Populating the Change Brightness ChoiceBox with time options
-   		   	breakInChoiceBoxSmartLock.setItems(FXCollections.observableArrayList(
-   		        "1 minute", 
-   		        "2 minutes", 
-   		        "5 minutes",
-   		        "10 minutes",
-   		        "15 minutes",
-   		        "30 minutes",
-   		        "1 hour",
-   		        "2 hours",
-   		        "5 hours",
-   		        "8 hours",
-   		        "12 hours"
-   		   	));
+   	   if (lockDoorChoiceBoxSmartLock != null && unlockDoorChoiceBoxSmartLock != null) {
+   		    // Populating the Lock and Unlock ChoiceBox with time options
    		   	lockDoorChoiceBoxSmartLock.setItems(FXCollections.observableArrayList(
 		        "1 minute", 
 		        "2 minutes", 
@@ -1896,7 +1863,6 @@ public class SHClientController {
    	
    		    // Populating the AM/PM ComboBoxes
    		    ObservableList<String> amPmOptions = FXCollections.observableArrayList("AM", "PM");
-   		    getBreakInSmartLockAmPmComboBox.setItems(amPmOptions);
    		    lockSmartLockAmPmComboBox.setItems(amPmOptions);
    		    unlockSmartLockAmPmComboBox.setItems(amPmOptions);
    	   }

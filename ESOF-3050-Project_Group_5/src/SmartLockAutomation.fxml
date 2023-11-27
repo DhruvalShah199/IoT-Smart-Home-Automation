@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="smartLockAutomationPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="655.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="smartLockAutomationPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="655.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="smartLockLabelAutomation" layoutX="253.0" layoutY="14.0" text="SMART LOCK" textFill="WHITE">
          <font>
@@ -36,7 +36,6 @@
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="LOCK DOOR AFTER" textFill="WHITE">
@@ -49,14 +48,8 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label text="GET BREAK-IN ALERT AFTER" textFill="WHITE" GridPane.rowIndex="2">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
             <ChoiceBox fx:id="lockDoorChoiceBoxSmartLock" prefHeight="26.0" prefWidth="184.0" GridPane.columnIndex="1" />
             <ChoiceBox fx:id="unlockDoorChoiceBoxSmartLock" prefHeight="26.0" prefWidth="184.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <ChoiceBox fx:id="breakInChoiceBoxSmartLock" prefHeight="26.0" prefWidth="184.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <GridPane layoutX="29.0" layoutY="89.0" prefHeight="124.0" prefWidth="492.0">
@@ -65,7 +58,6 @@
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
@@ -80,92 +72,62 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label text="GET BREAK-IN ALERT FROM" textFill="WHITE" GridPane.rowIndex="2">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
-                  <ComboBox fx:id="lockSmartLockAmPmComboBox" layoutX="164.0" layoutY="4.0" prefHeight="29.0" prefWidth="50.0" />
                   <Pane layoutX="22.0" layoutY="-12.0" prefHeight="54.0" prefWidth="168.0">
                      <children>
-                        <TextField fx:id="LockDoorMM" layoutX="75.0" layoutY="16.0" prefHeight="31.0" prefWidth="50.0">
+                        <TextField fx:id="LockDoorMM" layoutX="74.0" layoutY="32.0" prefHeight="31.0" prefWidth="50.0">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="62.0" layoutY="13.0" text=":" textFill="WHITE">
+                        <Label layoutX="60.0" layoutY="33.0" text=":" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="lockDoorHH" layoutX="6.0" layoutY="16.0" prefHeight="26.0" prefWidth="50.0">
+                        <TextField fx:id="lockDoorHH" layoutY="33.0" prefHeight="26.0" prefWidth="50.0">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
                      </children>
                   </Pane>
+                  <ComboBox fx:id="lockSmartLockAmPmComboBox" layoutX="171.0" layoutY="19.0" prefHeight="29.0" prefWidth="50.0" />
                </children>
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <Pane layoutX="28.0" layoutY="-6.0" prefHeight="54.0" prefWidth="168.0">
                      <children>
-                        <TextField fx:id="unlockDoorHH" layoutY="11.0" prefHeight="26.0" prefWidth="50.0">
+                        <TextField fx:id="unlockDoorHH" layoutX="-6.0" layoutY="22.0" prefHeight="26.0" prefWidth="50.0">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <Label layoutX="56.0" layoutY="9.0" text=":" textFill="WHITE">
+                        <Label layoutX="54.0" layoutY="22.0" text=":" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="unlockDoorMM" layoutX="70.0" layoutY="11.0" prefHeight="26.0" prefWidth="50.0">
+                        <TextField fx:id="unlockDoorMM" layoutX="70.0" layoutY="22.0" prefHeight="26.0" prefWidth="50.0">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </TextField>
-                        <ComboBox fx:id="unlockSmartLockAmPmComboBox" layoutX="137.0" layoutY="12.0" prefHeight="29.0" prefWidth="50.0" />
                      </children>
                   </Pane>
-               </children>
-            </Pane>
-            <Pane prefHeight="54.0" prefWidth="168.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <children>
-                  <Label layoutX="84.0" layoutY="3.0" text=":" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="getBreakInMM" layoutX="98.0" layoutY="6.0" prefHeight="26.0" prefWidth="50.0">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="getBreakInHH" layoutX="28.0" layoutY="5.0" prefHeight="26.0" prefWidth="50.0">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </TextField>
-                  <ComboBox fx:id="getBreakInSmartLockAmPmComboBox" layoutX="165.0" layoutY="8.0" prefHeight="29.0" prefWidth="50.0" />
+                  <ComboBox fx:id="unlockSmartLockAmPmComboBox" layoutX="171.0" layoutY="17.0" prefHeight="29.0" prefWidth="50.0" />
                </children>
             </Pane>
          </children>
       </GridPane>
-      <Button fx:id="lockDoorButtonAutomationPage" layoutX="521.0" layoutY="92.0" mnemonicParsing="false" onAction="#lockDoorButtonPressedAutomationPage" prefHeight="31.0" prefWidth="90.0" text="LOCK">
+      <Button fx:id="lockDoorButtonAutomationPage" layoutX="521.0" layoutY="107.0" mnemonicParsing="false" onAction="#lockDoorButtonPressedAutomationPage" prefHeight="31.0" prefWidth="90.0" text="LOCK">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Button>
-      <Button fx:id="setBreakInAlertAutomationButton" layoutX="521.0" layoutY="180.0" mnemonicParsing="false" onAction="#setBreakInALertAutomationButtonPressed" prefHeight="0.0" prefWidth="90.0" text="SET">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </Button>
-      <Button fx:id="unlockDoorButtonAutomation" layoutX="521.0" layoutY="136.0" mnemonicParsing="false" onAction="#unlockDoorButtonPressedAutomationPage" prefHeight="31.0" prefWidth="90.0" text="UNLOCK">
+      <Button fx:id="unlockDoorButtonAutomation" layoutX="521.0" layoutY="168.0" mnemonicParsing="false" onAction="#unlockDoorButtonPressedAutomationPage" prefHeight="31.0" prefWidth="90.0" text="UNLOCK">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
