@@ -77,11 +77,9 @@ public class SHClientController {
 	    	}
 	    	setupListViewAdminPage();
 	    	
-<<<<<<< HEAD
-	    	setUpMediaSize();
-=======
 	    	loadDevicesFromPreferences();
->>>>>>> branch 'master' of https://github.com/DhruvalShah199/IoT-Smart-Home-Automation.git
+	    	
+	    	setUpMediaSize();
 	    	
 	    	setupChoiceBoxesSmartLight();
 	    	setupChoiceBoxesSmartDoorbell();
