@@ -1,4 +1,3 @@
-import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -29,7 +28,6 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.image.ImageView;
 import java.util.prefs.Preferences;
 
 public class SHClientController {
