@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.application.Platform;
@@ -28,6 +29,8 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.ImageView;
+import java.util.prefs.Preferences;
 
 public class SHClientController {
 	private SHClient client;
@@ -74,7 +77,11 @@ public class SHClientController {
 	    	}
 	    	setupListViewAdminPage();
 	    	
+<<<<<<< HEAD
 	    	setUpMediaSize();
+=======
+	    	loadDevicesFromPreferences();
+>>>>>>> branch 'master' of https://github.com/DhruvalShah199/IoT-Smart-Home-Automation.git
 	    	
 	    	setupChoiceBoxesSmartLight();
 	    	setupChoiceBoxesSmartDoorbell();
@@ -459,28 +466,51 @@ public class SHClientController {
 
     @FXML
     private Button viewDevicesButtonAdminPage;
-
-    private int newDeviceCount = 0;
     
+    private static final String DEVICES_KEY = "devices";
+    
+    private Preferences prefs = Preferences.userNodeForPackage(SHClientController.class);
+
+    private void saveDevicesToPreferences() {
+        StringBuilder sb = new StringBuilder();
+        for (String device : devices) {
+            sb.append(device).append(",");
+        }
+        prefs.put(DEVICES_KEY, sb.toString());
+    }
+
+    private void loadDevicesFromPreferences() {
+        String devicesString = prefs.get(DEVICES_KEY, "");
+        if (!devicesString.isEmpty()) {
+            String[] devicesArray = devicesString.split(",");
+            devices.addAll(Arrays.asList(devicesArray));
+        }
+    }
+
+
+    private static int newDeviceCount = 0;
+    private static ObservableList<String> devices = FXCollections.observableArrayList(
+            "Smart Doorbell", 
+            "Smart Light",
+            "Smart Lock",
+            "Smart Thermostat",
+            "Vacuum Robot"   
+    	);
     private void setupListViewAdminPage() {
     
 	    if(listViewAdminPage != null) {
-	    	ObservableList<String> devices = FXCollections.observableArrayList(
-	            "Smart Doorbell", 
-	            "Smart Light",
-	            "Smart Lock",
-	            "Smart Thermostat",
-	            "Vacuum Robot"
-	    	);
+	    	
 	    	listViewAdminPage.setItems(devices);
 	    }
     }
 
     @FXML
     void addNewDevicesButtonPressedAdminPage(ActionEvent event) {
-         newDeviceCount++; // Increment the counter
-         String newDeviceName = "New Device " + newDeviceCount; // Create the new device name
-         listViewAdminPage.getItems().add(newDeviceName); // Add new item to the ListView
+    	 int newDeviceCount = devices.size() - 5; // Assuming the first 5 are the default devices
+         String newDeviceName = "New Device " + (newDeviceCount + 1);
+         devices.add(newDeviceName); // Adds new device to the static list
+         listViewAdminPage.setItems(devices); // Updates the ListView
+         saveDevicesToPreferences(); // Save the updated list to preferences
     }
 
     @FXML
