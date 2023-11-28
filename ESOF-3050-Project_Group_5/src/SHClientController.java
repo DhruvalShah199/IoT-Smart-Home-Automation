@@ -80,6 +80,15 @@ public class SHClientController {
 	    	setupChoiceBoxesSmartLock();
 	    	setupComboBoxesVacuumRobot();
 	    	
+	    	ObservableList<String> devices = FXCollections.observableArrayList(
+	            "Smart Doorbell", 
+	            "Smart Light",
+	            "Smart Lock",
+	            "Smart Thermostat",
+	            "Vacuum Robot"
+	    	);
+	    	listViewAdminPage.setItems(devices);
+	    	
 	    	if (mediaViewDoorbellCameraPage != null) {
 		    	file = new File("1067268409-preview.mp4");
 				media = new Media(file.toURI().toString());
@@ -458,7 +467,7 @@ public class SHClientController {
     private Button goBackButtonAdminPage;
 
     @FXML
-    private ListView<?> listViewAdminPage;
+    private ListView<String> listViewAdminPage;
 
     @FXML
     private Pane mainPagePane;
@@ -466,41 +475,44 @@ public class SHClientController {
     @FXML
     private Button viewDevicesButtonAdminPage;
 
+    private int newDeviceCount = 0;
+
     @FXML
     void addNewDevicesButtonPressedAdminPage(ActionEvent event) {
-
+         newDeviceCount++; // Increment the counter
+         String newDeviceName = "New Device " + newDeviceCount; // Create the new device name
+         listViewAdminPage.getItems().add(newDeviceName); // Add new item to the ListView
     }
 
     @FXML
     void automationRulesButtonPressedAdminPage(ActionEvent event) {
-    	switchSceneAdminPage("AutomationRules.fxml");
+        switchSceneAdminPage("AutomationRules.fxml");
 
     }
 
     @FXML
     void goBackButtonPressedAdminPage(ActionEvent event) {
-    	switchSceneAdminPage("LoginPage.fxml");
+        switchSceneAdminPage("LoginPage.fxml");
     }
 
     @FXML
     void viewDevicesButtonPressedAdminPage(ActionEvent event) {
-    	switchSceneAdminPage("ViewDevices.fxml");
+        switchSceneAdminPage("ViewDevices.fxml");
     }
-
     
     private void switchSceneAdminPage(String fxmlFileName) {
         try {
             Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
                 try {
-                	// Create a loader for the FXML
+                    // Create a loader for the FXML
                     FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-                    
+
                     // Set the current instance as the controller
                     loader.setController(this);
-                    
+
                     // Load the FXML file
                     Parent root = loader.load();
-                    
+
                     // Return the created scene
                     return new Scene(root);
                 } catch (Exception e) {
