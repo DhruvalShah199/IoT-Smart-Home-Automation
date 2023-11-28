@@ -467,6 +467,8 @@ public class SHClientController {
     
     private static final String DEVICES_KEY = "devices";
     
+    private static int newDeviceCount = 0;
+    
     private Preferences prefs = Preferences.userNodeForPackage(SHClientController.class);
 
     private void saveDevicesToPreferences() {
@@ -484,9 +486,7 @@ public class SHClientController {
             devices.addAll(Arrays.asList(devicesArray));
         }
     }
-
-
-    private static int newDeviceCount = 0;
+    
     private static ObservableList<String> devices = FXCollections.observableArrayList(
             "Smart Doorbell", 
             "Smart Light",
