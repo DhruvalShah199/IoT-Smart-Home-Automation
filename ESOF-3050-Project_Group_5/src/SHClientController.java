@@ -468,27 +468,28 @@ public class SHClientController {
     @FXML
     private Button viewDevicesButtonAdminPage;
 
-    private int newDeviceCount = 0;
-    
+    private static int newDeviceCount = 0;
+    private static ObservableList<String> devices = FXCollections.observableArrayList(
+            "Smart Doorbell", 
+            "Smart Light",
+            "Smart Lock",
+            "Smart Thermostat",
+            "Vacuum Robot"
+    	);
     private void setupListViewAdminPage() {
     
 	    if(listViewAdminPage != null) {
-	    	ObservableList<String> devices = FXCollections.observableArrayList(
-	            "Smart Doorbell", 
-	            "Smart Light",
-	            "Smart Lock",
-	            "Smart Thermostat",
-	            "Vacuum Robot"
-	    	);
+	    	
 	    	listViewAdminPage.setItems(devices);
 	    }
     }
 
     @FXML
     void addNewDevicesButtonPressedAdminPage(ActionEvent event) {
-         newDeviceCount++; // Increment the counter
-         String newDeviceName = "New Device " + newDeviceCount; // Create the new device name
-         listViewAdminPage.getItems().add(newDeviceName); // Add new item to the ListView
+    	 int newDeviceCount = devices.size() - 5; // Assuming the first 5 are the default devices
+         String newDeviceName = "New Device " + (newDeviceCount + 1);
+         devices.add(newDeviceName); // Adds new device to the static list
+         listViewAdminPage.setItems(devices); // Updates the ListView
     }
 
     @FXML
