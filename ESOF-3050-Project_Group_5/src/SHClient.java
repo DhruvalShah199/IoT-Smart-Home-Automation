@@ -507,11 +507,19 @@ public class SHClient extends AbstractClient{
 	            Platform.runLater(() -> clientController.setLabelSmartDoorbell("Doorbell is OFF"));
 	        } 
 	        else if (messageString.equals("cameraon")) {
-	            // Action when camera is on
-	            Platform.runLater(() -> {
-	            clientController.setLabelSmartDoorbell("Camera is ON");
-	            clientController.switchSceneSmartDoorbellPage("DoorbellCameraVideoPage.fxml");
-	            });
+	            // Action when camera is on and night mode is activated
+	        	if(clientController.isNightModeOn() == true) {
+		            Platform.runLater(() -> {
+		            clientController.setLabelSmartDoorbell("Camera is ON");
+		            clientController.switchSceneSmartDoorbellPage("DoorbellCameraNormalPage.fxml");
+		            });
+	        	}
+	        	else if(clientController.isNightModeOn() == false) {
+		            Platform.runLater(() -> {
+		            clientController.setLabelSmartDoorbell("Camera is ON");
+		            clientController.switchSceneSmartDoorbellPage("DoorbellCameraNightPage.fxml");
+		            });
+	        	}
 	        }
 	        else if (messageString.equals("turnondoorbell")) {
 	            // Perform action when the doorbell is off
@@ -521,14 +529,22 @@ public class SHClient extends AbstractClient{
 	            // Action when camera is on
 	        	Platform.runLater(() -> {
 	        		clientController.setLabelSmartDoorbell("Camera is OFF");
-	        		//clientController.switchSceneDoorbellCameraPage("SmartDoorbell.fxml");
+	        		clientController.switchSceneDoorbellCameraNormalPage("SmartDoorbell.fxml");
+	        		clientController.switchSceneDoorbellCameraNightPage("SmartDoorbell.fxml");
 	        	});
 	        }
 	        else if (messageString.equals("nightmodeon")){
-	        	Platform.runLater(()->clientController.setLabelSmartDoorbell("Night Mode ACTIVATED"));
+	        	Platform.runLater(()-> {
+	        		clientController.setLabelSmartDoorbell("Night Mode ACTIVATED");
+	        		clientController.setNightModeOn(true);
+	        	
+	        	});
 	        }
 	        else if (messageString.equals("nightmodeoff")){
-	        	Platform.runLater(()->clientController.setLabelSmartDoorbell("Night Mode DE-ACTIVATED"));
+	        	Platform.runLater(()-> {
+	        		clientController.setLabelSmartDoorbell("Night Mode DE-ACTIVATED");
+	        		clientController.setNightModeOn(false);
+	        	});
 	        }
 	        else if (messageString.equals("doorbellstatuson")){
 	        	Platform.runLater(()->clientController.setLabelSmartDoorbell("The Status of Smart Doorbell is: ON"));

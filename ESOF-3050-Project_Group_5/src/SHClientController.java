@@ -1189,6 +1189,16 @@ public class SHClientController {
     @FXML
     private Button turnOnDoorbellButton;
     
+    private boolean isNightModeOn;
+    
+    public boolean isNightModeOn() {
+		return isNightModeOn;
+	}
+
+	public void setNightModeOn(boolean isNightModeOn) {
+		this.isNightModeOn = isNightModeOn;
+	}
+    
     
     public void switchSceneSmartDoorbellPage(String fxmlFileName) {
         try {
@@ -1285,48 +1295,81 @@ public class SHClientController {
 	
 	//-----------------------------Doorbell Camera Video Page-------------------------------------------
 	
-//
-//    @FXML
-//    private AnchorPane doorbellCameraVideoPane;
-//
-//    @FXML
-//    private MediaView mediaViewDoorbellCameraPage;
-//    
-//    private MediaPlayer mediaPlayer;
-//	private File file;
-//	private Media media;
-//    
-//    public void switchSceneDoorbellCameraPage(String fxmlFileName) {
-//        try {
-//            Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
-//                try {
-//                	// Create a loader for the FXML
-//                    FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-//                    
-//                    // Set the current instance as the controller
-//                    loader.setController(this);
-//                    
-//                    // Load the FXML file
-//                    Parent root = loader.load();
-//                    
-//                    // Return the created scene
-//                    return new Scene(root);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                    return null;
-//                }
-//            });
-//
-//            Stage stage = (Stage) doorbellCameraVideoPane.getScene().getWindow();
-//            stage.setScene(scene);
-//            stage.show();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+	@FXML
+    private MediaView doorbellCameraMediaView;
+
+    @FXML
+    private Pane doorbellCameraNormalPane;
+    
+    public void switchSceneDoorbellCameraNormalPage(String fxmlFileName) {
+        try {
+            Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
+                try {
+                	// Create a loader for the FXML
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+                    
+                    // Set the current instance as the controller
+                    loader.setController(this);
+                    
+                    // Load the FXML file
+                    Parent root = loader.load();
+                    
+                    // Return the created scene
+                    return new Scene(root);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            });
+
+            Stage stage = (Stage) doorbellCameraNormalPane.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     
+    
+    //-----------------------------Doorbell Camera Video Page-------------------------------------------
+    @FXML
+    private MediaView doorbellCameraNightMediaView;
 
+    @FXML
+    private Pane doorbellCameraNightPane;
+    
+    public void switchSceneDoorbellCameraNightPage(String fxmlFileName) {
+        try {
+            Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
+                try {
+                	// Create a loader for the FXML
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+                    
+                    // Set the current instance as the controller
+                    loader.setController(this);
+                    
+                    // Load the FXML file
+                    Parent root = loader.load();
+                    
+                    // Return the created scene
+                    return new Scene(root);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            });
+
+            Stage stage = (Stage) doorbellCameraNightPane.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+
+    
     //-----------------------------Automation Rules Page-------------------------------------------
     
 	@FXML
