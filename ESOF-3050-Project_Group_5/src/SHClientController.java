@@ -474,7 +474,7 @@ public class SHClientController {
             "Smart Light",
             "Smart Lock",
             "Smart Thermostat",
-            "Vacuum Robot"
+            "Vacuum Robot"   
     	);
     private void setupListViewAdminPage() {
     
