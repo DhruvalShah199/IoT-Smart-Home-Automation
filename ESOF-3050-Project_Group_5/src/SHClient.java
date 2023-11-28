@@ -510,7 +510,7 @@ public class SHClient extends AbstractClient{
 	            // Action when camera is on
 	            Platform.runLater(() -> {
 	            clientController.setLabelSmartDoorbell("Camera is ON");
-	            clientController.switchSceneSmartDoorbellPage("DoorbellCamera.fxml");
+	            clientController.switchSceneSmartDoorbellPage("DoorbellCameraVideoPage.fxml");
 	            });
 	        }
 	        else if (messageString.equals("turnondoorbell")) {

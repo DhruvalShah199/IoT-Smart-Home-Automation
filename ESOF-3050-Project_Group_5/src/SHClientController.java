@@ -15,6 +15,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -79,11 +80,13 @@ public class SHClientController {
 	    	setupChoiceBoxesSmartLock();
 	    	setupComboBoxesVacuumRobot();
 	    	
-	    	file = new File("1067268409-preview.mp4");
-			media = new Media(file.toURI().toString());
-			mediaPlayer = new MediaPlayer(media);
-			mediaView.setMediaPlayer(mediaPlayer);
-			mediaPlayer.play();
+	    	if (mediaViewDoorbellCameraPage != null) {
+		    	file = new File("1067268409-preview.mp4");
+				media = new Media(file.toURI().toString());
+				mediaPlayer = new MediaPlayer(media);
+				mediaViewDoorbellCameraPage.setMediaPlayer(mediaPlayer);
+				mediaPlayer.play();
+	    	}
 	    }
     	catch (Exception e) {
             e.printStackTrace();
@@ -1260,15 +1263,15 @@ public class SHClientController {
     
 	
 	
-	//-----------------------------DoorbellCamera Page-------------------------------------------
+	//-----------------------------Doorbell Camera Video Page-------------------------------------------
 	
-	@FXML
-    private ImageView cameraView;
 
     @FXML
-    private Pane doorbellCameraPane;
+    private AnchorPane doorbellCameraVideoPane;
+
+    @FXML
+    private MediaView mediaViewDoorbellCameraPage;
     
-    private MediaView mediaView;
     private MediaPlayer mediaPlayer;
 	private File file;
 	private Media media;
@@ -1294,7 +1297,7 @@ public class SHClientController {
                 }
             });
 
-            Stage stage = (Stage) doorbellCameraPane.getScene().getWindow();
+            Stage stage = (Stage) doorbellCameraVideoPane.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
