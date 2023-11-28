@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.application.Platform;
@@ -30,6 +31,8 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
+import java.util.prefs.Preferences;
+
 
 public class SHClientController {
 	private SHClient client;
@@ -75,6 +78,8 @@ public class SHClientController {
 		        });
 	    	}
 	    	setupListViewAdminPage();
+	    	
+	    	loadDevicesFromPreferences();
 	    	
 	    	setupChoiceBoxesSmartLight();
 	    	setupChoiceBoxesSmartDoorbell();
@@ -467,6 +472,27 @@ public class SHClientController {
 
     @FXML
     private Button viewDevicesButtonAdminPage;
+    
+    private static final String DEVICES_KEY = "devices";
+    
+    private Preferences prefs = Preferences.userNodeForPackage(SHClientController.class);
+
+    private void saveDevicesToPreferences() {
+        StringBuilder sb = new StringBuilder();
+        for (String device : devices) {
+            sb.append(device).append(",");
+        }
+        prefs.put(DEVICES_KEY, sb.toString());
+    }
+
+    private void loadDevicesFromPreferences() {
+        String devicesString = prefs.get(DEVICES_KEY, "");
+        if (!devicesString.isEmpty()) {
+            String[] devicesArray = devicesString.split(",");
+            devices.addAll(Arrays.asList(devicesArray));
+        }
+    }
+
 
     private static int newDeviceCount = 0;
     private static ObservableList<String> devices = FXCollections.observableArrayList(
@@ -490,6 +516,7 @@ public class SHClientController {
          String newDeviceName = "New Device " + (newDeviceCount + 1);
          devices.add(newDeviceName); // Adds new device to the static list
          listViewAdminPage.setItems(devices); // Updates the ListView
+         saveDevicesToPreferences(); // Save the updated list to preferences
     }
 
     @FXML
