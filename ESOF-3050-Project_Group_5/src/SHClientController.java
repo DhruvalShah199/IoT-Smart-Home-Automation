@@ -15,7 +15,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -29,7 +28,6 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.image.ImageView;
 
 public class SHClientController {
 	private SHClient client;
@@ -76,19 +74,13 @@ public class SHClientController {
 	    	}
 	    	setupListViewAdminPage();
 	    	
+	    	setUpMediaSize();
+	    	
 	    	setupChoiceBoxesSmartLight();
 	    	setupChoiceBoxesSmartDoorbell();
 	    	setupChoiceBoxesSmartThermostat();
 	    	setupChoiceBoxesSmartLock();
 	    	setupComboBoxesVacuumRobot();
-	    	
-//	    	if (mediaViewDoorbellCameraPage != null) {
-//		    	file = new File("1067268409-preview.mp4");
-//				media = new Media(file.toURI().toString());
-//				mediaPlayer = new MediaPlayer(media);
-//				mediaViewDoorbellCameraPage.setMediaPlayer(mediaPlayer);
-//				mediaPlayer.play();
-//	    	}
 	    }
     	catch (Exception e) {
             e.printStackTrace();
@@ -1292,7 +1284,7 @@ public class SHClientController {
     
 	
 	
-	//-----------------------------Doorbell Camera Video Page-------------------------------------------
+	//-----------------------------Doorbell Camera Normal Video Page-------------------------------------------
 	
 	@FXML
     private MediaView doorbellCameraMediaView;
@@ -1328,47 +1320,36 @@ public class SHClientController {
             e.printStackTrace();
         }
     }
-
     
-    
-    //-----------------------------Doorbell Camera Video Page-------------------------------------------
-    @FXML
-    private MediaView doorbellCameraNightMediaView;
+    public void playDoorbellCameraVideo(boolean isNightMode) {
+    	//To switch to doorbell camera video page
+    	switchSceneSmartDoorbellPage("DoorbellCameraVideoPage.fxml");
+    	
+        // Path to video files
+        String pathToNormalVideo = "Doorbell_Camera_Normal.mp4";
+        String pathToNightVideo = "Doorbell_Camera_Night_View.mp4";
 
-    @FXML
-    private Pane doorbellCameraNightPane;
-    
-    public void switchSceneDoorbellCameraNightPage(String fxmlFileName) {
-        try {
-            Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
-                try {
-                	// Create a loader for the FXML
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-                    
-                    // Set the current instance as the controller
-                    loader.setController(this);
-                    
-                    // Load the FXML file
-                    Parent root = loader.load();
-                    
-                    // Return the created scene
-                    return new Scene(root);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return null;
-                }
-            });
+        // Determine which video path to use
+        String videoPath = getClass().getResource(isNightMode ? pathToNightVideo : pathToNormalVideo).toExternalForm();
 
-            Stage stage = (Stage) doorbellCameraNightPane.getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
+        // Create and set the media player
+        Media media = new Media(videoPath);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        doorbellCameraMediaView.setMediaPlayer(mediaPlayer);
+        mediaPlayer.setAutoPlay(true); // Play automatically
+    }
+    
+    private void setUpMediaSize() {
+    	if(doorbellCameraMediaView != null) {
+	        // Bind the MediaView size to the Pane size
+	        doorbellCameraMediaView.fitWidthProperty().bind(doorbellCameraNormalPane.widthProperty());
+	        doorbellCameraMediaView.fitHeightProperty().bind(doorbellCameraNormalPane.heightProperty());
+	        doorbellCameraMediaView.setPreserveRatio(true);
         }
     }
     
-
     
+
     //-----------------------------Automation Rules Page-------------------------------------------
     
 	@FXML

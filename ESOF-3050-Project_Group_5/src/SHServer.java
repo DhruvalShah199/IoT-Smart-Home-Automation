@@ -239,7 +239,7 @@ public class SHServer extends AbstractServer {
 				serverController.turnOnCameraDoorbell(status);
 				sendToAllClients("cameraon");
 			}
-			else {
+			else if(status == false){
 				sendToAllClients("turnondoorbell");
 			}
 			

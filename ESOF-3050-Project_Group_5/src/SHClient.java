@@ -322,6 +322,14 @@ public class SHClient extends AbstractClient{
 				e.printStackTrace();
 			}
 		}
+		else if (isDoorbellOn() == false) {
+			try {
+				sendToServer("turnoncamera");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 	}
 
@@ -511,13 +519,13 @@ public class SHClient extends AbstractClient{
 	        	if(clientController.isNightModeOn() == true) {
 		            Platform.runLater(() -> {
 		            clientController.setLabelSmartDoorbell("Camera is ON");
-		            clientController.switchSceneSmartDoorbellPage("DoorbellCameraNormalPage.fxml");
+		            clientController.playDoorbellCameraVideo(true);
 		            });
 	        	}
 	        	else if(clientController.isNightModeOn() == false) {
 		            Platform.runLater(() -> {
 		            clientController.setLabelSmartDoorbell("Camera is ON");
-		            clientController.switchSceneSmartDoorbellPage("DoorbellCameraNightPage.fxml");
+		            clientController.playDoorbellCameraVideo(false);
 		            });
 	        	}
 	        }
@@ -530,7 +538,6 @@ public class SHClient extends AbstractClient{
 	        	Platform.runLater(() -> {
 	        		clientController.setLabelSmartDoorbell("Camera is OFF");
 	        		clientController.switchSceneDoorbellCameraNormalPage("SmartDoorbell.fxml");
-	        		clientController.switchSceneDoorbellCameraNightPage("SmartDoorbell.fxml");
 	        	});
 	        }
 	        else if (messageString.equals("nightmodeon")){
