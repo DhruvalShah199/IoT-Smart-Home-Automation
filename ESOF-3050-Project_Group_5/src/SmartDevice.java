@@ -1,11 +1,11 @@
 public abstract class SmartDevice {
     // Common attributes for all smart devices
-    private String id;
+    private int id;
     private boolean isOn;
     
 //    public abstract String getStatus();
     
-    public SmartDevice(String id) {
+    public SmartDevice(Integer id) {
         this.setId(id);
         this.setOn(false);
     }
@@ -33,11 +33,11 @@ public abstract class SmartDevice {
     
     
     //Setters and getters for all the attributes
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

@@ -4,7 +4,7 @@ public class SmartDoorbell extends SmartDevice {
 	private boolean isCameraOn;
 	private boolean isNightModeOn;
 
-    public SmartDoorbell(String id) {
+    public SmartDoorbell(int id) {
 		super(id);
 		// TODO Auto-generated constructor stub
 	}

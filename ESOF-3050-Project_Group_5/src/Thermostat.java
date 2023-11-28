@@ -4,7 +4,7 @@ public class Thermostat extends SmartDevice {
 	private String mode;
 	private Integer temperature;
 
-    public Thermostat(String id) {
+    public Thermostat(int id) {
 		super(id);
 		this.temperature = 25;
 		// TODO Auto-generated constructor stub
@@ -12,10 +12,10 @@ public class Thermostat extends SmartDevice {
     
     public void setTemperature(String temperature) {
     	// Logic to set temperature of the thermostat
-    	if(temperature.equals("increase")) {
-    		this.temperature++;
+    	if(temperature.equals("increase") && this.temperature <= 35) {
+    			this.temperature++;
     	}
-    	else if (temperature.equals("decrease")) {
+    	else if (temperature.equals("decrease") && this.temperature >= 15) {
     		this.temperature--;
     	}
     }

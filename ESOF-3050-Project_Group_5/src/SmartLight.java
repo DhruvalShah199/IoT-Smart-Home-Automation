@@ -3,7 +3,7 @@ public class SmartLight extends SmartDevice {
     private int brightness;
     private String color = "0xffffff";
 
-    public SmartLight(String id) {
+    public SmartLight(int id) {
         super(id);
         this.brightness = 100;
         this.color = "0xffffff";

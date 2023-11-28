@@ -1,68 +1,80 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class SHServerController {
-	private SmartLight light;
-    private SmartLock lock;
-    private Thermostat thermostat;
-    private VacuumRobot vacuumRobot;
-    private SmartDoorbell doorbell;
+	private Map<Integer, SmartDevice> deviceMap;
+	private SmartDevice light;
+    private SmartDevice lock;
+    private SmartDevice thermostat;
+    private SmartDevice vacuumRobot;
+    private SmartDevice doorbell;
 
     public SHServerController() {
         // Initialize each device
-        light = new SmartLight("light1");
-        lock = new SmartLock("lock1");
-        thermostat = new Thermostat("thermostat1");
-        vacuumRobot = new VacuumRobot("vacuum1");
-        doorbell = new SmartDoorbell("doorbell1");
+    	deviceMap = new HashMap<>();
+        
+    	light = new SmartLight(0);
+        lock = new SmartLock(1);
+        thermostat = new Thermostat(2);
+        vacuumRobot = new VacuumRobot(3);
+        doorbell = new SmartDoorbell(4);
+        
+        deviceMap.put(light.getId(), light);
+        deviceMap.put(lock.getId(), lock);
+        deviceMap.put(thermostat.getId(), thermostat);
+        deviceMap.put(vacuumRobot.getId(), vacuumRobot);
+        deviceMap.put(doorbell.getId(), doorbell);
     }
-
+    
     
     
     //-----------------------------------Methods for Smart Light-----------------------------------
     public void turnOnLight(String onOrOff) {
         if (light != null) {
-            light.turnOnOff(onOrOff);
+            ((SmartLight) deviceMap.get(0)).turnOnOff(onOrOff);
         }
     }
     
     public boolean getStatus() {
-    	return light.isOn();
+    	return ((SmartLight) deviceMap.get(0)).isOn();
 	}
     
     public void turnOffLight(String onOrOff) {
         if (light != null) {
-            light.turnOnOff(onOrOff);
+        	((SmartLight) deviceMap.get(0)).turnOnOff(onOrOff);
         }
     }
     
     // Method to adjust light brightness
     public void adjustLightBrightness(int brightness) {
         if (light != null) {
-            light.adjustBrightness(brightness);
+        	((SmartLight) deviceMap.get(0)).adjustBrightness(brightness);
         }
     }
 
     // Method to get the current brightness of the light
     public int getLightBrightness() {
-        return light.getBrightness();
+        return ((SmartLight) deviceMap.get(0)).getBrightness();
     }
 
     
     public void changeLightColor(String color) {
     	if (light != null) {
-    		light.changeColor(color);
+    		((SmartLight) deviceMap.get(0)).changeColor(color);
     	}
     }
     
     public String displayLightColor() {
     	String color = "";
     	if (light != null) {
-    		color = light.getColor();
+    		color = ((SmartLight) deviceMap.get(0)).getColor();
     	}
     	return color;
     }
     
     public boolean displayLightStatus() {
     	if (light != null) {
-    		return light.isOn();
+    		return ((SmartLight) deviceMap.get(0)).isOn();
     	}
     	return false;
     }
@@ -72,30 +84,30 @@ public class SHServerController {
     //-----------------------------------Methods for Smart Lock-------------------------------------    
     public String lockDoor(String isLockedUnlocked) {
         if (lock != null) {
-        	lock.turnOnOff("on");
-            lock.lockUnlock(isLockedUnlocked);
+        	((SmartLock) deviceMap.get(1)).turnOnOff("on");
+        	((SmartLock) deviceMap.get(1)).lockUnlock(isLockedUnlocked);
         }
-        return lock.getLockedOrUnlocked();
+        return ((SmartLock) deviceMap.get(1)).getLockedOrUnlocked();
     }
 
     public String unlockDoor(String isLockedUnlocked) {
         if (lock != null) {
-        	lock.turnOnOff("on");
-            lock.lockUnlock(isLockedUnlocked);
+        	((SmartLock) deviceMap.get(1)).turnOnOff("on");
+        	((SmartLock) deviceMap.get(1)).lockUnlock(isLockedUnlocked);
         }
-        return lock.getLockedOrUnlocked();
+        return ((SmartLock) deviceMap.get(1)).getLockedOrUnlocked();
     }
     
     public boolean getBreakInAlert(boolean breakIn) {
         if (lock != null) {
-            lock.setBreakInAlert(breakIn);
+        	((SmartLock) deviceMap.get(1)).setBreakInAlert(breakIn);
         }
-        boolean setBreakIn = lock.isBreakInAlert();
+        boolean setBreakIn = ((SmartLock) deviceMap.get(1)).isBreakInAlert();
         return setBreakIn;
     }
     public boolean displayLockStatus() {
     	if (lock != null) {
-    		if(lock.getLockedOrUnlocked() == "lock")
+    		if(((SmartLock) deviceMap.get(1)).getLockedOrUnlocked() == "lock")
     		{
     			return true;
     		}
@@ -109,40 +121,40 @@ public class SHServerController {
     public int getThermostatTemperature() {
     	int temperature = 0;
     	if (thermostat != null) {
-    		temperature = thermostat.getTemperature();
+    		temperature = ((Thermostat) deviceMap.get(2)).getTemperature();
         }
 		return temperature;
     }
     
     public void turnOnThermostat(String onOrOff) {
         if (thermostat != null) {
-            thermostat.turnOnOff(onOrOff);
+        	((Thermostat) deviceMap.get(2)).turnOnOff(onOrOff);
         }
     }
     
     public void turnOffThermostat(String onOrOff) {
         if (thermostat != null) {
-            thermostat.turnOnOff(onOrOff);
+        	((Thermostat) deviceMap.get(2)).turnOnOff(onOrOff);
         }
     }
     
     public String changeThermostatMode(String mode) {
         if (thermostat != null) {
-            thermostat.setMode(mode);
+        	((Thermostat) deviceMap.get(2)).setMode(mode);
         }
-        return thermostat.getMode();
+        return ((Thermostat) deviceMap.get(2)).getMode();
     }
     
     public int increaseOrDecreaseThermostatTemperature(String increaseOrDecrease) {
         if (thermostat != null) {
-            thermostat.setTemperature(increaseOrDecrease);
+        	((Thermostat) deviceMap.get(2)).setTemperature(increaseOrDecrease);
         }
-        return thermostat.getTemperature();
+        return ((Thermostat) deviceMap.get(2)).getTemperature();
     }
     
     public boolean displayThermostatStatus() {
     	if (thermostat != null) {
-    		return thermostat.isOn();
+    		return ((Thermostat) deviceMap.get(2)).isOn();
     	}
     	return false;
 	}
@@ -150,7 +162,7 @@ public class SHServerController {
     public int displayTemperature() {
     	int temperature = 0;
     	if (thermostat != null) {
-    		temperature =  thermostat.getTemperature();
+    		temperature =  ((Thermostat) deviceMap.get(2)).getTemperature();
     	}
     	return temperature;
     }
@@ -160,7 +172,7 @@ public class SHServerController {
     public String startCleaning() {
     	String isCleaning = "";
         if (vacuumRobot != null) {
-            isCleaning = vacuumRobot.startCleaning();
+            isCleaning = ((VacuumRobot) deviceMap.get(3)).startCleaning();
         }
         return isCleaning;
     }
@@ -168,7 +180,7 @@ public class SHServerController {
     public String stopCleaning() {
     	String isCleaning = "";
         if (vacuumRobot != null) {
-        	isCleaning = vacuumRobot.stopCleaning();
+        	isCleaning = ((VacuumRobot) deviceMap.get(3)).stopCleaning();
         }
         return isCleaning;
     }
@@ -176,14 +188,14 @@ public class SHServerController {
     public String emptyDustSackVacuumRobotAlert(boolean emptyDustSack) {
     	String alert = "";
         if (vacuumRobot != null) {
-        	alert =vacuumRobot.setDustSackAlert(emptyDustSack);
+        	alert = ((VacuumRobot) deviceMap.get(3)).setDustSackAlert(emptyDustSack);
         }
         return alert;
     }
     
     public boolean displayVacuumRobotStatus() {
     	if (vacuumRobot != null) {
-    		return vacuumRobot.isCleaning();
+    		return ((VacuumRobot) deviceMap.get(3)).isCleaning();
     	}
     	return false;
 	}
@@ -193,32 +205,32 @@ public class SHServerController {
     //--------------------------------Methods for Smart Doorbell-----------------------------
     public void turnOnDoorbell(String onOrOff) {
         if (doorbell != null) {
-            doorbell.turnOnOff(onOrOff);
+        	((SmartDoorbell) deviceMap.get(4)).turnOnOff(onOrOff);
         }
     }
     
     public void turnOffDoorbell(String onOrOff) {
         if (doorbell != null) {
-            doorbell.turnOnOff(onOrOff);
+        	((SmartDoorbell) deviceMap.get(4)).turnOnOff(onOrOff);
         }
     }
     
     public void turnOnCameraDoorbell(boolean isCameraOn) {
         if (doorbell != null) {
-            doorbell.setCameraOn(isCameraOn);
+        	((SmartDoorbell) deviceMap.get(4)).setCameraOn(isCameraOn);
         }
     }
     
     public boolean activateNightModeDoorbell(boolean isNightModeOn) {
     	if (doorbell != null) {
-    		doorbell.setNightModeOn(isNightModeOn);
+    		((SmartDoorbell) deviceMap.get(4)).setNightModeOn(isNightModeOn);
     	}
-    	return doorbell.isNightModeOn();
+    	return ((SmartDoorbell) deviceMap.get(4)).isNightModeOn();
     }
     
     public boolean displayDoorbellStatus() {
     	if (doorbell != null) {
-    		return doorbell.isOn();
+    		return ((SmartDoorbell) deviceMap.get(4)).isOn();
     	}
     	return false;
     }

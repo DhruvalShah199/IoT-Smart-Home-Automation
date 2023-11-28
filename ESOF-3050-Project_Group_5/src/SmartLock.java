@@ -4,7 +4,7 @@ public class SmartLock extends SmartDevice {
 	private String lockedOrUnlocked;
 	private boolean breakInAlert;
 
-    public SmartLock(String id) {
+    public SmartLock(int id) {
 		super(id);
 		// TODO Auto-generated constructor stub
 	}

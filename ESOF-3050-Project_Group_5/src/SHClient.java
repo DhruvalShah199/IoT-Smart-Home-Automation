@@ -29,7 +29,7 @@ public class SHClient extends AbstractClient{
 	
 	
 	
-	// Methods to send messages for Smart Light
+	//----------------------- Methods to send messages for Smart Light --------------------
 	public void turnOnLight() {
 		// sends turn on light message to server
 		try {
@@ -73,7 +73,7 @@ public class SHClient extends AbstractClient{
 	
 	
 	
-	//  Methods to send messages for smart lock
+	//-----------------------  Methods to send messages for smart lock -----------------------
 	public void getBreakIAlert(boolean breakInAlert) {
 		// sends get break in alert message to server
 		if(breakInAlert == true) {
@@ -126,7 +126,7 @@ public class SHClient extends AbstractClient{
 
 	
 	
-	// Methods to send messages for Thermostat
+	//----------------------- Methods to send messages for Thermostat -----------------------
 	public void thermostatButtonPressed() {
 		try {
 			sendToServer("thermostat");
@@ -208,7 +208,7 @@ public class SHClient extends AbstractClient{
 
 	
 	
-	// Methods to send messages for Vacuum Robot
+	//----------------------- Methods to send messages for Vacuum Robot -----------------------
 	public void startCleaning() {
 		// Sends start cleaning message to server
 		try {
@@ -256,7 +256,7 @@ public class SHClient extends AbstractClient{
 	
 	
 	
-	//Methods to send messages for Smart Doorbell
+	//----------------------- Methods to send messages for Smart Doorbell -----------------------
 	private boolean doorbellOn = false;
 	
 	public boolean isDoorbellOn() {
@@ -355,6 +355,7 @@ public class SHClient extends AbstractClient{
 		}
 	}
 	
+	//----------------------- Handle Message From Server Method -----------------------
 	@Override
 	protected void handleMessageFromServer(Object msg) {
 		System.out.println("Message received: " + msg);

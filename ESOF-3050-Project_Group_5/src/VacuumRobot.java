@@ -12,7 +12,7 @@ public class VacuumRobot extends SmartDevice {
     private boolean dustSackFull = false;
     private boolean dustSackAlertOn = false;
 
-    public VacuumRobot(String id) {
+    public VacuumRobot(int id) {
 		super(id);
 		// TODO Auto-generated constructor stub
 	}

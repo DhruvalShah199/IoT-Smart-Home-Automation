@@ -19,7 +19,6 @@ public class SHServer extends AbstractServer {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
 	// Implement ways to handle messages from the client and also call the functions 
 	// of SHServerController class
 	@Override
