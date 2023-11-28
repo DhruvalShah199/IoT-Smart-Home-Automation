@@ -74,28 +74,21 @@ public class SHClientController {
 		            }
 		        });
 	    	}
+	    	setupListViewAdminPage();
+	    	
 	    	setupChoiceBoxesSmartLight();
 	    	setupChoiceBoxesSmartDoorbell();
 	    	setupChoiceBoxesSmartThermostat();
 	    	setupChoiceBoxesSmartLock();
 	    	setupComboBoxesVacuumRobot();
 	    	
-	    	ObservableList<String> devices = FXCollections.observableArrayList(
-	            "Smart Doorbell", 
-	            "Smart Light",
-	            "Smart Lock",
-	            "Smart Thermostat",
-	            "Vacuum Robot"
-	    	);
-	    	listViewAdminPage.setItems(devices);
-	    	
-	    	if (mediaViewDoorbellCameraPage != null) {
-		    	file = new File("1067268409-preview.mp4");
-				media = new Media(file.toURI().toString());
-				mediaPlayer = new MediaPlayer(media);
-				mediaViewDoorbellCameraPage.setMediaPlayer(mediaPlayer);
-				mediaPlayer.play();
-	    	}
+//	    	if (mediaViewDoorbellCameraPage != null) {
+//		    	file = new File("1067268409-preview.mp4");
+//				media = new Media(file.toURI().toString());
+//				mediaPlayer = new MediaPlayer(media);
+//				mediaViewDoorbellCameraPage.setMediaPlayer(mediaPlayer);
+//				mediaPlayer.play();
+//	    	}
 	    }
     	catch (Exception e) {
             e.printStackTrace();
@@ -476,6 +469,20 @@ public class SHClientController {
     private Button viewDevicesButtonAdminPage;
 
     private int newDeviceCount = 0;
+    
+    private void setupListViewAdminPage() {
+    
+	    if(listViewAdminPage != null) {
+	    	ObservableList<String> devices = FXCollections.observableArrayList(
+	            "Smart Doorbell", 
+	            "Smart Light",
+	            "Smart Lock",
+	            "Smart Thermostat",
+	            "Vacuum Robot"
+	    	);
+	    	listViewAdminPage.setItems(devices);
+	    }
+    }
 
     @FXML
     void addNewDevicesButtonPressedAdminPage(ActionEvent event) {
@@ -1277,45 +1284,45 @@ public class SHClientController {
 	
 	//-----------------------------Doorbell Camera Video Page-------------------------------------------
 	
-
-    @FXML
-    private AnchorPane doorbellCameraVideoPane;
-
-    @FXML
-    private MediaView mediaViewDoorbellCameraPage;
-    
-    private MediaPlayer mediaPlayer;
-	private File file;
-	private Media media;
-    
-    public void switchSceneDoorbellCameraPage(String fxmlFileName) {
-        try {
-            Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
-                try {
-                	// Create a loader for the FXML
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-                    
-                    // Set the current instance as the controller
-                    loader.setController(this);
-                    
-                    // Load the FXML file
-                    Parent root = loader.load();
-                    
-                    // Return the created scene
-                    return new Scene(root);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return null;
-                }
-            });
-
-            Stage stage = (Stage) doorbellCameraVideoPane.getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//
+//    @FXML
+//    private AnchorPane doorbellCameraVideoPane;
+//
+//    @FXML
+//    private MediaView mediaViewDoorbellCameraPage;
+//    
+//    private MediaPlayer mediaPlayer;
+//	private File file;
+//	private Media media;
+//    
+//    public void switchSceneDoorbellCameraPage(String fxmlFileName) {
+//        try {
+//            Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
+//                try {
+//                	// Create a loader for the FXML
+//                    FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+//                    
+//                    // Set the current instance as the controller
+//                    loader.setController(this);
+//                    
+//                    // Load the FXML file
+//                    Parent root = loader.load();
+//                    
+//                    // Return the created scene
+//                    return new Scene(root);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    return null;
+//                }
+//            });
+//
+//            Stage stage = (Stage) doorbellCameraVideoPane.getScene().getWindow();
+//            stage.setScene(scene);
+//            stage.show();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     
 
