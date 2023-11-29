@@ -1,5 +1,12 @@
+import java.io.IOException;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
+
+import com.lloseng.ocsf.server.ConnectionToClient;
 
 public class SHServerController {
 	private Map<Integer, SmartDevice> deviceMap;
@@ -77,6 +84,55 @@ public class SHServerController {
     		return ((SmartLight) deviceMap.get(0)).isOn();
     	}
     	return false;
+    }
+    
+ // Method to schedule turning on the light
+    public void scheduleLightOn(String time, ConnectionToClient client) {
+        Timer timer = new Timer();
+        String[] timeParts = time.split(":");
+        int hour = Integer.parseInt(timeParts[0]);
+        int minute = Integer.parseInt(timeParts[1]);
+
+        // Calculate delay until the event
+        long delay = calculateDelay(hour, minute);
+
+        // Schedule the timer task
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Turn on the light
+                turnOnLight();
+                try {
+                    client.sendToClient("lightscheduledon" + time);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, delay);
+    }
+
+    private long calculateDelay(int hour, int minute) {
+        // Calculate the delay until the specified time today in milliseconds
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        long delay = calendar.getTimeInMillis() - System.currentTimeMillis();
+        // If the time has already passed for today, schedule for tomorrow
+        if (delay < 0) {
+            delay += TimeUnit.DAYS.toMillis(1);
+        }
+        return delay;
+    }
+
+    // Method to turn on the light, modified to only set the status
+    public void turnOnLight() {
+        if (light != null) {
+            light.turnOnOff("on");
+            // Here you can also send a message to the actual light device if needed
+        }
     }
 
     

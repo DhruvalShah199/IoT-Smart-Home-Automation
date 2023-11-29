@@ -1608,7 +1608,33 @@ public class SHClientController {
 
     @FXML
     void turnOnLightAtButtonPressed(ActionEvent event) {
-
+    	try {
+	        String hour = turnOnLightHH.getText();
+	        String minute = turnOnLightMM.getText();
+	        String amPm = turnOnLightAmPmComboBox.getValue();
+	
+	        // Construct a message with the desired schedule time in 24-hour format
+	        String time = convertTo24HourFormat(hour, minute, amPm);
+	        client.sendToServer("scheduleLightOn:" + time);
+    	} 
+	 	catch (IOException e) {
+	        e.printStackTrace();
+	        // Show an error message to the user
+	    }
+    }
+    
+    private String convertTo24HourFormat(String hour, String minute, String amPm) {
+	    // Add logic to convert 12-hour time to 24-hour time format
+	    // Return the time in "HH:mm" format
+	    int hourInt = Integer.parseInt(hour);
+	    if ("PM".equals(amPm) && hourInt < 12) {
+	        hourInt += 12;
+	    }
+	    if ("AM".equals(amPm) && hourInt == 12) {
+	        hourInt = 0;
+	    }
+	    String convertedHour = String.format("%02d", hourInt);
+	    return convertedHour + ":" + minute;
     }
     
     

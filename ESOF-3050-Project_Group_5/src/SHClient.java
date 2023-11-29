@@ -395,6 +395,12 @@ public class SHClient extends AbstractClient{
 	                clientController.brightnessLabelLightPage.setText(brightness + "%");
 	            });
 	        }
+	        else if (messageString.startsWith("lightscheduledon")) {
+	        	Platform.runLater(()-> {
+	        		clientController.setLabelSmartLight("The Light is Turned ON");
+	        		clientController.brightnessLabelLightPage.setVisible(true);
+	        	});
+	        }
 	        
 	        
 	        // Now compare messageString with messages for smart thermostat functions
