@@ -30,7 +30,7 @@ public class SHServerController {
     
     //-----------------------------------Methods for Smart Light-----------------------------------
     public void turnOnLight(String onOrOff) {
-        if (light != null) {
+        if (deviceMap.containsKey(0)) {
             ((SmartLight) deviceMap.get(0)).turnOnOff(onOrOff);
         }
     }
@@ -40,14 +40,14 @@ public class SHServerController {
 	}
     
     public void turnOffLight(String onOrOff) {
-        if (light != null) {
+        if (deviceMap.containsKey(0)) {
         	((SmartLight) deviceMap.get(0)).turnOnOff(onOrOff);
         }
     }
     
     // Method to adjust light brightness
     public void adjustLightBrightness(int brightness) {
-        if (light != null) {
+        if (deviceMap.containsKey(0)) {
         	((SmartLight) deviceMap.get(0)).adjustBrightness(brightness);
         }
     }
@@ -59,21 +59,21 @@ public class SHServerController {
 
     
     public void changeLightColor(String color) {
-    	if (light != null) {
+    	if (deviceMap.containsKey(0)) {
     		((SmartLight) deviceMap.get(0)).changeColor(color);
     	}
     }
     
     public String displayLightColor() {
     	String color = "";
-    	if (light != null) {
+    	if (deviceMap.containsKey(0)) {
     		color = ((SmartLight) deviceMap.get(0)).getColor();
     	}
     	return color;
     }
     
     public boolean displayLightStatus() {
-    	if (light != null) {
+    	if (deviceMap.containsKey(0)) {
     		return ((SmartLight) deviceMap.get(0)).isOn();
     	}
     	return false;
@@ -83,7 +83,7 @@ public class SHServerController {
     
     //-----------------------------------Methods for Smart Lock-------------------------------------    
     public String lockDoor(String isLockedUnlocked) {
-        if (lock != null) {
+        if (deviceMap.containsKey(1)) {
         	((SmartLock) deviceMap.get(1)).turnOnOff("on");
         	((SmartLock) deviceMap.get(1)).lockUnlock(isLockedUnlocked);
         }
@@ -91,7 +91,7 @@ public class SHServerController {
     }
 
     public String unlockDoor(String isLockedUnlocked) {
-        if (lock != null) {
+        if (deviceMap.containsKey(1)) {
         	((SmartLock) deviceMap.get(1)).turnOnOff("on");
         	((SmartLock) deviceMap.get(1)).lockUnlock(isLockedUnlocked);
         }
@@ -99,14 +99,14 @@ public class SHServerController {
     }
     
     public boolean getBreakInAlert(boolean breakIn) {
-        if (lock != null) {
+        if (deviceMap.containsKey(1)) {
         	((SmartLock) deviceMap.get(1)).setBreakInAlert(breakIn);
         }
         boolean setBreakIn = ((SmartLock) deviceMap.get(1)).isBreakInAlert();
         return setBreakIn;
     }
     public boolean displayLockStatus() {
-    	if (lock != null) {
+    	if (deviceMap.containsKey(1)) {
     		if(((SmartLock) deviceMap.get(1)).getLockedOrUnlocked() == "lock")
     		{
     			return true;
@@ -120,40 +120,40 @@ public class SHServerController {
     //----------------------------------Methods for Thermostat------------------------------
     public int getThermostatTemperature() {
     	int temperature = 0;
-    	if (thermostat != null) {
+    	if (deviceMap.containsKey(2)) {
     		temperature = ((Thermostat) deviceMap.get(2)).getTemperature();
         }
 		return temperature;
     }
     
     public void turnOnThermostat(String onOrOff) {
-        if (thermostat != null) {
+        if (deviceMap.containsKey(2)) {
         	((Thermostat) deviceMap.get(2)).turnOnOff(onOrOff);
         }
     }
     
     public void turnOffThermostat(String onOrOff) {
-        if (thermostat != null) {
+        if (deviceMap.containsKey(2)) {
         	((Thermostat) deviceMap.get(2)).turnOnOff(onOrOff);
         }
     }
     
     public String changeThermostatMode(String mode) {
-        if (thermostat != null) {
+        if (deviceMap.containsKey(2)) {
         	((Thermostat) deviceMap.get(2)).setMode(mode);
         }
         return ((Thermostat) deviceMap.get(2)).getMode();
     }
     
     public int increaseOrDecreaseThermostatTemperature(String increaseOrDecrease) {
-        if (thermostat != null) {
+        if (deviceMap.containsKey(2)) {
         	((Thermostat) deviceMap.get(2)).setTemperature(increaseOrDecrease);
         }
         return ((Thermostat) deviceMap.get(2)).getTemperature();
     }
     
     public boolean displayThermostatStatus() {
-    	if (thermostat != null) {
+    	if (deviceMap.containsKey(2)) {
     		return ((Thermostat) deviceMap.get(2)).isOn();
     	}
     	return false;
@@ -161,7 +161,7 @@ public class SHServerController {
     
     public int displayTemperature() {
     	int temperature = 0;
-    	if (thermostat != null) {
+    	if (deviceMap.containsKey(2)) {
     		temperature =  ((Thermostat) deviceMap.get(2)).getTemperature();
     	}
     	return temperature;
@@ -171,7 +171,7 @@ public class SHServerController {
     //---------------------------------Methods for Vacuum Robot-------------------------
     public String startCleaning() {
     	String isCleaning = "";
-        if (vacuumRobot != null) {
+        if (deviceMap.containsKey(3)) {
             isCleaning = ((VacuumRobot) deviceMap.get(3)).startCleaning();
         }
         return isCleaning;
@@ -179,7 +179,7 @@ public class SHServerController {
 
     public String stopCleaning() {
     	String isCleaning = "";
-        if (vacuumRobot != null) {
+        if (deviceMap.containsKey(3)) {
         	isCleaning = ((VacuumRobot) deviceMap.get(3)).stopCleaning();
         }
         return isCleaning;
@@ -187,14 +187,14 @@ public class SHServerController {
     
     public String emptyDustSackVacuumRobotAlert(boolean emptyDustSack) {
     	String alert = "";
-        if (vacuumRobot != null) {
+        if (deviceMap.containsKey(3)) {
         	alert = ((VacuumRobot) deviceMap.get(3)).setDustSackAlert(emptyDustSack);
         }
         return alert;
     }
     
     public boolean displayVacuumRobotStatus() {
-    	if (vacuumRobot != null) {
+    	if (deviceMap.containsKey(3)) {
     		return ((VacuumRobot) deviceMap.get(3)).isCleaning();
     	}
     	return false;
@@ -204,32 +204,32 @@ public class SHServerController {
     
     //--------------------------------Methods for Smart Doorbell-----------------------------
     public void turnOnDoorbell(String onOrOff) {
-        if (doorbell != null) {
+        if (deviceMap.containsKey(4)) {
         	((SmartDoorbell) deviceMap.get(4)).turnOnOff(onOrOff);
         }
     }
     
     public void turnOffDoorbell(String onOrOff) {
-        if (doorbell != null) {
+        if (deviceMap.containsKey(4)) {
         	((SmartDoorbell) deviceMap.get(4)).turnOnOff(onOrOff);
         }
     }
     
     public void turnOnCameraDoorbell(boolean isCameraOn) {
-        if (doorbell != null) {
+        if (deviceMap.containsKey(4)) {
         	((SmartDoorbell) deviceMap.get(4)).setCameraOn(isCameraOn);
         }
     }
     
     public boolean activateNightModeDoorbell(boolean isNightModeOn) {
-    	if (doorbell != null) {
+    	if (deviceMap.containsKey(4)) {
     		((SmartDoorbell) deviceMap.get(4)).setNightModeOn(isNightModeOn);
     	}
     	return ((SmartDoorbell) deviceMap.get(4)).isNightModeOn();
     }
     
     public boolean displayDoorbellStatus() {
-    	if (doorbell != null) {
+    	if (deviceMap.containsKey(4)) {
     		return ((SmartDoorbell) deviceMap.get(4)).isOn();
     	}
     	return false;
