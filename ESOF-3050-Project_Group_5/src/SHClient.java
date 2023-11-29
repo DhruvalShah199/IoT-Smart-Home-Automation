@@ -18,7 +18,6 @@ public class SHClient extends AbstractClient{
 	public boolean connectionToServer() {
 	    try {
 	        openConnection();
-	        System.out.println("Connected to the server");
 	        return true;
 	    } catch (IOException e) {
 	        System.out.println("Could not connect to the server: " + e.getMessage());

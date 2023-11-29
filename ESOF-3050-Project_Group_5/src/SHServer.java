@@ -129,11 +129,11 @@ public class SHServer extends AbstractServer {
 		
 		//To handle messages from smart lock
 		else if(messageString.equals("lock")) {
-			String lockUnlock =serverController.lockDoor("lock");
+			String lockUnlock = serverController.lockDoor("lock");
 			sendToAllClients(lockUnlock);
 		}
 		else if(messageString.equals("unlock")) {
-			String lockUnlock =serverController.lockDoor("unlock");
+			String lockUnlock = serverController.lockDoor("unlock");
 			sendToAllClients(lockUnlock);
 		}
 		else if(messageString.equals("getbreakinalerttrue")) {
@@ -282,6 +282,13 @@ public class SHServer extends AbstractServer {
     @Override
     public void serverStopped() {
         System.out.println("Server has stopped listening for connections.");
+    }
+    
+    @Override
+    protected void clientConnected(ConnectionToClient client) {
+	// DISPLAY THE CONNECTED CLIENT
+	System.out.println("Client: " + client + " is connected");
+
     }
 }
 // End of SHServer Class
