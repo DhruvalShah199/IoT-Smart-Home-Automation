@@ -396,10 +396,7 @@ public class SHClient extends AbstractClient{
 	            });
 	        }
 	        else if (messageString.startsWith("lightscheduledon")) {
-	        	Platform.runLater(()-> {
-	        		clientController.setLabelSmartLight("The Light is Turned ON");
-	        		clientController.brightnessLabelLightPage.setVisible(true);
-	        	});
+	        	Platform.runLater(()-> clientController.setLightLabelAutomation("The Light is Turned ON"));
 	        }
 	        
 	        

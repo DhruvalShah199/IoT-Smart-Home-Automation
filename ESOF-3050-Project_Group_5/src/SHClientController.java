@@ -481,6 +481,7 @@ public class SHClientController {
             "Smart Thermostat",
             "Vacuum Robot"   
     	);
+    
     private void setupListViewAdminPage() {
     
 	    if(listViewAdminPage != null) {
@@ -1616,6 +1617,7 @@ public class SHClientController {
 	        // Construct a message with the desired schedule time in 24-hour format
 	        String time = convertTo24HourFormat(hour, minute, amPm);
 	        client.sendToServer("scheduleLightOn:" + time);
+	        setLightLabelAutomation("Light scheduled to turn on at: " + time);
     	} 
 	 	catch (IOException e) {
 	        e.printStackTrace();
@@ -1635,6 +1637,10 @@ public class SHClientController {
 	    }
 	    String convertedHour = String.format("%02d", hourInt);
 	    return convertedHour + ":" + minute;
+    }
+    
+    public void setLightLabelAutomation (String lbl) {
+    	smartLightAutomationLabel.setText(lbl);
     }
     
     
