@@ -59,23 +59,12 @@ public class SHClientController {
 	
     public void initialize() {
     	try {
-	    	if (adjustBrightnessSlider != null) {
-		    	adjustBrightnessSlider.setValue(100); // Set default slider value
-		        brightnessLabelLightPage.setText("100%"); // Set default label text
-		        adjustBrightnessSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
-		            if (client != null && lightIsOn) {
-		                try {
-		                    client.sendToServer("adjustBrightness:" + newVal.intValue());
-		                    brightnessLabelLightPage.setText(newVal.intValue() + "%");
-		                } catch (IOException e) {
-		                    e.printStackTrace();
-		                }
-		            }
-		        });
-	    	}
+	    	
 	    	setupListViewAdminPage();
 	    	
 	    	loadDevicesFromPreferences();
+	    	
+	    	setUpBrightness();
 	    	
 	    	setUpMediaSize();
 	    	
@@ -721,6 +710,24 @@ public class SHClientController {
             e.printStackTrace();
         }
     }
+    
+    // Method to initialize the brightness slider and set it to 100 by default
+    private void setUpBrightness(){
+		if (adjustBrightnessSlider != null) {
+	    	adjustBrightnessSlider.setValue(100); // Set default slider value
+	        brightnessLabelLightPage.setText("100%"); // Set default label text
+	        adjustBrightnessSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+	            if (client != null && lightIsOn) {
+	                try {
+	                    client.sendToServer("adjustBrightness:" + newVal.intValue());
+	                    brightnessLabelLightPage.setText(newVal.intValue() + "%");
+	                } catch (IOException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        });
+    	}
+	}
 
  // Methods to update light status and brightness visibility
     public void setLightStatus(boolean isOn) {
