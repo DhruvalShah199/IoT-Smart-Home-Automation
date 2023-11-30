@@ -70,6 +70,17 @@ public class SHClient extends AbstractClient{
 		}
 	}
 	
+	//Methods for Automation
+	public void turnOnLightAt(String time) {
+		try {
+			sendToServer("scheduleLightOn-" + time);
+		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 	
 	
 	//-----------------------  Methods to send messages for smart lock -----------------------

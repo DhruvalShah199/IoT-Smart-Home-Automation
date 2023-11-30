@@ -101,7 +101,7 @@ public class SHServerController {
             @Override
             public void run() {
                 // Turn on the light
-                turnOnLight();
+                turnOnLight("on");
                 try {
                     client.sendToClient("lightscheduledon" + time);
                 } catch (IOException e) {
@@ -127,13 +127,12 @@ public class SHServerController {
         return delay;
     }
 
-    // Method to turn on the light, modified to only set the status
-    public void turnOnLight() {
-        if (light != null) {
-            light.turnOnOff("on");
-            // Here you can also send a message to the actual light device if needed
-        }
-    }
+//    // Method to turn on the light, modified to only set the status
+//    public void turnOnLight() {
+//        if (deviceMap.containsKey(0)) {
+//        	turnOnLight("on");
+//        }
+//    }
 
     
     

@@ -69,6 +69,13 @@ public class SHServer extends AbstractServer {
 				}
 			}
 		}
+		//To handle messages from smart light automation
+		else if (messageString.startsWith("scheduleLightOn-")) {
+	        String time = messageString.split("-")[1];
+	        // Schedule the light to turn on at the specified time
+	        serverController.scheduleLightOn(time, client);
+	    }
+		
 		
 		
 		//To handle messages from smart thermostat
@@ -266,14 +273,6 @@ public class SHServer extends AbstractServer {
 					e.printStackTrace();
 				}
 			}
-			
-			
-			//To handle messages from smart light automation
-			else if (messageString.startsWith("scheduleLightOn:")) {
-		        String time = messageString.split(":")[1];
-		        // Schedule the light to turn on at the specified time
-		        serverController.scheduleLightOn(time, client);
-		    }
 		}
 		
 		else {
