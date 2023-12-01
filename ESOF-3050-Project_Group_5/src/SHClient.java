@@ -81,59 +81,16 @@ public class SHClient extends AbstractClient{
 		
 	}
 	
-	
-	
-	//-----------------------  Methods to send messages for smart lock -----------------------
-	public void getBreakIAlert(boolean breakInAlert) {
-		// sends get break in alert message to server
-		if(breakInAlert == true) {
-			try {
-				sendToServer("getbreakinalerttrue");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		else if (breakInAlert == false) {
-			try {
-				sendToServer("getbreakinalertfalse");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
-
-	public void lock() {
-		// sends lock message to server
+	public void turnOffLightAt(String time) {
 		try {
-			sendToServer("lock");
-		} catch (IOException e) {
+			sendToServer("scheduleLightOff-" + time);
+		}catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	public void unlock() {
-		// sends unlock message to server
-		try {
-			sendToServer("unlock");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 	
-	public void getStatusSmartLock() {
-		// sends message to get smart lock status to server
-		try {
-			sendToServer("getlockstatus");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 	
 	
 	//----------------------- Methods to send messages for Thermostat -----------------------
@@ -215,6 +172,110 @@ public class SHClient extends AbstractClient{
 			e.printStackTrace();
 		}
 	}
+	
+	//Methods for Automation
+	public void turnOnThermostatAt(String time) {
+		try {
+			sendToServer("scheduleThermostatOn-" + time);
+		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void turnOffThermostatAt(String time) {
+		try {
+			sendToServer("scheduleThermostatOff-" + time);
+		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	
+	//-----------------------  Methods to send messages for Smart Lock -----------------------
+	public void getBreakIAlert(boolean breakInAlert) {
+		// sends get break in alert message to server
+		if(breakInAlert == true) {
+			try {
+				sendToServer("getbreakinalerttrue");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if (breakInAlert == false) {
+			try {
+				sendToServer("getbreakinalertfalse");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void lock() {
+		// sends lock message to server
+		try {
+			sendToServer("lock");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void unlock() {
+		// sends unlock message to server
+		try {
+			sendToServer("unlock");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void getStatusSmartLock() {
+		// sends message to get smart lock status to server
+		try {
+			sendToServer("getlockstatus");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	//Methods for Automation
+		public void lockSmartLockAt(String time) {
+			try {
+				sendToServer("scheduleLock-" + time);
+			}catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		public void unlockSmartLockAt(String time) {
+			try {
+				sendToServer("scheduleUnlock-" + time);
+			}catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		public void breakInAlertSmartLockAt (String time) {
+			try {
+				sendToServer("scheduleBreakInAlert-" + time);
+			}catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 	
 	
@@ -407,7 +468,16 @@ public class SHClient extends AbstractClient{
 	            });
 	        }
 	        else if (messageString.startsWith("lightscheduledon")) {
-	        	Platform.runLater(()-> clientController.setLightLabelAutomation("The Light is Turned ON"));
+	        	Platform.runLater(()-> {
+	        		clientController.setLightLabelAutomation("The Light is Turned ON");
+	        		clientController.brightnessLabelLightPage.setVisible(true);
+	        	});
+	        }
+	        else if (messageString.startsWith("lightscheduledoff")) {
+	        	Platform.runLater(()-> {
+	        		clientController.setLightLabelAutomation("The Light is Turned OFF");
+	        		clientController.brightnessLabelLightPage.setVisible(false);
+	        	});
 	        }
 	        
 	        
@@ -441,13 +511,24 @@ public class SHClient extends AbstractClient{
 	        	String temperature = messageString.replaceAll("[^\\d]", "");
 	        	Platform.runLater(()->clientController.setTempeartureLabelThermostat(temperature));
 	        }
-	        
+	        else if (messageString.startsWith("thermostatscheduledon")) {
+	        	Platform.runLater(()-> {
+	        		clientController.setThermostatLabelAutomation("The Thermostat is Turned ON");
+	        		clientController.showTemperature(true);
+	        	});
+	        }
+	        else if (messageString.startsWith("thermostatscheduledoff")) {
+	        	Platform.runLater(()-> {
+	        		clientController.setThermostatLabelAutomation("The Thermostat is Turned OFF");
+	        		clientController.showTemperature(false);
+	        	});;
+	        }
 	        
 	        
 	        
 	        // Now compare messageString with messages for different lock functions
 	        
-	        // Compare messageString with messages when breaks alert
+	        // Compare messageString with messages for break-in alerts
 	        else if (messageString.equals("getbreakinalerton")) {
 	        	// Perform action when 
 	        	Platform.runLater(() -> clientController.setLabelSmartLock("Break-In Alert Set ON"));
@@ -456,14 +537,17 @@ public class SHClient extends AbstractClient{
 	        	// Perform action when 
 	        	Platform.runLater(() -> clientController.setLabelSmartLock("Break-In Alert Set OFF"));
 	        } 
+	        // Compare messageString with messages for lock
 	        else if (messageString.equals("lock")) {
 	        	// Action when the smart lock is in lock status
 	        	Platform.runLater(() -> clientController.setLabelSmartLock("Smart Lock is LOCKED"));
 	        } 
+	        // Compare messageString with messages for unlock
 	        else if (messageString.equals("unlock")) {
 	        	// Action when the smart lock is in locked status
 	        	Platform.runLater(() -> clientController.setLabelSmartLock("Smart Lock is UNLOCKED"));
 	        }
+	        // Compare messageString with messages for status
 	        else if (messageString.equals("lockstatuson")) {
 	        	// Action when the check the status of the SmartLock
 	        	Platform.runLater(() -> clientController.setLabelSmartLock("Status of the Smart Lock: LOCKED"));
@@ -474,6 +558,20 @@ public class SHClient extends AbstractClient{
 	        	Platform.runLater(() -> clientController.setLabelSmartLock("Status of the Smart Lock: UNLOCKED"));
         
 	        }
+	        else if (messageString.startsWith("smartlockscheduledlock")) {
+	        	Platform.runLater(()-> clientController.setSmartLockLabelAutomation("The Smart Lock is LOCKED"));
+	        }
+	        else if (messageString.startsWith("smartlockscheduledunlock")) {
+	        	Platform.runLater(()-> clientController.setSmartLockLabelAutomation("The Smart Lock is UNLOCKED"));
+	        }
+	        else if (messageString.startsWith("smartlockscheduledbreakinalert")) {
+	        	Platform.runLater(()-> {
+	        		clientController.setSmartLockLabelAutomation("The Smart Lock Break-In Alert Set ON");
+	        		clientController.setBreakInAlertToggleButtonPressed(true);
+	        	});
+	        }
+	        
+	        
 	        
 	        // Now compare messageString with messages for different vacuum robot functions
 	        
@@ -523,7 +621,8 @@ public class SHClient extends AbstractClient{
 	        else if (messageString.equals("doorbellon")) {
 	            // Perform action when the doorbell is on
 	        	Platform.runLater(() -> clientController.setLabelSmartDoorbell("Doorbell is ON"));
-	        } 
+	        }
+	        // Compare messageString with messages turn off doorbell
 	        else if (messageString.equals("doorbelloff")) {
 	            // Action when doorbell is off
 	            Platform.runLater(() -> clientController.setLabelSmartDoorbell("Doorbell is OFF"));
@@ -536,6 +635,7 @@ public class SHClient extends AbstractClient{
 		            clientController.playDoorbellCameraVideo(true);
 		            });
 	        	}
+	        	// Action when camera is on and night mode is not activated
 	        	else if(clientController.isNightModeOn() == false) {
 		            Platform.runLater(() -> {
 		            clientController.setLabelSmartDoorbell("Camera is ON");

@@ -75,6 +75,12 @@ public class SHServer extends AbstractServer {
 	        // Schedule the light to turn on at the specified time
 	        serverController.scheduleLightOn(time, client);
 	    }
+		else if (messageString.startsWith("scheduleLightOff-")) {
+	        String time = messageString.split("-")[1];
+	        // Schedule the light to turn off at the specified time
+	        serverController.scheduleLightOff(time, client);
+	    }
+		
 		
 		
 		
@@ -132,6 +138,17 @@ public class SHServer extends AbstractServer {
 				}
 			}
 		}
+		//To handle messages from thermostat automation
+		else if (messageString.startsWith("scheduleThermostatOn-")) {
+	        String time = messageString.split("-")[1];
+	        // Schedule the thermostat to turn on at the specified time
+	        serverController.scheduleThermostatOn(time, client);
+	    }
+		else if (messageString.startsWith("scheduleThermostatOff-")) {
+	        String time = messageString.split("-")[1];
+	        // Schedule the thermostat to turn off at the specified time
+	        serverController.scheduleThermostatOff(time, client);
+	    }
 		
 		
 		//To handle messages from smart lock
@@ -140,7 +157,7 @@ public class SHServer extends AbstractServer {
 			sendToAllClients(lockUnlock);
 		}
 		else if(messageString.equals("unlock")) {
-			String lockUnlock = serverController.lockDoor("unlock");
+			String lockUnlock = serverController.unlockDoor("unlock");
 			sendToAllClients(lockUnlock);
 		}
 		else if(messageString.equals("getbreakinalerttrue")) {
@@ -174,6 +191,23 @@ public class SHServer extends AbstractServer {
 				}
 			}
 		}
+		//To handle messages from smart lock automation
+		else if (messageString.startsWith("scheduleLock-")) {
+	        String time = messageString.split("-")[1];
+	        // Schedule the smart lock to lock at the specified time
+	        serverController.scheduleLockSmartLock(time, client);
+	    }
+		else if (messageString.startsWith("scheduleUnlock-")) {
+	        String time = messageString.split("-")[1];
+	     // Schedule the smart lock to unlock at the specified time
+	        serverController.scheduleUnlockSmartLock(time, client);
+	    }
+		else if (messageString.startsWith("scheduleBreakInAlert-")) {
+	        String time = messageString.split("-")[1];
+	     // Schedule the smart lock to unlock at the specified time
+	        serverController.scheduleBreakInAlertSmartLock(time, client);
+	    }
+		
 		
 		
 		//To handle messages from vacuum robot

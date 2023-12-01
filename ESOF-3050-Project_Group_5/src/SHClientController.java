@@ -15,6 +15,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -637,6 +638,12 @@ public class SHClientController {
     @FXML
     void vacuumButtonPressedViewDevices(ActionEvent event) {
     	switchSceneViewDevicesPage("VacuumRobot.fxml");
+    	if(userAdmin != null && userAdmin.equals("admin")) {
+        	vacuumRobotAutomationGridPane.setVisible(true);
+        }
+        else {
+        	vacuumRobotAutomationGridPane.setVisible(false);
+        }
     }
     
     
@@ -804,116 +811,6 @@ public class SHClientController {
     	Color colorValue = Color.web(col);
     	smartLightTitleLabel.setTextFill(colorValue);
     }
-    
-    
-    
-    //-----------------------------Smart Lock Page-------------------------------------------
-    
-    @FXML
-    private ToggleButton getBreakInAlertToggleButton;
-
-    @FXML
-    private Button goBackButtonSmartLockPage;
-
-    @FXML
-    private Button lockButton;
-
-    @FXML
-    private Label smartLockLabel;
-
-    @FXML
-    private Label smartLockLabelHidden;
-    
-    @FXML
-    private Button getStatusButtonSmartLock;
-
-    @FXML
-    private Pane smartLockPane;
-
-    @FXML
-    private Button unlockButton;
-    
-    private void switchSceneSmartLockPage(String fxmlFileName) {
-        try {
-            Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
-                try {
-                	// Create a loader for the FXML
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-                    
-                    // Set the current instance as the controller
-                    loader.setController(this);
-                    
-                    // Load the FXML file
-                    Parent root = loader.load();
-                    
-                    // Return the created scene
-                    return new Scene(root);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return null;
-                }
-            });
-
-            Stage stage = (Stage) smartLockPane.getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void getBreakInAlertToggleButtonPressed(ActionEvent event) {
-    	if (this.client != null && getBreakInAlertToggleButton.isSelected() == true) {
-    		client.getBreakIAlert(true);
-        } else if (getBreakInAlertToggleButton.isSelected() == false) {
-        	client.getBreakIAlert(false);
-        }
-    	else {
-            System.out.println("Client connection is not initialized.");
-            // Consider re-attempting to connect or notify the user
-        }
-    }
-
-    @FXML
-    void goBackButtonPressedSmartLockPage(ActionEvent event) {
-    	switchSceneSmartLockPage("ViewDevices.fxml");
-    }
-
-    @FXML
-    void lockButtonPressedSmartLock(ActionEvent event) {
-    	if (this.client != null) {
-    		client.lock();
-        } else {
-            System.out.println("Client connection is not initialized.");
-            // Consider re-attempting to connect or notify the user
-        }
-    	
-    }
-
-    @FXML
-    void unlockButtonPressedSmartLock(ActionEvent event) {
-    	if (this.client != null) {
-    		client.unlock();
-        } else {
-            System.out.println("Client connection is not initialized.");
-            // Consider re-attempting to connect or notify the user
-        }
-    }
-    
-    @FXML
-    void getStatusButtonPressedSmartLock(ActionEvent event) {
-    	if (this.client != null) {
-    		client.getStatusSmartLock();
-        } else {
-            System.out.println("Client connection is not initialized.");
-            // Consider re-attempting to connect or notify the user
-        }
-    }
-    
-    public void setLabelSmartLock(String lbl) {
-    	smartLockLabelHidden.setText(lbl);
-    }
 
     
     
@@ -1076,8 +973,122 @@ public class SHClientController {
     	temperatureLabelThermostat.setText(lbl);
     }
 
-    
 
+    
+    //-----------------------------Smart Lock Page-------------------------------------------
+    
+    @FXML
+    private ToggleButton getBreakInAlertToggleButton;
+
+    @FXML
+    private Button goBackButtonSmartLockPage;
+
+    @FXML
+    private Button lockButton;
+
+    @FXML
+    private Label smartLockLabel;
+
+    @FXML
+    private Label smartLockLabelHidden;
+    
+    @FXML
+    private Button getStatusButtonSmartLock;
+
+    @FXML
+    private Pane smartLockPane;
+
+    @FXML
+    private Button unlockButton;
+    
+    private void switchSceneSmartLockPage(String fxmlFileName) {
+        try {
+            Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
+                try {
+                	// Create a loader for the FXML
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+                    
+                    // Set the current instance as the controller
+                    loader.setController(this);
+                    
+                    // Load the FXML file
+                    Parent root = loader.load();
+                    
+                    // Return the created scene
+                    return new Scene(root);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            });
+
+            Stage stage = (Stage) smartLockPane.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void getBreakInAlertToggleButtonPressed(ActionEvent event) {
+    	if (this.client != null && getBreakInAlertToggleButton.isSelected() == true) {
+    		client.getBreakIAlert(true);
+        } else if (getBreakInAlertToggleButton.isSelected() == false) {
+        	client.getBreakIAlert(false);
+        }
+    	else {
+            System.out.println("Client connection is not initialized.");
+            // Consider re-attempting to connect or notify the user
+        }
+    }
+    
+    void setBreakInAlertToggleButtonPressed(boolean selected) {
+    	getBreakInAlertToggleButton.setSelected(selected);
+    }
+
+    @FXML
+    void goBackButtonPressedSmartLockPage(ActionEvent event) {
+    	switchSceneSmartLockPage("ViewDevices.fxml");
+    }
+
+    @FXML
+    void lockButtonPressedSmartLock(ActionEvent event) {
+    	if (this.client != null) {
+    		client.lock();
+        } else {
+            System.out.println("Client connection is not initialized.");
+            // Consider re-attempting to connect or notify the user
+        }
+    	
+    }
+
+    @FXML
+    void unlockButtonPressedSmartLock(ActionEvent event) {
+    	if (this.client != null) {
+    		client.unlock();
+        } else {
+            System.out.println("Client connection is not initialized.");
+            // Consider re-attempting to connect or notify the user
+        }
+    }
+    
+    @FXML
+    void getStatusButtonPressedSmartLock(ActionEvent event) {
+    	if (this.client != null) {
+    		client.getStatusSmartLock();
+        } else {
+            System.out.println("Client connection is not initialized.");
+            // Consider re-attempting to connect or notify the user
+        }
+    }
+    
+    public void setLabelSmartLock(String lbl) {
+    	smartLockLabelHidden.setText(lbl);
+    }
+    
+    
+    
     //-----------------------------Vacuum Robot Page-------------------------------------------
     
     @FXML
@@ -1146,7 +1157,12 @@ public class SHClientController {
 
     @FXML
     void goBackButtonPressedVacuumRobotPage(ActionEvent event) {
-    	switchSceneVacuumRobotPage("ViewDevices.fxml");
+    	if(userAdmin != null && userAdmin.equals("admin")) {
+    		switchSceneVacuumRobotPage("AutomationRules.fxml");
+    	}
+    	else {
+    		switchSceneVacuumRobotPage("ViewDevices.fxml");
+    	}
     }
 
     @FXML
@@ -1466,7 +1482,21 @@ public class SHClientController {
 
     @FXML
     void vacuumButtonPressedAutomationRules(ActionEvent event) {
-    	switchSceneSetAutomationRulePage("VacuumRobotAutomation.fxml");
+    	switchSceneSetAutomationRulePage("VacuumRobot.fxml");
+    }
+    
+    private String convertTo24HourFormat(String hour, String minute, String amPm) {
+	    // Add logic to convert 12-hour time to 24-hour time format
+	    // Return the time in "HH:mm" format
+	    int hourInt = Integer.parseInt(hour);
+	    if ("PM".equals(amPm) && hourInt < 12) {
+	        hourInt += 12;
+	    }
+	    if ("AM".equals(amPm) && hourInt == 12) {
+	        hourInt = 0;
+	    }
+	    String convertedHour = String.format("%02d", hourInt);
+	    return convertedHour + ":" + minute;
     }
     
     
@@ -1602,9 +1632,16 @@ public class SHClientController {
 
     @FXML
     void turnOffLightAtButtonPressed(ActionEvent event) {
-//    	String min = turnOffLightMM.getText();
-//    	String hrs = turnOffLightHH.getText();
-//    	String amPm = turnOffLightAmPmComboBox.
+    	String hour = turnOnLightHH.getText();
+        String minute = turnOnLightMM.getText();
+        String amPm = turnOnLightAmPmComboBox.getValue();
+
+        // Construct a message with the desired schedule time in 24-hour format
+        String time = convertTo24HourFormat(hour, minute, amPm);
+        
+        client.turnOffLightAt(time);
+        
+        setLightLabelAutomation("Light is scheduled to turn off at: " + time);
     }
 
     @FXML
@@ -1618,21 +1655,7 @@ public class SHClientController {
         
         client.turnOnLightAt(time);
         
-        setLightLabelAutomation("Light scheduled to turn on at: " + time);
-    }
-    
-    private String convertTo24HourFormat(String hour, String minute, String amPm) {
-	    // Add logic to convert 12-hour time to 24-hour time format
-	    // Return the time in "HH:mm" format
-	    int hourInt = Integer.parseInt(hour);
-	    if ("PM".equals(amPm) && hourInt < 12) {
-	        hourInt += 12;
-	    }
-	    if ("AM".equals(amPm) && hourInt == 12) {
-	        hourInt = 0;
-	    }
-	    String convertedHour = String.format("%02d", hourInt);
-	    return convertedHour + ":" + minute;
+        setLightLabelAutomation("Light is scheduled to turn on at: " + time);
     }
     
     public void setLightLabelAutomation (String lbl) {
@@ -1641,13 +1664,378 @@ public class SHClientController {
     
     
     
+    //-----------------------------Smart Thermostat Automation Rules Page-------------------------------------------
+    
+    @FXML
+    private ChoiceBox<String> changeModeChoiceBoxSmartThermostatAutomation;
+
+    @FXML
+    private ToggleButton coolToggleButtonSmartThermostatAutomation;
+
+    @FXML
+    private Button goBackButtonSmartThermostatAutomation;
+
+    @FXML
+    private ToggleButton heatToggleButtonSmartThermostatAutomation1;
+
+    @FXML
+    private Button setTurnOffThermostat;
+
+    @FXML
+    private Button setTurnOnThermostatButton;
+
+    @FXML
+    private Label smartThermostatAutomationLabelHidden;
+
+    @FXML
+    private Label smartThermostatLabelAutomationPage;
+
+    @FXML
+    private Pane smartThermostatPaneAutomation;
+
+    @FXML
+    private TextField turnOfThermstatMM;
+
+    @FXML
+    private ComboBox<String> turnOffThermostatAmPmComboBox;
+
+    @FXML
+    private TextField turnOffThermostatHH;
+
+    @FXML
+    private ComboBox<String> turnOnThermostatAmPmComboBox;
+
+    @FXML
+    private TextField turnOnThermostatHH;
+
+    @FXML
+    private TextField turnOnThermostatMM;
+
+  
+    @FXML
+    void setTurnOffThermostatAutomationButtonPressed(ActionEvent event) {
+    	String hour = turnOnThermostatHH.getText();
+        String minute = turnOnThermostatMM.getText();
+        String amPm = turnOnThermostatAmPmComboBox.getValue();
+
+        // Construct a message with the desired schedule time in 24-hour format
+        String time = convertTo24HourFormat(hour, minute, amPm);
+        
+        client.turnOnThermostatAt(time);
+        
+        setThermostatLabelAutomation("Thermostat is scheduled to turn on at: " + time);
+    }
+
+    @FXML
+    void setTurnOnThermostatAutomationButtonPressed(ActionEvent event) {
+    	String hour = turnOnThermostatHH.getText();
+        String minute = turnOnThermostatMM.getText();
+        String amPm = turnOnThermostatAmPmComboBox.getValue();
+
+        // Construct a message with the desired schedule time in 24-hour format
+        String time = convertTo24HourFormat(hour, minute, amPm);
+        
+        client.turnOffThermostatAt(time);
+        
+        setThermostatLabelAutomation("Thermostat is scheduled to turn off at: " + time);
+    }
+    
+    public void setThermostatLabelAutomation (String lbl) {
+    	smartThermostatAutomationLabelHidden.setText(lbl);
+    }
+    
+    private void switchSceneSmartThermostatAutomationPage(String fxmlFileName) {
+        try {
+            Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
+                try {
+                	// Create a loader for the FXML
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+                    
+                    // Set the current instance as the controller
+                    loader.setController(this);
+                    
+                    // Load the FXML file
+                    Parent root = loader.load();
+                    
+                    // Return the created scene
+                    return new Scene(root);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            });
+
+            Stage stage = (Stage) smartThermostatPaneAutomation.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void setupChoiceBoxesSmartThermostat() {
+  	   if (changeModeChoiceBoxSmartThermostatAutomation != null) {
+  		    // Populating the Change Brightness ChoiceBox with time options
+  		   changeModeChoiceBoxSmartThermostatAutomation.setItems(FXCollections.observableArrayList(
+  		        "1 minute", 
+  		        "2 minutes", 
+  		        "5 minutes",
+  		        "10 minutes",
+  		        "15 minutes",
+  		        "30 minutes",
+  		        "1 hour",
+  		        "2 hours",
+  		        "5 hours",
+  		        "8 hours",
+  		        "12 hours"
+  		    ));
+  		   
+  		    // Populating the AM/PM ComboBoxes
+  		    ObservableList<String> amPmOptions = FXCollections.observableArrayList("AM", "PM");
+  		    turnOffThermostatAmPmComboBox.setItems(amPmOptions);
+  		    turnOnThermostatAmPmComboBox.setItems(amPmOptions);
+  	   }
+     }
+
+    @FXML
+    void goBackButtonPressedSmartThermostatAutomation(ActionEvent event) {
+    	switchSceneSmartThermostatAutomationPage("AutomationRules.fxml");
+    }
+   
+    
+    
+    //-----------------------------Smart Lock Automation Rules Page-------------------------------------------
+    
+    @FXML
+    private TextField lockDoorMM;
+
+    @FXML
+    private Button breakInAlertButtonAutomation;
+
+    @FXML
+    private TextField breakInAlertHH;
+
+    @FXML
+    private TextField breakInAlertMM;
+
+    @FXML
+    private ComboBox<String> breakInAlertSmartLockAmPmComboBox;
+
+    @FXML
+    private Button goBackButtonSmartLockAutomationPage;
+
+    @FXML
+    private Button lockDoorButtonAutomationPage;
+
+    @FXML
+    private ChoiceBox<String> lockDoorChoiceBoxSmartLock;
+
+    @FXML
+    private TextField lockDoorHH;
+
+    @FXML
+    private ComboBox<String> lockSmartLockAmPmComboBox;
+
+    @FXML
+    private Label smartLockAutomationLabelHidden;
+
+    @FXML
+    private Pane smartLockAutomationPane;
+
+    @FXML
+    private Label smartLockLabelAutomation;
+
+    @FXML
+    private Button unlockDoorButtonAutomation;
+
+    @FXML
+    private ChoiceBox<String> unlockDoorChoiceBoxSmartLock;
+
+    @FXML
+    private TextField unlockDoorHH;
+
+    @FXML
+    private TextField unlockDoorMM;
+
+    @FXML
+    private ComboBox<String> unlockSmartLockAmPmComboBox;
+
+  
+    @FXML
+    void lockDoorButtonPressedAutomationPage(ActionEvent event) {
+    	String hour = lockDoorHH.getText();
+        String minute = lockDoorMM.getText();
+        String amPm = lockSmartLockAmPmComboBox.getValue();
+
+        // Construct a message with the desired schedule time in 24-hour format
+        String time = convertTo24HourFormat(hour, minute, amPm);
+        
+        client.lockSmartLockAt(time);
+        
+        setThermostatLabelAutomation("Smart Lock is scheduled to lock at: " + time);
+    }
+
+    @FXML
+    void unlockDoorButtonPressedAutomationPage(ActionEvent event) {
+    	String hour = unlockDoorHH.getText();
+        String minute = unlockDoorMM.getText();
+        String amPm = unlockSmartLockAmPmComboBox.getValue();
+
+        // Construct a message with the desired schedule time in 24-hour format
+        String time = convertTo24HourFormat(hour, minute, amPm);
+        
+        client.unlockSmartLockAt(time);
+        
+        setThermostatLabelAutomation("Smart Lock is scheduled to unlock at: " + time);
+    }
+    
+    @FXML
+    void breakInAlertButtonPressedAutomationPage(ActionEvent event) {
+    	String hour = breakInAlertHH.getText();
+        String minute = breakInAlertMM.getText();
+        String amPm = breakInAlertSmartLockAmPmComboBox.getValue();
+
+        // Construct a message with the desired schedule time in 24-hour format
+        String time = convertTo24HourFormat(hour, minute, amPm);
+        
+        client.breakInAlertSmartLockAt(time);
+        
+        setThermostatLabelAutomation("Smart Lock is scheduled to turn on break-in alert at: " + time);
+    }
+    
+    public void setSmartLockLabelAutomation (String lbl) {
+    	smartLockAutomationLabelHidden.setText(lbl);
+    }
+    
+    private void switchSceneSmartLockAutomationPage(String fxmlFileName) {
+        try {
+            Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
+                try {
+                	// Create a loader for the FXML
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+                    
+                    // Set the current instance as the controller
+                    loader.setController(this);
+                    
+                    // Load the FXML file
+                    Parent root = loader.load();
+                    
+                    // Return the created scene
+                    return new Scene(root);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            });
+
+            Stage stage = (Stage) smartLockAutomationPane.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void setupChoiceBoxesSmartLock() {
+   	   if (lockDoorChoiceBoxSmartLock != null && unlockDoorChoiceBoxSmartLock != null) {
+   		    // Populating the Lock and Unlock ChoiceBox with time options
+   		   	lockDoorChoiceBoxSmartLock.setItems(FXCollections.observableArrayList(
+		        "1 minute", 
+		        "2 minutes", 
+		        "5 minutes",
+		        "10 minutes",
+		        "15 minutes",
+		        "30 minutes",
+		        "1 hour",
+		        "2 hours",
+		        "5 hours",
+		        "8 hours",
+		        "12 hours"
+   		   	));
+   		   	unlockDoorChoiceBoxSmartLock.setItems(FXCollections.observableArrayList(
+		        "1 minute", 
+		        "2 minutes", 
+		        "5 minutes",
+		        "10 minutes",
+		        "15 minutes",
+		        "30 minutes",
+		        "1 hour",
+		        "2 hours",
+		        "5 hours",
+		        "8 hours",
+		        "12 hours"
+   		   	));
+   	
+   		    // Populating the AM/PM ComboBoxes
+   		    ObservableList<String> amPmOptions = FXCollections.observableArrayList("AM", "PM");
+   		    lockSmartLockAmPmComboBox.setItems(amPmOptions);
+   		    unlockSmartLockAmPmComboBox.setItems(amPmOptions);
+   		    breakInAlertSmartLockAmPmComboBox.setItems(amPmOptions);
+   	   }
+      }
+
+    @FXML
+    void goBackButtonPressedSmartLockAutomationPage(ActionEvent event) {
+    	 switchSceneSmartLockAutomationPage("AutomationRules.fxml");
+    }
+    
+    
+    
+    //-----------------------------Vacuum Robot Automation Rules Page-------------------------------------------
+    
+    @FXML
+    private TextField startCleainingHH;
+
+    @FXML
+    private ComboBox<String> startCleaningAmPmComboBox;
+
+    @FXML
+    private Button startCleaningButtonVacuumAutomation;
+
+    @FXML
+    private ComboBox<String> startCleaningChoiceBoxVacuumRobotAutomation;
+
+    @FXML
+    private TextField startCleaningMM;
+
+    @FXML
+    private GridPane vacuumRobotAutomationGridPane;
+
+    @FXML
+    void startCleaningButtonPressedVacuumAutomation(ActionEvent event) {
+
+    }
+    
+    private void setupComboBoxesVacuumRobot() {
+    	   if (startCleaningChoiceBoxVacuumRobotAutomation != null) {
+    			// Populating the minutes/hours ComboBoxes
+    			ObservableList<String> mmHhOptions = FXCollections.observableArrayList(
+    				"1 minute", 
+    		        "2 minutes", 
+    		        "5 minutes",
+    		        "10 minutes",
+    		        "15 minutes",
+    		        "30 minutes",
+    		        "1 hour",
+    		        "2 hours",
+    		        "5 hours",
+    		        "8 hours",
+    		        "12 hours");
+    			
+    			// Populating the AM/PM ComboBoxes
+    		    ObservableList<String> amPmOptions = FXCollections.observableArrayList("AM", "PM");
+    		    
+    		    startCleaningChoiceBoxVacuumRobotAutomation.setItems(mmHhOptions);
+    		    startCleaningAmPmComboBox.setItems(amPmOptions);
+    	   }
+       }
+    
+    
+    
     //-----------------------------Smart Doorbell Automation Rules Page-------------------------------------------
     
     @FXML
     private Button activateNightModeAtButton;
-
-    @FXML
-    private ComboBox<String> activateNightModeComboBoxSmartDoorbellAutomation;
 
     @FXML
     private ComboBox<String> activateNightModeDoorbellAmPmComboBox;
@@ -1713,27 +2101,11 @@ public class SHClientController {
     }
     
     private void setupChoiceBoxesSmartDoorbell() {
- 	   if (activateNightModeComboBoxSmartDoorbellAutomation != null) {
- 		    // Populating the Change Brightness ChoiceBox with time options
- 		   activateNightModeComboBoxSmartDoorbellAutomation.setItems(FXCollections.observableArrayList(
- 		        "1 minute", 
- 		        "2 minutes", 
- 		        "5 minutes",
- 		        "10 minutes",
- 		        "15 minutes",
- 		        "30 minutes",
- 		        "1 hour",
- 		        "2 hours",
- 		        "5 hours",
- 		        "8 hours",
- 		        "12 hours"
- 		    ));
- 		   
- 		    // Populating the AM/PM ComboBoxes
- 		    ObservableList<String> amPmOptions = FXCollections.observableArrayList("AM", "PM");
- 		    activateNightModeDoorbellAmPmComboBox.setItems(amPmOptions);
- 		    turnOnCameraDoorbellAmPmComboBox.setItems(amPmOptions);
- 	   }
+    	if(this.activateNightModeDoorbellAmPmComboBox != null) {
+    		ObservableList<String> amPmOptions = FXCollections.observableArrayList("AM", "PM");
+    		activateNightModeDoorbellAmPmComboBox.setItems(amPmOptions);
+    		turnOnCameraDoorbellAmPmComboBox.setItems(amPmOptions);
+    	}
     }
 
     @FXML
@@ -1749,366 +2121,6 @@ public class SHClientController {
     @FXML
     void turnOnCameraAtButtonPressed(ActionEvent event) {
 
-    }
-    
-    
-    
-    //-----------------------------Smart Thermostat Automation Rules Page-------------------------------------------
-    
-    @FXML
-    private ChoiceBox<String> changeModeChoiceBoxSmartThermostatAutomation;
-
-    @FXML
-    private ToggleButton coolToggleButtonSmartThermostatAutomation;
-
-    @FXML
-    private Button goBackButtonSmartThermostatAutomation;
-
-    @FXML
-    private ToggleButton heatToggleButtonSmartThermostatAutomation1;
-
-    @FXML
-    private Button setTurnOffThermostat;
-
-    @FXML
-    private Button setTurnOnThermostatButton;
-
-    @FXML
-    private Label smartThermostatAutomationLabelHidden;
-
-    @FXML
-    private Label smartThermostatLabelAutomationPage;
-
-    @FXML
-    private Pane smartThermostatPaneAutomation;
-
-    @FXML
-    private TextField turnOfThermstatMM;
-
-    @FXML
-    private ComboBox<String> turnOffThermostatAmPmComboBox;
-
-    @FXML
-    private TextField turnOffThermostatHH;
-
-    @FXML
-    private ComboBox<String> turnOnThermostatAmPmComboBox;
-
-    @FXML
-    private TextField turnOnThermostatHH;
-
-    @FXML
-    private TextField turnOnThermostatMM;
-
-  
-    @FXML
-    void setTurnOffThermostatAutomationButtonPressed(ActionEvent event) {
-
-    }
-
-    @FXML
-    void setTurnOnThermostatAutomationButtonPressed(ActionEvent event) {
-
-    }
-    private void switchSceneSmartThermostatAutomationPage(String fxmlFileName) {
-        try {
-            Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
-                try {
-                	// Create a loader for the FXML
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-                    
-                    // Set the current instance as the controller
-                    loader.setController(this);
-                    
-                    // Load the FXML file
-                    Parent root = loader.load();
-                    
-                    // Return the created scene
-                    return new Scene(root);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return null;
-                }
-            });
-
-            Stage stage = (Stage) smartThermostatPaneAutomation.getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    private void setupChoiceBoxesSmartThermostat() {
-  	   if (changeModeChoiceBoxSmartThermostatAutomation != null) {
-  		    // Populating the Change Brightness ChoiceBox with time options
-  		   changeModeChoiceBoxSmartThermostatAutomation.setItems(FXCollections.observableArrayList(
-  		        "1 minute", 
-  		        "2 minutes", 
-  		        "5 minutes",
-  		        "10 minutes",
-  		        "15 minutes",
-  		        "30 minutes",
-  		        "1 hour",
-  		        "2 hours",
-  		        "5 hours",
-  		        "8 hours",
-  		        "12 hours"
-  		    ));
-  		   
-  		    // Populating the AM/PM ComboBoxes
-  		    ObservableList<String> amPmOptions = FXCollections.observableArrayList("AM", "PM");
-  		    turnOffThermostatAmPmComboBox.setItems(amPmOptions);
-  		    turnOnThermostatAmPmComboBox.setItems(amPmOptions);
-  	   }
-     }
-
-    @FXML
-    void goBackButtonPressedSmartThermostatAutomation(ActionEvent event) {
-    	switchSceneSmartThermostatAutomationPage("AutomationRules.fxml");
-    }
-   
-    
-    
-    //-----------------------------Smart Lock Automation Rules Page-------------------------------------------
-    
-    @FXML
-    private TextField LockDoorMM;
-
-    @FXML
-    private Button goBackButtonSmartLockAutomationPage;
-
-    @FXML
-    private Button lockDoorButtonAutomationPage;
-
-    @FXML
-    private ChoiceBox<String> lockDoorChoiceBoxSmartLock;
-
-    @FXML
-    private TextField lockDoorHH;
-
-    @FXML
-    private ComboBox<String> lockSmartLockAmPmComboBox;
-
-    @FXML
-    private Label smartLockAutomationLabelHidden;
-
-    @FXML
-    private Pane smartLockAutomationPane;
-
-    @FXML
-    private Label smartLockLabelAutomation;
-
-    @FXML
-    private Button unlockDoorButtonAutomation;
-
-    @FXML
-    private ChoiceBox<String> unlockDoorChoiceBoxSmartLock;
-
-    @FXML
-    private TextField unlockDoorHH;
-
-    @FXML
-    private TextField unlockDoorMM;
-
-    @FXML
-    private ComboBox<String> unlockSmartLockAmPmComboBox;
-
-  
-    @FXML
-    void lockDoorButtonPressedAutomationPage(ActionEvent event) {
-
-    }
-
-    @FXML
-    void unlockDoorButtonPressedAutomationPage(ActionEvent event) {
-
-    }
-    private void switchSceneSmartLockAutomationPage(String fxmlFileName) {
-        try {
-            Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
-                try {
-                	// Create a loader for the FXML
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-                    
-                    // Set the current instance as the controller
-                    loader.setController(this);
-                    
-                    // Load the FXML file
-                    Parent root = loader.load();
-                    
-                    // Return the created scene
-                    return new Scene(root);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return null;
-                }
-            });
-
-            Stage stage = (Stage) smartLockAutomationPane.getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    private void setupChoiceBoxesSmartLock() {
-   	   if (lockDoorChoiceBoxSmartLock != null && unlockDoorChoiceBoxSmartLock != null) {
-   		    // Populating the Lock and Unlock ChoiceBox with time options
-   		   	lockDoorChoiceBoxSmartLock.setItems(FXCollections.observableArrayList(
-		        "1 minute", 
-		        "2 minutes", 
-		        "5 minutes",
-		        "10 minutes",
-		        "15 minutes",
-		        "30 minutes",
-		        "1 hour",
-		        "2 hours",
-		        "5 hours",
-		        "8 hours",
-		        "12 hours"
-   		   	));
-   		   	unlockDoorChoiceBoxSmartLock.setItems(FXCollections.observableArrayList(
-		        "1 minute", 
-		        "2 minutes", 
-		        "5 minutes",
-		        "10 minutes",
-		        "15 minutes",
-		        "30 minutes",
-		        "1 hour",
-		        "2 hours",
-		        "5 hours",
-		        "8 hours",
-		        "12 hours"
-   		   	));
-   	
-   		    // Populating the AM/PM ComboBoxes
-   		    ObservableList<String> amPmOptions = FXCollections.observableArrayList("AM", "PM");
-   		    lockSmartLockAmPmComboBox.setItems(amPmOptions);
-   		    unlockSmartLockAmPmComboBox.setItems(amPmOptions);
-   	   }
-      }
-
-    @FXML
-    void goBackButtonPressedSmartLockAutomationPage(ActionEvent event) {
-    	 switchSceneSmartLockAutomationPage("AutomationRules.fxml");
-    }
-    
-    
-    
-    //-----------------------------Vacuum Robot Automation Rules Page-------------------------------------------
-    
-    @FXML
-    private Button goBackButtonVacuumRobotAutomationPage;
-
-    @FXML
-    private TextField startCleainingHH;
-
-    @FXML
-    private ComboBox<String> startCleaningAmPmComboBox;
-
-    @FXML
-    private Button startCleaningButtonVacuumAutomation;
-
-    @FXML
-    private ComboBox<String> startCleaningChoiceBoxVacuumRobotAutomation;
-
-    @FXML
-    private TextField startCleaningMM;
-
-    @FXML
-    private ComboBox<String> stopCleaningAmPmComboBox;
-
-    @FXML
-    private Button stopCleaningButtonVacuumAutomation;
-
-    @FXML
-    private ComboBox<String> stopCleaningChoiceBoxVacuumRobotAutomation;
-
-    @FXML
-    private TextField stopCleaningHH;
-
-    @FXML
-    private TextField stopCleaningMM;
-
-    @FXML
-    private Label vacuumRobotAutomationLabel;
-
-    @FXML
-    private Label vacuumRobotAutomationLabelHidden;
-
-    @FXML
-    private Pane vacuumRobotPaneAutomation;
-
-    @FXML
-    void startCleaningButtonPressedVacuumAutomation(ActionEvent event) {
-
-    }
-
-    @FXML
-    void stopCleaningButtonPressedVacuumAutomation(ActionEvent event) {
-
-    }
-    
-    private void switchSceneVacuumRobotAutomationPage(String fxmlFileName) {
-        try {
-            Scene scene = sceneCache.computeIfAbsent(fxmlFileName, fxml -> {
-                try {
-                	// Create a loader for the FXML
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-                    
-                    // Set the current instance as the controller
-                    loader.setController(this);
-                    
-                    // Load the FXML file
-                    Parent root = loader.load();
-                    
-                    // Return the created scene
-                    return new Scene(root);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return null;
-                }
-            });
-
-            Stage stage = (Stage) vacuumRobotPaneAutomation.getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    private void setupComboBoxesVacuumRobot() {
-    	   if (startCleaningChoiceBoxVacuumRobotAutomation != null && stopCleaningChoiceBoxVacuumRobotAutomation != null) {
-    			// Populating the minutes/hours ComboBoxes
-    			ObservableList<String> mmHhOptions = FXCollections.observableArrayList(
-    				"1 minute", 
-    		        "2 minutes", 
-    		        "5 minutes",
-    		        "10 minutes",
-    		        "15 minutes",
-    		        "30 minutes",
-    		        "1 hour",
-    		        "2 hours",
-    		        "5 hours",
-    		        "8 hours",
-    		        "12 hours");
-    			
-    			// Populating the AM/PM ComboBoxes
-    		    ObservableList<String> amPmOptions = FXCollections.observableArrayList("AM", "PM");
-    		    
-    		    startCleaningChoiceBoxVacuumRobotAutomation.setItems(mmHhOptions);
-    		    stopCleaningChoiceBoxVacuumRobotAutomation.setItems(mmHhOptions);
-    		    startCleaningAmPmComboBox.setItems(amPmOptions);
-    		    stopCleaningAmPmComboBox.setItems(amPmOptions);
-    	   }
-       }
-
-    @FXML
-    void goBackButtonPressedVacuumRobotAutomation(ActionEvent event) {
-    	switchSceneVacuumRobotAutomationPage("AutomationRules.fxml");
     }
 }
 //end of SHClientController.java

@@ -33,6 +33,22 @@ public class SHServerController {
         deviceMap.put(doorbell.getId(), doorbell);
     }
     
+    private long calculateDelay(int hour, int minute) {
+        // Calculate the delay until the specified time today in milliseconds
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        long delay = calendar.getTimeInMillis() - System.currentTimeMillis();
+        // If the time has already passed for today, schedule for tomorrow
+        if (delay < 0) {
+            delay += TimeUnit.DAYS.toMillis(1);
+        }
+        return delay;
+    }
+    
     
     
     //-----------------------------------Methods for Smart Light-----------------------------------
@@ -110,65 +126,31 @@ public class SHServerController {
             }
         }, delay);
     }
-
-    private long calculateDelay(int hour, int minute) {
-        // Calculate the delay until the specified time today in milliseconds
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, minute);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-
-        long delay = calendar.getTimeInMillis() - System.currentTimeMillis();
-        // If the time has already passed for today, schedule for tomorrow
-        if (delay < 0) {
-            delay += TimeUnit.DAYS.toMillis(1);
-        }
-        return delay;
-    }
-
-//    // Method to turn on the light, modified to only set the status
-//    public void turnOnLight() {
-//        if (deviceMap.containsKey(0)) {
-//        	turnOnLight("on");
-//        }
-//    }
-
     
-    
-    //-----------------------------------Methods for Smart Lock-------------------------------------    
-    public String lockDoor(String isLockedUnlocked) {
-        if (deviceMap.containsKey(1)) {
-        	((SmartLock) deviceMap.get(1)).turnOnOff("on");
-        	((SmartLock) deviceMap.get(1)).lockUnlock(isLockedUnlocked);
-        }
-        return ((SmartLock) deviceMap.get(1)).getLockedOrUnlocked();
-    }
+ // Method to schedule turning off the light
+    public void scheduleLightOff(String time, ConnectionToClient client) {
+        Timer timer = new Timer();
+        String[] timeParts = time.split(":");
+        int hour = Integer.parseInt(timeParts[0]);
+        int minute = Integer.parseInt(timeParts[1]);
 
-    public String unlockDoor(String isLockedUnlocked) {
-        if (deviceMap.containsKey(1)) {
-        	((SmartLock) deviceMap.get(1)).turnOnOff("on");
-        	((SmartLock) deviceMap.get(1)).lockUnlock(isLockedUnlocked);
-        }
-        return ((SmartLock) deviceMap.get(1)).getLockedOrUnlocked();
+        // Calculate delay until the event
+        long delay = calculateDelay(hour, minute);
+
+        // Schedule the timer task
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Turn off the light
+                turnOnLight("off");
+                try {
+                    client.sendToClient("lightscheduledoff" + time);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, delay);
     }
-    
-    public boolean getBreakInAlert(boolean breakIn) {
-        if (deviceMap.containsKey(1)) {
-        	((SmartLock) deviceMap.get(1)).setBreakInAlert(breakIn);
-        }
-        boolean setBreakIn = ((SmartLock) deviceMap.get(1)).isBreakInAlert();
-        return setBreakIn;
-    }
-    public boolean displayLockStatus() {
-    	if (deviceMap.containsKey(1)) {
-    		if(((SmartLock) deviceMap.get(1)).getLockedOrUnlocked() == "lock")
-    		{
-    			return true;
-    		}
-    	}
-    	return false;
-	}
     
     
     
@@ -221,8 +203,169 @@ public class SHServerController {
     	}
     	return temperature;
     }
+    
+    // Method to schedule turning on the thermostat
+    public void scheduleThermostatOn(String time, ConnectionToClient client) {
+        Timer timer = new Timer();
+        String[] timeParts = time.split(":");
+        int hour = Integer.parseInt(timeParts[0]);
+        int minute = Integer.parseInt(timeParts[1]);
+
+        // Calculate delay until the event
+        long delay = calculateDelay(hour, minute);
+
+        // Schedule the timer task
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Turn on the thermostat
+            	turnOnThermostat("on");
+                try {
+                    client.sendToClient("thermostatscheduledon" + time);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, delay);
+    }
+    
+    // Method to schedule turning off the thermostat
+    public void scheduleThermostatOff(String time, ConnectionToClient client) {
+        Timer timer = new Timer();
+        String[] timeParts = time.split(":");
+        int hour = Integer.parseInt(timeParts[0]);
+        int minute = Integer.parseInt(timeParts[1]);
+
+        // Calculate delay until the event
+        long delay = calculateDelay(hour, minute);
+
+        // Schedule the timer task
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Turn off the thermostat
+            	turnOnThermostat("off");
+                try {
+                    client.sendToClient("thermostatscheduledoff" + time);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, delay);
+    }
 
     
+    
+    //-----------------------------------Methods for Smart Lock-------------------------------------    
+    public String lockDoor(String isLockedUnlocked) {
+        if (deviceMap.containsKey(1)) {
+        	((SmartLock) deviceMap.get(1)).turnOnOff("on");
+        	((SmartLock) deviceMap.get(1)).lockUnlock(isLockedUnlocked);
+        }
+        return ((SmartLock) deviceMap.get(1)).getLockedOrUnlocked();
+    }
+
+    public String unlockDoor(String isLockedUnlocked) {
+        if (deviceMap.containsKey(1)) {
+        	((SmartLock) deviceMap.get(1)).turnOnOff("on");
+        	((SmartLock) deviceMap.get(1)).lockUnlock(isLockedUnlocked);
+        }
+        return ((SmartLock) deviceMap.get(1)).getLockedOrUnlocked();
+    }
+    
+    public boolean getBreakInAlert(boolean breakIn) {
+        if (deviceMap.containsKey(1)) {
+        	((SmartLock) deviceMap.get(1)).setBreakInAlert(breakIn);
+        }
+        boolean setBreakIn = ((SmartLock) deviceMap.get(1)).isBreakInAlert();
+        return setBreakIn;
+    }
+    public boolean displayLockStatus() {
+    	if (deviceMap.containsKey(1)) {
+    		if(((SmartLock) deviceMap.get(1)).getLockedOrUnlocked() == "lock")
+    		{
+    			return true;
+    		}
+    	}
+    	return false;
+	}
+    // Method to schedule lock on the smart lock
+    public void scheduleLockSmartLock(String time, ConnectionToClient client) {
+        Timer timer = new Timer();
+        String[] timeParts = time.split(":");
+        int hour = Integer.parseInt(timeParts[0]);
+        int minute = Integer.parseInt(timeParts[1]);
+
+        // Calculate delay until the event
+        long delay = calculateDelay(hour, minute);
+
+        // Schedule the timer task
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Lock the smart lock
+            	lockDoor("lock");
+                try {
+                    client.sendToClient("smartlockscheduledlock" + time);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, delay);
+    }
+    
+    // Method to schedule unlock on the smart lock
+    public void scheduleUnlockSmartLock(String time, ConnectionToClient client) {
+    	Timer timer = new Timer();
+        String[] timeParts = time.split(":");
+        int hour = Integer.parseInt(timeParts[0]);
+        int minute = Integer.parseInt(timeParts[1]);
+
+        // Calculate delay until the event
+        long delay = calculateDelay(hour, minute);
+
+        // Schedule the timer task
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Lock the smart lock
+            	unlockDoor("unlock");
+                try {
+                    client.sendToClient("smartlockscheduledunlock" + time);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, delay);
+    }
+    
+    // Method to schedule set break-in alert on the smart lock
+    public void scheduleBreakInAlertSmartLock(String time, ConnectionToClient client) {
+    	Timer timer = new Timer();
+        String[] timeParts = time.split(":");
+        int hour = Integer.parseInt(timeParts[0]);
+        int minute = Integer.parseInt(timeParts[1]);
+
+        // Calculate delay until the event
+        long delay = calculateDelay(hour, minute);
+
+        // Schedule the timer task
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Lock the smart lock
+            	getBreakInAlert(true);
+                try {
+                    client.sendToClient("smartlockscheduledbreakinalert" + time);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, delay);
+    }
+    
+    
+
     //---------------------------------Methods for Vacuum Robot-------------------------
     public String startCleaning() {
     	String isCleaning = "";
