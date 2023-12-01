@@ -32,7 +32,8 @@ import javafx.scene.control.ComboBox;
 import java.util.prefs.Preferences;
 
 public class SHClientController {
-	private SHClient client;
+	private SHClient client;	//Instantiating object for SHClient class
+	
 	private Map<String, Scene> sceneCache = new HashMap<>();
 	
 	public synchronized void setClientConnection(SHClient client) {
