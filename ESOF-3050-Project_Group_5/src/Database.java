@@ -6,7 +6,7 @@ public class Database {
 	//connection to MySQL using JDBC
     private static final String URL = "jdbc:mysql://localhost:3306/smartHome";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "Dhr123uval456";
+    private static final String PASSWORD = "1234";
     
 //establishes a connection to the MySQL database and returns the Connection
     public static Connection getConnection() throws SQLException {

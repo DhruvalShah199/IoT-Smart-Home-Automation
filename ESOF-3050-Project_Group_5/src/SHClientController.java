@@ -27,6 +27,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import java.util.prefs.Preferences;
@@ -61,10 +62,6 @@ public class SHClientController {
 	
     public void initialize() {
     	try {
-	    	
-	    	setupListViewAdminPage();
-	    	
-	    	loadDevicesFromPreferences();
 	    	
 	    	setUpBrightness();
 	    	
@@ -434,9 +431,6 @@ public class SHClientController {
     //-----------------------------Admin Page-------------------------------------------
 
     @FXML
-    private Button addNewDevicesButtonAdminPage1;
-
-    @FXML
     private Label adminPageLabel;
 
     @FXML
@@ -446,61 +440,15 @@ public class SHClientController {
     private Button goBackButtonAdminPage;
 
     @FXML
-    private ListView<String> listViewAdminPage;
+    private ImageView imageViewAdminPage;
 
     @FXML
     private Pane mainPagePane;
 
     @FXML
     private Button viewDevicesButtonAdminPage;
-    
-    private static final String DEVICES_KEY = "devices";
-    
-    private static int newDeviceCount = 0;
-    
-    private Preferences prefs = Preferences.userNodeForPackage(SHClientController.class);
 
-    private void saveDevicesToPreferences() {
-        StringBuilder sb = new StringBuilder();
-        for (String device : devices) {
-            sb.append(device).append(",");
-        }
-        prefs.put(DEVICES_KEY, sb.toString());
-    }
-
-    private void loadDevicesFromPreferences() {
-        String devicesString = prefs.get(DEVICES_KEY, "");
-        if (!devicesString.isEmpty()) {
-            String[] devicesArray = devicesString.split(",");
-            devices.addAll(Arrays.asList(devicesArray));
-        }
-    }
     
-    private static ObservableList<String> devices = FXCollections.observableArrayList(
-            "Smart Doorbell", 
-            "Smart Light",
-            "Smart Lock",
-            "Smart Thermostat",
-            "Vacuum Robot"   
-    	);
-    
-    private void setupListViewAdminPage() {
-    
-	    if(listViewAdminPage != null) {
-	    	
-	    	listViewAdminPage.setItems(devices);
-	    }
-    }
-
-    @FXML
-    void addNewDevicesButtonPressedAdminPage(ActionEvent event) {
-    	 int newDeviceCount = devices.size() - 5; // Assuming the first 5 are the default devices
-         String newDeviceName = "New Device " + (newDeviceCount + 1);
-         devices.add(newDeviceName); // Adds new device to the static list
-         listViewAdminPage.setItems(devices); // Updates the ListView
-         saveDevicesToPreferences(); // Save the updated list to preferences
-    }
-
     @FXML
     void automationRulesButtonPressedAdminPage(ActionEvent event) {
         switchSceneAdminPage("AutomationRules.fxml");
