@@ -45,13 +45,13 @@ public class SHClientController {
 	    }
 	}
 	
-//	public String userAdminLogin;
-//	 public void setUserInfo() {
-//		 
-//	 }
-//	public String getUserInfo() {
-//		return this.userAdminLogin;
-//	}	
+	public String userAdminLogin;
+	 public void setUserInfo() {
+		 
+	 }
+	public String getUserInfo() {
+		return this.userAdminLogin;
+	}	
 	
 	public String userAdmin;
 	
@@ -398,28 +398,28 @@ public class SHClientController {
 
     @FXML
     void logInButtonPressedLoginPage(ActionEvent event) {
-//    	   String username = usernameTextFieldLogin.getText().strip();
-//           String password = passwordTextFieldLogin.getText().strip();
-//
-//           String userType = UserDB.signIn(username, password);
-//           
-//           userAdminLogin(userType);
-//           
-//
-//           if (userType != null) {
-//               if (userType.equals("user")) {
-//                   // Redirect to regular user page
-//            	   switchSceneLogInPage("ViewDevices.fxml");  	   
-//                   
-//               } else if (userType.equals("admin")) {
-//                   // Redirect to admin page
+    	   String username = usernameTextFieldLogin.getText().strip();
+           String password = passwordTextFieldLogin.getText().strip();
+
+          String userType = UserDB.signIn(username, password);
+          
+          userAdminLogin(userType);
+           
+
+          if (userType != null) {
+              if (userType.equals("user")) {
+                   // Redirect to regular user page
+            	  switchSceneLogInPage("ViewDevices.fxml");  	   
+                  
+               } else if (userType.equals("admin")) {
+                   // Redirect to admin page
             	   switchSceneLogInPage("AdminPage.fxml");
-//                 
-//               }
-//           } else {
-//               // Show login failed message
-//               showAlert("Login Failed! Please enter valid username/password.");
-//           }
+                
+               }
+          } else {
+               // Show login failed message
+              showAlert("Login Failed! Please enter valid username/password.");
+           }
     }
     
     @FXML
@@ -550,6 +550,8 @@ public class SHClientController {
     
     //-----------------------------View Devices Page-------------------------------------------
     
+    private boolean pageCheck = false;
+    
     @FXML
     private Button doorbellButtonViewDevices;
 
@@ -605,7 +607,6 @@ public class SHClientController {
 
     @FXML
     void goBackButtonPressedViewDevices(ActionEvent event) {
-    	System.out.println(userAdmin);
     	if(userAdmin != null && userAdmin.equals("admin")) {
     		switchSceneViewDevicesPage("AdminPage.fxml");
     	}
@@ -639,12 +640,8 @@ public class SHClientController {
     @FXML
     void vacuumButtonPressedViewDevices(ActionEvent event) {
     	switchSceneViewDevicesPage("VacuumRobot.fxml");
-    	if(userAdmin != null && userAdmin.equals("admin")) {
-        	vacuumRobotAutomationGridPane.setVisible(true);
-        }
-        else {
-        	vacuumRobotAutomationGridPane.setVisible(false);
-        }
+    	vacuumRobotAutomationGridPane.setVisible(false); 
+    	pageCheck = true;
     }
     
     
@@ -1158,10 +1155,12 @@ public class SHClientController {
 
     @FXML
     void goBackButtonPressedVacuumRobotPage(ActionEvent event) {
-    	if(userAdmin != null && userAdmin.equals("admin")) {
-    		switchSceneVacuumRobotPage("AutomationRules.fxml");
-    	}
-    	else {
+    	if(pageCheck == false){
+	    	if(userAdmin != null && userAdmin.equals("admin")) {
+	    		switchSceneVacuumRobotPage("AutomationRules.fxml");
+	    	}
+	    } 
+    	else{
     		switchSceneVacuumRobotPage("ViewDevices.fxml");
     	}
     }
@@ -1401,7 +1400,7 @@ public class SHClientController {
     
     
 
-    //-----------------------------Automation Rules Page-------------------------------------------
+    //-----------------------------Automation Rules Page---------------------------------------------
     
 	@FXML
     private Pane automationRulePane;
@@ -1483,7 +1482,9 @@ public class SHClientController {
 
     @FXML
     void vacuumButtonPressedAutomationRules(ActionEvent event) {
+    	pageCheck = false;
     	switchSceneSetAutomationRulePage("VacuumRobot.fxml");
+        vacuumRobotAutomationGridPane.setVisible(true);
     }
     
     private String convertTo24HourFormat(String hour, String minute, String amPm) {
