@@ -566,6 +566,7 @@ public class SHClient extends AbstractClient{
 	            Platform.runLater(() -> {
 	            	clientController.setLightLabelAutomation("Light color changed to: " + color);
 	                clientController.changeTitleColorAutomation(color);
+	                clientController.changeTitleColor(color);
 	            });
 	        }
 	        
