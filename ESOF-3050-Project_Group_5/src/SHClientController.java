@@ -771,12 +771,12 @@ public class SHClientController {
     }
     
     public void changeTitleColor(String col) {
-//    	Platform.runLater(() -> {
+    	Platform.runLater(() -> {
     		Color colorValue = Color.web(col);
 	    	if(this.smartLightTitleLabel != null) {
 	    		smartLightTitleLabel.setTextFill(colorValue);
 	    	}
-//    	});
+    	});
     }
 
     
