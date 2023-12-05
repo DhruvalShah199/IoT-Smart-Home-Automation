@@ -763,14 +763,20 @@ public class SHClientController {
     }
     
     public void setLabelSmartLight(String lbl) {
-    	smartLightLabel.setText(lbl);
+    	Platform.runLater(() -> {
+    		if(this.smartLightLabel != null) {
+    			smartLightLabel.setText(lbl);
+    		}
+    	});
     }
     
     public void changeTitleColor(String col) {
-    	Color colorValue = Color.web(col);
-    	if(this.smartLightTitleLabel != null) {
-    		smartLightTitleLabel.setTextFill(colorValue);
-    	}
+    	Platform.runLater(() -> {
+    		Color colorValue = Color.web(col);
+	    	if(this.smartLightTitleLabel != null) {
+	    		smartLightTitleLabel.setTextFill(colorValue);
+	    	}
+    	});
     }
 
     
@@ -927,11 +933,11 @@ public class SHClientController {
     }
     
     public void setLabelThermostat(String lbl) {
-    	smartThermostatLabel.setText(lbl);
+    	Platform.runLater(() -> smartThermostatLabel.setText(lbl));
     }
     
     public void setTempeartureLabelThermostat(String lbl) {
-    	temperatureLabelThermostat.setText(lbl);
+    	Platform.runLater(() -> temperatureLabelThermostat.setText(lbl));
     }
 
 
@@ -1045,7 +1051,7 @@ public class SHClientController {
     }
     
     public void setLabelSmartLock(String lbl) {
-    	smartLockLabelHidden.setText(lbl);
+    	Platform.runLater(() -> smartLockLabelHidden.setText(lbl));
     }
     
     
@@ -1159,7 +1165,7 @@ public class SHClientController {
     }
     
     public void setLabelVacuumRobot(String lbl) {
-    	vacuumRobotLabel.setText(lbl);
+    	Platform.runLater(() -> vacuumRobotLabel.setText(lbl));
     }
 
     
@@ -1295,7 +1301,7 @@ public class SHClientController {
     }
 	
 	public void setLabelSmartDoorbell(String lbl) {
-		smartDoorbellLabelHidden.setText(lbl);
+		Platform.runLater(() -> smartDoorbellLabelHidden.setText(lbl));
     }
     
 	
@@ -1617,12 +1623,16 @@ public class SHClientController {
     }
     
     public void setLightLabelAutomation (String lbl) {
-    	smartLightAutomationLabelHidden.setText(lbl);
+    	Platform.runLater(() -> smartLightAutomationLabelHidden.setText(lbl));
     }
     
     public void changeTitleColorAutomation(String col) {
-    	Color color = Color.web(col);
-    	smartLightAutomationLabel.setTextFill(color);
+    	Platform.runLater(() -> {
+    		Color color = Color.web(col);
+    		if(this.smartLightAutomationLabel != null) {
+    			smartLightAutomationLabel.setTextFill(color);
+    		}
+    	});
     }
     
     
@@ -1752,7 +1762,7 @@ public class SHClientController {
     }
     
     public void setThermostatLabelAutomation (String lbl) {
-    	smartThermostatAutomationLabelHidden.setText(lbl);
+    	Platform.runLater(() -> smartThermostatAutomationLabelHidden.setText(lbl));
     }
     
     private void switchSceneSmartThermostatAutomationPage(String fxmlFileName) {
@@ -1896,7 +1906,11 @@ public class SHClientController {
     }
     
     public void setSmartLockLabelAutomation (String lbl) {
-    	smartLockAutomationLabelHidden.setText(lbl);
+    	Platform.runLater(() -> {
+    		if(this.smartLockAutomationLabelHidden != null) {
+    			smartLockAutomationLabelHidden.setText(lbl);
+    		}
+    	});
     }
     
     private void switchSceneSmartLockAutomationPage(String fxmlFileName) {
@@ -2123,7 +2137,11 @@ public class SHClientController {
     }
     
     public void setSmartDoorbellLabelAutomation (String lbl) {
-    	smartDoorbellAutomationLabelHidden.setText(lbl);
+    	Platform.runLater(() -> {
+    		if(this.smartDoorbellAutomationLabelHidden != null) {
+    			smartDoorbellAutomationLabelHidden.setText(lbl);
+    		}
+    	});
     }
 }
 //end of SHClientController.java
