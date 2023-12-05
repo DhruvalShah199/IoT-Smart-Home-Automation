@@ -39,6 +39,10 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.ChoiceBox;
+
+import javafx.scene.control.ComboBox;
+import java.util.prefs.Preferences;
+
 import javafx.scene.control.ComboBox;
 
 public class SHClientController {
