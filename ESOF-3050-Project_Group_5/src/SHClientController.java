@@ -1874,7 +1874,7 @@ public class SHClientController {
         
         client.lockSmartLockAt(time);
         
-        setThermostatLabelAutomation("Smart Lock is scheduled to lock at: " + time);
+        setSmartLockLabelAutomation("Smart Lock is scheduled to lock at: " + time);
     }
 
     @FXML
@@ -1888,7 +1888,7 @@ public class SHClientController {
         
         client.unlockSmartLockAt(time);
         
-        setThermostatLabelAutomation("Smart Lock is scheduled to unlock at: " + time);
+        setSmartLockLabelAutomation("Smart Lock is scheduled to unlock at: " + time);
     }
     
     @FXML
@@ -1902,7 +1902,7 @@ public class SHClientController {
         
         client.breakInAlertSmartLockAt(time);
         
-        setThermostatLabelAutomation("Smart Lock is scheduled to turn on break-in alert at: " + time);
+        setSmartLockLabelAutomation("Smart Lock is scheduled to turn on break-in alert at: " + time);
     }
     
     public void setSmartLockLabelAutomation (String lbl) {
