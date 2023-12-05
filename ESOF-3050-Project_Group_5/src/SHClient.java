@@ -521,13 +521,17 @@ public class SHClient extends AbstractClient{
 	        if (messageString.equals("lighton")) {
 	        	Platform.runLater(()-> {
 	        		clientController.setLabelSmartLight("The Light is Turned ON");
-	        		clientController.brightnessLabelLightPage.setVisible(true);
+	        		if(clientController.brightnessLabelLightPage != null) {
+	        			clientController.brightnessLabelLightPage.setVisible(true);
+	        		}
 	        	});
 	        } 
 	        else if (messageString.equals("lightoff")){
 	        	Platform.runLater(()-> {
 	        		clientController.setLabelSmartLight("The Light is Turned OFF");
-	        		clientController.brightnessLabelLightPage.setVisible(false);
+	        		if(clientController.brightnessLabelLightPage != null) {
+	        			clientController.brightnessLabelLightPage.setVisible(false);
+	        		}
 	        	});
 	        }
 	        else if (messageString.equals("lightstatuson")){
