@@ -1,3 +1,16 @@
+/**
+* The SHClient contains all the methods necassary to
+* make connection to the server, send messages to the 
+* server-side and also overrides the handlemessagesfromserver 
+* method to handle specific messages from the server and 
+* do different functions on the GUI.
+* 
+* @author Dhruval Harshilkumar Shah
+* @author Amir Dawood
+* @version December 2023
+*/
+
+
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -77,8 +90,7 @@ public class SHClient extends AbstractClient{
 		}catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		}	
 	}
 	
 	public void turnOffLightAt(String time) {
@@ -88,7 +100,15 @@ public class SHClient extends AbstractClient{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+	}
+	
+	public void changeColorLightAt(String time, String color) {
+		try {
+			sendToServer("scheduleLightColor-" + time + "-" + color);
+		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -187,6 +207,26 @@ public class SHClient extends AbstractClient{
 	public void turnOffThermostatAt(String time) {
 		try {
 			sendToServer("scheduleThermostatOff-" + time);
+		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void modeCoolThermostatAt(String time) {
+		try {
+			sendToServer("scheduleModeCoolOn-" + time);
+		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void modeHeatThermostatAt(String time) {
+		try {
+			sendToServer("scheduleModeHeatOn-" + time);
 		}catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -323,6 +363,17 @@ public class SHClient extends AbstractClient{
 			e.printStackTrace();
 		}
 	}
+	
+	//Methods for Automation
+	public void startCleaningAt(String time) {
+		try {
+			sendToServer("schedulestartcleaningat-" + time);
+		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 
 	
 	
@@ -426,6 +477,37 @@ public class SHClient extends AbstractClient{
 		}
 	}
 	
+	//Methods for Automation
+		public void turnOnDoorbellAt(String time) {
+			try {
+				sendToServer("scheduleDoorbellOn-" + time);
+			}catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		public void turnOffDoorbellAt(String time) {
+			try {
+				sendToServer("scheduleDoorbellOff-" + time);
+			}catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		public void activateNightModeAt(String time) {
+			try {
+				sendToServer("scheduleNightModeAt-" + time);
+			}catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	
 	//----------------------- Handle Message From Server Method -----------------------
 	@Override
 	protected void handleMessageFromServer(Object msg) {
@@ -479,6 +561,13 @@ public class SHClient extends AbstractClient{
 	        		clientController.brightnessLabelLightPage.setVisible(false);
 	        	});
 	        }
+	        else if (messageString.startsWith("lightcolorscheduledto")) {
+	            String color = messageString.substring("lightcolorscheduledto".length());
+	            Platform.runLater(() -> {
+	            	clientController.setLightLabelAutomation("Light color changed to: " + color);
+	                clientController.changeTitleColorAutomation(color);
+	            });
+	        }
 	        
 	        
 	        // Now compare messageString with messages for smart thermostat functions
@@ -501,11 +590,13 @@ public class SHClient extends AbstractClient{
 	        else if (messageString.equals("heat")){
 	        	Platform.runLater(()->clientController.setLabelThermostat("The Mode set for Thermostat is: HEAT"));
 	        }
-	        else if (messageString.equals("thermostatstatuson")){
-	        	Platform.runLater(()->clientController.setLabelThermostat("The Status of Smart Thermostat is: ON"));
+	        else if (messageString.startsWith("thermostatstatuson")){
+	        	String modeStatus = messageString.split(":")[1];
+	        	Platform.runLater(()->clientController.setLabelThermostat("The Smart Thermostat is ON and the Mode is set to : " + modeStatus));
 	        }
-	        else if (messageString.equals("thermostatstatusoff")){
-	        	Platform.runLater(()->clientController.setLabelThermostat("The Status of Smart Thermostat is: OFF"));
+	        else if (messageString.startsWith("thermostatstatusoff")){
+	        	String modeStatus = messageString.split(":")[1];
+	        	Platform.runLater(()->clientController.setLabelThermostat("The Smart Thermostat is OFF and the Mode is set to : " + modeStatus));
 	        }
 	        else if (messageString.startsWith("temperature")){
 	        	String temperature = messageString.replaceAll("[^\\d]", "");
@@ -522,6 +613,12 @@ public class SHClient extends AbstractClient{
 	        		clientController.setThermostatLabelAutomation("The Thermostat is Turned OFF");
 	        		clientController.showTemperature(false);
 	        	});;
+	        }
+	        else if (messageString.startsWith("thermostatscheduledcool")) {
+	        	Platform.runLater(()-> clientController.setThermostatLabelAutomation("The Thermostat is set to COOL mode"));
+	        }
+	        else if (messageString.startsWith("thermostatscheduledheat")) {
+	        	Platform.runLater(()->clientController.setThermostatLabelAutomation("The Thermostat is set to HEAT mode"));
 	        }
 	        
 	        
@@ -612,6 +709,9 @@ public class SHClient extends AbstractClient{
 	        	// Perform action when 
 	        	Platform.runLater(() -> clientController.setLabelVacuumRobot("Vacuum Robot Not Cleaning"));
 	        }
+	        else if (messageString.startsWith("startcleaningscheduledat")) {
+	        	Platform.runLater(()-> clientController.setLabelVacuumRobot("Vacuum Robot STARTED CLEANING"));
+	        }
 	        
 	        
 	        
@@ -673,8 +773,21 @@ public class SHClient extends AbstractClient{
 	        else if (messageString.equals("doorbellstatusoff")){
 	        	Platform.runLater(()->clientController.setLabelSmartDoorbell("The Status of Smart Doorbell is: OFF"));
 	        }
+	        else if (messageString.startsWith("doorbellscheduledon")) {
+	        	Platform.runLater(()-> clientController.setSmartDoorbellLabelAutomation("The Smart Doorbell is ON"));
+	        }
+	        else if (messageString.startsWith("doorbellscheduledoff")) {
+	        	Platform.runLater(()-> clientController.setSmartDoorbellLabelAutomation("The Smart Doorbell is OFF"));
+	        }
+	        else if (messageString.startsWith("nightmodescheduledon")) {
+	        	Platform.runLater(()-> {
+	        		clientController.setSmartDoorbellLabelAutomation("The Smart Doorbell Night Mode is ACTIVATED");
+	        		clientController.setActivateNightModeToggleButton(true);
+	        	});
+	        }
 		}
 		else if (msg instanceof Integer) {
+			//To set thermostat temperature
 			Integer messageInt = (Integer) msg;
 			String temperature = messageInt.toString();
 			Platform.runLater(()->clientController.setTempeartureLabelThermostat(temperature));

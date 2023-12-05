@@ -80,6 +80,13 @@ public class SHServer extends AbstractServer {
 	        // Schedule the light to turn off at the specified time
 	        serverController.scheduleLightOff(time, client);
 	    }
+		else if (messageString.startsWith("scheduleLightColor-")) {
+		    String[] parts = messageString.split("-");
+		    String time = parts[1];
+		    String color = parts[2];
+		    serverController.scheduleLightColorChange(time, color, client);
+		}
+		
 		
 		
 		
@@ -121,9 +128,10 @@ public class SHServer extends AbstractServer {
 		}
 		else if(messageString.equals("getthermostatstatus")) {
 			boolean status = serverController.displayThermostatStatus();
+			String modeStatus = serverController.displayThermostatMode();
 			if(status == true) {
 				try {
-					client.sendToClient("thermostatstatuson");
+					client.sendToClient("thermostatstatuson:"+modeStatus);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -131,7 +139,7 @@ public class SHServer extends AbstractServer {
 			}
 			else if(status == false) {
 				try {
-					client.sendToClient("thermostatstatusoff");
+					client.sendToClient("thermostatstatusoff:"+modeStatus);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -149,6 +157,19 @@ public class SHServer extends AbstractServer {
 	        // Schedule the thermostat to turn off at the specified time
 	        serverController.scheduleThermostatOff(time, client);
 	    }
+		else if (messageString.startsWith("scheduleModeCoolOn-")) {
+	        String time = messageString.split("-")[1];
+	        // Schedule the thermostat to turn off at the specified time
+	        serverController.scheduleThermostatModeCool(time, client);
+	    }
+		else if (messageString.startsWith("scheduleModeHeatOn-")) {
+	        String time = messageString.split("-")[1];
+	        // Schedule the thermostat to turn off at the specified time
+	        serverController.scheduleThermostatModeHeat(time, client);
+	    }
+		
+		
+		
 		
 		
 		//To handle messages from smart lock
@@ -210,6 +231,8 @@ public class SHServer extends AbstractServer {
 		
 		
 		
+		
+		
 		//To handle messages from vacuum robot
 		else if(messageString.equals("startcleaning")) {
 			String startCleaning = serverController.startCleaning();
@@ -246,6 +269,14 @@ public class SHServer extends AbstractServer {
 				}
 			}
 		}
+		//To handle messages from vacuum robot automation
+		else if (messageString.startsWith("schedulestartcleaningat-")) {
+	        String time = messageString.split("-")[1];
+	        // Schedule the light to turn on at the specified time
+	        serverController.scheduleVacuumCleaning(time, client);
+	    }
+		
+		
 		
 		
 		//To handle messages from smart doorbell
@@ -307,6 +338,22 @@ public class SHServer extends AbstractServer {
 					e.printStackTrace();
 				}
 			}
+			//To handle messages from smart doorbell automation
+			else if (messageString.startsWith("scheduleDoorbellOn-")) {
+		        String time = messageString.split("-")[1];
+		        // Schedule the light to turn on at the specified time
+		        serverController.scheduleDoorbellOn(time, client);
+		    }
+			else if (messageString.startsWith("scheduleDoorbellOff-")) {
+		        String time = messageString.split("-")[1];
+		        // Schedule the light to turn off at the specified time
+		        serverController.scheduleDoorbellOff(time, client);
+		    }
+			else if (messageString.startsWith("scheduleNightModeAt-")) {
+		        String time = messageString.split("-")[1];
+		        // Schedule the light to turn off at the specified time
+		        serverController.scheduleNightModeAt(time, client);
+		    }
 		}
 		
 		else {
@@ -327,7 +374,7 @@ public class SHServer extends AbstractServer {
     
     @Override
     protected void clientConnected(ConnectionToClient client) {
-	// DISPLAY THE CONNECTED CLIENT
+	// To display the connected client(s)
 	System.out.println("Client: " + client + " is connected");
 
     }

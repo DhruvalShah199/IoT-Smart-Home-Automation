@@ -7,19 +7,19 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="mainPagePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="595.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="mainPagePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="581.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="adminPageLabel" layoutX="227.0" layoutY="44.0" text="ADMIN PAGE" textFill="WHITE">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="viewDevicesButtonAdminPage" layoutX="73.0" layoutY="157.0" mnemonicParsing="false" onAction="#viewDevicesButtonPressedAdminPage" prefHeight="43.0" prefWidth="175.0" text="VIEW DEVICES">
+      <Button fx:id="viewDevicesButtonAdminPage" layoutX="46.0" layoutY="145.0" mnemonicParsing="false" onAction="#viewDevicesButtonPressedAdminPage" prefHeight="43.0" prefWidth="175.0" text="VIEW DEVICES">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Button>
-      <Button fx:id="automationRulesButtonAdminPage" layoutX="74.0" layoutY="282.0" mnemonicParsing="false" onAction="#automationRulesButtonPressedAdminPage" prefHeight="43.0" prefWidth="175.0" text="AUTOMATION RULES">
+      <Button fx:id="automationRulesButtonAdminPage" layoutX="46.0" layoutY="261.0" mnemonicParsing="false" onAction="#automationRulesButtonPressedAdminPage" prefHeight="43.0" prefWidth="175.0" text="AUTOMATION RULES">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -29,7 +29,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <ImageView fx:id="imageViewAdminPage" fitHeight="262.0" fitWidth="271.0" layoutX="286.0" layoutY="99.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imageViewAdminPage" fitHeight="289.0" fitWidth="308.0" layoutX="259.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Admin.png" />
          </image>
