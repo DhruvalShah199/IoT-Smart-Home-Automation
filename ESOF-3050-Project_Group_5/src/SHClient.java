@@ -1,14 +1,14 @@
 /**
- * The SHClient contains all the methods necassary to
- * make connection to the server, send messages to the 
- * server-side and also overrides the handlemessagesfromserver 
- * method to handle specific messages from the server and 
- * do different functions on the GUI.
- * 
- * @author Dhruval Harshilkumar Shah
- * @author Amir Dawood
- * @version December 2023
- */
+* The SHClient contains all the methods necassary to
+* make connection to the server, send messages to the 
+* server-side and also overrides the handlemessagesfromserver 
+* method to handle specific messages from the server and 
+* do different functions on the GUI.
+* 
+* @author Dhruval Harshilkumar Shah
+* @author Amir Dawood
+* @version December 2023
+*/
 
 
 import java.io.IOException;
@@ -90,8 +90,7 @@ public class SHClient extends AbstractClient{
 		}catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		}	
 	}
 	
 	public void turnOffLightAt(String time) {
@@ -101,7 +100,15 @@ public class SHClient extends AbstractClient{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+	}
+	
+	public void changeColorLightAt(String time, String color) {
+		try {
+			sendToServer("scheduleLightColor-" + time + "-" + color);
+		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -554,6 +561,13 @@ public class SHClient extends AbstractClient{
 	        		clientController.brightnessLabelLightPage.setVisible(false);
 	        	});
 	        }
+	        else if (messageString.startsWith("lightcolorscheduledto")) {
+	            String color = messageString.substring("lightcolorscheduledto".length());
+	            Platform.runLater(() -> {
+	            	clientController.setLightLabelAutomation("Light color changed to: " + color);
+	                clientController.changeTitleColorAutomation(color);
+	            });
+	        }
 	        
 	        
 	        // Now compare messageString with messages for smart thermostat functions
@@ -599,6 +613,12 @@ public class SHClient extends AbstractClient{
 	        		clientController.setThermostatLabelAutomation("The Thermostat is Turned OFF");
 	        		clientController.showTemperature(false);
 	        	});;
+	        }
+	        else if (messageString.startsWith("thermostatscheduledcool")) {
+	        	Platform.runLater(()-> clientController.setThermostatLabelAutomation("The Thermostat is set to COOL mode"));
+	        }
+	        else if (messageString.startsWith("thermostatscheduledheat")) {
+	        	Platform.runLater(()->clientController.setThermostatLabelAutomation("The Thermostat is set to HEAT mode"));
 	        }
 	        
 	        

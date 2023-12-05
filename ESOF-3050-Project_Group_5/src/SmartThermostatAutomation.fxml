@@ -18,7 +18,7 @@
             <Font name="System Bold Italic" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="smartThermostatAutomationLabelHidden" layoutX="84.0" layoutY="358.0" prefHeight="31.0" prefWidth="537.0" textFill="WHITE">
+      <Label fx:id="smartThermostatAutomationLabelHidden" layoutX="75.0" layoutY="331.0" prefHeight="31.0" prefWidth="537.0" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -78,12 +78,12 @@
                   </Label>
                </children>
             </Pane>
-            <ToggleButton fx:id="coolToggleButtonSmartThermostatAutomation" mnemonicParsing="false" prefHeight="31.0" prefWidth="82.0" style="-fx-background-color: #87CEEB;" text="COOL" GridPane.columnIndex="1">
+            <ToggleButton fx:id="coolToggleButtonSmartThermostatAutomation" mnemonicParsing="false" onAction="#coolToggleButtonSmartThermostatPressed" prefHeight="31.0" prefWidth="82.0" style="-fx-background-color: #87CEEB;" text="COOL" GridPane.columnIndex="1">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </ToggleButton>
-            <ToggleButton fx:id="heatToggleButtonSmartThermostatAutomation" mnemonicParsing="false" prefHeight="31.0" prefWidth="82.0" style="-fx-background-color: red;" text="HEAT" GridPane.columnIndex="2">
+            <ToggleButton fx:id="heatToggleButtonSmartThermostatAutomation" mnemonicParsing="false" onAction="#heatToggleButtonSmartThermostatPressed" prefHeight="31.0" prefWidth="82.0" style="-fx-background-color: red;" text="HEAT" GridPane.columnIndex="2">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -146,10 +146,11 @@
          </font>
       </TextField>
       <ComboBox fx:id="turnOffThermostatAmPmComboBox" layoutX="352.0" layoutY="231.0" prefHeight="31.0" prefWidth="50.0" />
-      <Button fx:id="changeModeThermostatButton" layoutX="581.0" layoutY="113.0" mnemonicParsing="false" onAction="#changeModeThermostatAutomationButtonPressed" prefHeight="29.0" prefWidth="80.0" text="SET ON">
+      <Button fx:id="changeModeThermostatButton" layoutX="581.0" layoutY="113.0" mnemonicParsing="false" onAction="#changeModeThermostatAutomationButtonPressed" prefHeight="29.0" prefWidth="80.0" text="CHANGE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Button>
+      <Label fx:id="modeLabel" alignment="CENTER" layoutX="184.0" layoutY="155.0" prefHeight="17.0" prefWidth="169.0" textAlignment="CENTER" textFill="WHITE" />
    </children>
 </Pane>

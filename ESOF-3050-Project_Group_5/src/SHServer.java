@@ -80,6 +80,12 @@ public class SHServer extends AbstractServer {
 	        // Schedule the light to turn off at the specified time
 	        serverController.scheduleLightOff(time, client);
 	    }
+		else if (messageString.startsWith("scheduleLightColor-")) {
+		    String[] parts = messageString.split("-");
+		    String time = parts[1];
+		    String color = parts[2];
+		    serverController.scheduleLightColorChange(time, color, client);
+		}
 		
 		
 		
@@ -368,7 +374,7 @@ public class SHServer extends AbstractServer {
     
     @Override
     protected void clientConnected(ConnectionToClient client) {
-	// DISPLAY THE CONNECTED CLIENT
+	// To display the connected client(s)
 	System.out.println("Client: " + client + " is connected");
 
     }

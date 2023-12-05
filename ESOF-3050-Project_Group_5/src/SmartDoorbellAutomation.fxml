@@ -124,7 +124,7 @@
                   </TextField>
                </children>
             </Pane>
-            <Button fx:id="turnOnDoorbellAtButton" mnemonicParsing="false" onAction="#turnOnDoorbellAtButtonPressed" prefHeight="29.0" prefWidth="80.0" text="SET OFF" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button fx:id="turnOnDoorbellAtButton" mnemonicParsing="false" onAction="#turnOnDoorbellAtButtonPressed" prefHeight="29.0" prefWidth="80.0" text="SET ON" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>

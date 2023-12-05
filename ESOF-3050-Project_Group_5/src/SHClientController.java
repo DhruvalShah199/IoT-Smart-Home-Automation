@@ -1,13 +1,13 @@
 /**
- * The SHClientController contains all the methods necassary to
- * set up all the FXML files for the client GUI and also invoke
- * methods in SHClient to send it to the server side
- * 
- * @author Dhruval Harshilkumar Shah
- * @author Ebube Orlukwu
- * @author Amir Dawood
- * @version December 2023
- */
+* The SHClientController contains all the methods necassary to
+* set up all the FXML files for the client GUI and also invoke
+* methods in SHClient to send it to the server side
+* 
+* @author Dhruval Harshilkumar Shah
+* @author Ebube Orlukwu
+* @author Amir Dawood
+* @version December 2023
+*/
 
 
 import java.io.IOException;
@@ -1466,31 +1466,40 @@ public class SHClientController {
     //-----------------------------Smart Light Automation Rules Page-------------------------------------------
     
     @FXML
-    private ChoiceBox<String> changeBrightnessChoiceBoxSmartLightAutomation;
+    private ComboBox<String> changeColorLightAmPmComboBox;
 
     @FXML
-    private TextField changeBrightnessTextFieldSmartLight;
+    private Button changeColorLightAtButton;
+
+    @FXML
+    private TextField changeColorLightHH;
+
+    @FXML
+    private TextField changeColorLightMM;
 
     @FXML
     private ColorPicker changeColorPickerSmartLight;
-
-    @FXML
-    private ChoiceBox<String> colorChoiceBoxSmartLightAutomation;
 
     @FXML
     private Button goBackButtonSmartLightAutomationPage;
 
     @FXML
     private Label smartLightAutomationLabel;
+    
+    @FXML
+    private Label smartLightAutomationLabelHidden;
 
     @FXML
     private Pane smartLightPaneAutomation;
 
     @FXML
-    private ComboBox <String> turnOffLightAmPmComboBox;
+    private ComboBox<String> turnOffLightAmPmComboBox;
 
     @FXML
     private Button turnOffLightAtButton;
+
+    @FXML
+    private TextField turnOffLightHH;
 
     @FXML
     private TextField turnOffLightMM;
@@ -1503,13 +1512,56 @@ public class SHClientController {
 
     @FXML
     private TextField turnOnLightHH;
-    
-    @FXML
-    private TextField turnOffLightHH;
 
     @FXML
     private TextField turnOnLightMM;
 
+    @FXML
+    void changeColorLightAtButtonPressed(ActionEvent event) {
+    	String hour = changeColorLightHH.getText();
+        String minute = changeColorLightMM.getText();
+        String amPm = changeColorLightAmPmComboBox.getValue();
+        Color colorValue = changeColorPickerSmartLight.getValue();
+        String changeColor = String.format("#%02X%02X%02X",
+            (int) (colorValue.getRed() * 255),
+            (int) (colorValue.getGreen() * 255),
+            (int) (colorValue.getBlue() * 255));
+
+        // Construct a message with the desired schedule time in 24-hour format
+        String time = convertTo24HourFormat(hour, minute, amPm);
+        
+        client.changeColorLightAt(time, changeColor);
+        
+        setLightLabelAutomation("Light is scheduled to change color to " + changeColor + " at: " + time);
+    }
+
+    @FXML
+    void turnOffLightAtButtonPressed(ActionEvent event) {
+    	String hour = turnOffLightHH.getText();
+        String minute = turnOffLightMM.getText();
+        String amPm = turnOffLightAmPmComboBox.getValue();
+
+        // Construct a message with the desired schedule time in 24-hour format
+        String time = convertTo24HourFormat(hour, minute, amPm);
+        
+        client.turnOffLightAt(time);
+        
+        setLightLabelAutomation("Light is scheduled to turn off at: " + time);
+    }
+
+    @FXML
+    void turnOnLightAtButtonPressed(ActionEvent event) {
+    	String hour = turnOnLightHH.getText();
+        String minute = turnOnLightMM.getText();
+        String amPm = turnOnLightAmPmComboBox.getValue();
+
+        // Construct a message with the desired schedule time in 24-hour format
+        String time = convertTo24HourFormat(hour, minute, amPm);
+        
+        client.turnOnLightAt(time);
+        
+        setLightLabelAutomation("Light is scheduled to turn on at: " + time);
+    }
        
    private void switchSceneSmartLightAutomationPage(String fxmlFileName) {
         try {
@@ -1544,32 +1596,12 @@ public class SHClientController {
     }
     
    private void setupChoiceBoxesSmartLight() {
-	   if (changeBrightnessChoiceBoxSmartLightAutomation != null && colorChoiceBoxSmartLightAutomation != null) {
-		    // Populating the Change Brightness ChoiceBox with time options
-		    changeBrightnessChoiceBoxSmartLightAutomation.setItems(FXCollections.observableArrayList(
-		        "1 minute", 
-		        "2 minutes", 
-		        "5 minutes",
-		        "10 minutes",
-		        "15 minutes",
-		        "30 minutes",
-		        "1 hour"
-		    ));
-		    
-		    colorChoiceBoxSmartLightAutomation.setItems(FXCollections.observableArrayList(
-		        "1 minute", 
-		        "2 minutes", 
-		        "5 minutes",
-		        "10 minutes",
-		        "15 minutes",
-		        "30 minutes",
-		        "1 hour"
-		    ));
-	
+	   if (changeColorLightAmPmComboBox != null && turnOnLightAmPmComboBox != null && turnOffLightAmPmComboBox != null) {
 		    // Populating the AM/PM ComboBoxes
 		    ObservableList<String> amPmOptions = FXCollections.observableArrayList("AM", "PM");
 		    turnOnLightAmPmComboBox.setItems(amPmOptions);
 		    turnOffLightAmPmComboBox.setItems(amPmOptions);
+		    changeColorLightAmPmComboBox.setItems(amPmOptions);
 	   }
    }
 	    
@@ -1578,42 +1610,13 @@ public class SHClientController {
     	switchSceneSmartLightAutomationPage("AutomationRules.fxml");
     }
     
-    @FXML
-    void changeColorPickerSmartLightValue(ActionEvent event) {
-
-    }
-    
-
-    @FXML
-    void turnOffLightAtButtonPressed(ActionEvent event) {
-    	String hour = turnOffLightHH.getText();
-        String minute = turnOffLightMM.getText();
-        String amPm = turnOffLightAmPmComboBox.getValue();
-
-        // Construct a message with the desired schedule time in 24-hour format
-        String time = convertTo24HourFormat(hour, minute, amPm);
-        
-        client.turnOffLightAt(time);
-        
-        setLightLabelAutomation("Light is scheduled to turn off at: " + time);
-    }
-
-    @FXML
-    void turnOnLightAtButtonPressed(ActionEvent event) {
-    	String hour = turnOnLightHH.getText();
-        String minute = turnOnLightMM.getText();
-        String amPm = turnOnLightAmPmComboBox.getValue();
-
-        // Construct a message with the desired schedule time in 24-hour format
-        String time = convertTo24HourFormat(hour, minute, amPm);
-        
-        client.turnOnLightAt(time);
-        
-        setLightLabelAutomation("Light is scheduled to turn on at: " + time);
-    }
-    
     public void setLightLabelAutomation (String lbl) {
-    	smartLightAutomationLabel.setText(lbl);
+    	smartLightAutomationLabelHidden.setText(lbl);
+    }
+    
+    public void changeTitleColorAutomation(String col) {
+    	Color color = Color.web(col);
+    	smartLightAutomationLabel.setTextFill(color);
     }
     
     
@@ -1652,6 +1655,9 @@ public class SHClientController {
 
     @FXML
     private Label smartThermostatLabelAutomationPage;
+    
+    @FXML
+    private Label modeLabel;
 
     @FXML
     private Pane smartThermostatPaneAutomation;
@@ -1673,6 +1679,23 @@ public class SHClientController {
 
     @FXML
     private TextField turnOnThermostatMM;
+    
+    private boolean modeFlag = false;
+    
+    @FXML
+    void coolToggleButtonSmartThermostatPressed(ActionEvent event) {
+
+    	modeLabel.setText("Cool Mode Selected");
+    	modeLabel.setTextFill(Color.rgb(135,206,235));
+    	modeFlag = true;
+    }
+    
+    @FXML
+    void heatToggleButtonSmartThermostatPressed(ActionEvent event) {
+    	modeLabel.setText("Heat Mode Selected");
+    	modeLabel.setTextFill(Color.RED);
+    	modeFlag = false;
+    }
 
     @FXML
     void changeModeThermostatAutomationButtonPressed(ActionEvent event) {
@@ -1683,12 +1706,12 @@ public class SHClientController {
         // Construct a message with the desired schedule time in 24-hour format
         String time = convertTo24HourFormat(hour, minute, amPm);
         
-        if(coolToggleButtonSmartThermostatAutomation.isSelected() == true) {
+        if(modeFlag == true) {
         
         	client.modeCoolThermostatAt(time);
         	setThermostatLabelAutomation("Thermostat is scheduled to change mode to COOL at: " + time);
         }
-        else if(heatToggleButtonSmartThermostatAutomation.isSelected() == true) {
+        else if(modeFlag == false) {
         	client.modeHeatThermostatAt(time);
         	setThermostatLabelAutomation("Thermostat is scheduled to change mode to HEAT at: " + time);
         }
@@ -1928,9 +1951,6 @@ public class SHClientController {
     private Button startCleaningButtonVacuumAutomation;
 
     @FXML
-    private ComboBox<String> startCleaningChoiceBoxVacuumRobotAutomation;
-
-    @FXML
     private TextField startCleaningMM;
 
     @FXML
@@ -1940,7 +1960,7 @@ public class SHClientController {
     void startCleaningButtonPressedVacuumAutomation(ActionEvent event) {
     	String hour = startCleainingHH.getText();
         String minute = startCleaningMM.getText();
-        String amPm = startCleaningChoiceBoxVacuumRobotAutomation.getValue();
+        String amPm = startCleaningAmPmComboBox.getValue();
 
         // Construct a message with the desired schedule time in 24-hour format
         String time = convertTo24HourFormat(hour, minute, amPm);
@@ -1951,22 +1971,9 @@ public class SHClientController {
     }
     
     private void setupComboBoxesVacuumRobot() {
-    	   if (startCleaningChoiceBoxVacuumRobotAutomation != null) {
-    			// Populating the minutes/hours ComboBoxes
-    			ObservableList<String> mmHhOptions = FXCollections.observableArrayList(
-    				"1 minute", 
-    		        "2 minutes", 
-    		        "5 minutes",
-    		        "10 minutes",
-    		        "15 minutes",
-    		        "30 minutes",
-    		        "1 hour"
-    		    );
-    			
+    	   if (startCleaningAmPmComboBox != null) {
     			// Populating the AM/PM ComboBoxes
     		    ObservableList<String> amPmOptions = FXCollections.observableArrayList("AM", "PM");
-    		    
-    		    startCleaningChoiceBoxVacuumRobotAutomation.setItems(mmHhOptions);
     		    startCleaningAmPmComboBox.setItems(amPmOptions);
     	   }
        }

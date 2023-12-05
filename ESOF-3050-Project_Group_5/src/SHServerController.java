@@ -155,6 +155,31 @@ public class SHServerController {
         }, delay);
     }
     
+    // Method to schedule changing light color
+    public void scheduleLightColorChange(String time, String color, ConnectionToClient client) {
+        Timer timer = new Timer();
+        String[] timeParts = time.split(":");
+        int hour = Integer.parseInt(timeParts[0]);
+        int minute = Integer.parseInt(timeParts[1]);
+
+        // Calculate delay until the event
+        long delay = calculateDelay(hour, minute);
+
+        // Schedule the timer task
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Change the color of the light
+                changeLightColor(color);
+                try {
+                    client.sendToClient("lightcolorscheduledto" + displayLightColor());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, delay);
+    }
+    
     
     
 //----------------------------------Methods for Thermostat------------------------------
