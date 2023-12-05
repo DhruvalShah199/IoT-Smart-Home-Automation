@@ -39,12 +39,11 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.ChoiceBox;
-<<<<<<< HEAD
+
 import javafx.scene.control.ComboBox;
 import java.util.prefs.Preferences;
-=======
+
 import javafx.scene.control.ComboBox;
->>>>>>> branch 'master' of https://github.com/DhruvalShah199/IoT-Smart-Home-Automation.git
 
 public class SHClientController {
 	private SHClient client;	//Instantiating object for SHClient class
