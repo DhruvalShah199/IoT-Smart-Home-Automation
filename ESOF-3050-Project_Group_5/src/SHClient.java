@@ -634,6 +634,11 @@ public class SHClient extends AbstractClient{
 	        	// Perform action when 
 	        	Platform.runLater(() -> clientController.setLabelSmartLock("Break-In Alert Set OFF"));
 	        } 
+	        // Compare messageString with messages for break-in
+	        else if (messageString.equals("breakin")) {
+	        	// Action when the smart lock is in great break-in alert status
+	        	Platform.runLater(() -> clientController.setLabelSmartLock("BREAK IN ALERT. There is a possible break-in"));
+	        }
 	        // Compare messageString with messages for lock
 	        else if (messageString.equals("lock")) {
 	        	// Action when the smart lock is in lock status

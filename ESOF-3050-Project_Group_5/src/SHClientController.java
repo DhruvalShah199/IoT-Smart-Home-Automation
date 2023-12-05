@@ -764,7 +764,9 @@ public class SHClientController {
     
     public void changeTitleColor(String col) {
     	Color colorValue = Color.web(col);
-    	smartLightTitleLabel.setTextFill(colorValue);
+    	if(this.smartLightTitleLabel != null) {
+    		smartLightTitleLabel.setTextFill(colorValue);
+    	}
     }
 
     

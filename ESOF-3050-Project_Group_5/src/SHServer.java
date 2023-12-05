@@ -193,6 +193,9 @@ public class SHServer extends AbstractServer {
 				sendToAllClients("getbreakinalertoff");
 			}
 		}
+		else if(messageString.equals("motion_detected")) {
+			sendToAllClients("breakin");
+		}
 		else if(messageString.equals("getlockstatus")) {
 			boolean status = serverController.displayLockStatus();
 			if(status == true) {
