@@ -36,6 +36,7 @@
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
             <Label text="ACTIVATE NIGHT MODE AT" textFill="WHITE">
@@ -43,45 +44,45 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label text="TURN ON CAMERA AT" textFill="WHITE" GridPane.rowIndex="1">
+            <Label text="TURN OFF DOORBELL AT" textFill="WHITE" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
-                  <ComboBox fx:id="activateNightModeDoorbellAmPmComboBox" layoutX="135.0" layoutY="41.0" prefHeight="29.0" prefWidth="50.0" />
-                  <TextField fx:id="activateNightModeHH" layoutY="41.0" prefHeight="26.0" prefWidth="50.0">
+                  <ComboBox fx:id="activateNightModeDoorbellAmPmComboBox" layoutX="135.0" layoutY="22.0" prefHeight="29.0" prefWidth="50.0" />
+                  <TextField fx:id="activateNightModeHH" layoutY="22.0" prefHeight="26.0" prefWidth="50.0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </TextField>
-                  <Label layoutX="57.0" layoutY="41.0" text=":" textFill="WHITE">
+                  <Label layoutX="57.0" layoutY="22.0" text=":" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="activateNightModeMM" layoutX="69.0" layoutY="41.0" prefHeight="26.0" prefWidth="50.0">
+                  <TextField fx:id="activateNightModeMM" layoutX="69.0" layoutY="22.0" prefHeight="26.0" prefWidth="50.0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </TextField>
                </children>
             </Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <ComboBox fx:id="turnOnCameraDoorbellAmPmComboBox" layoutX="135.0" layoutY="40.0" prefHeight="29.0" prefWidth="50.0" />
-                  <TextField fx:id="turnOnCameraHH" layoutY="40.0" prefHeight="26.0" prefWidth="50.0">
+                  <ComboBox fx:id="turnOffDoorbellAmPmComboBox" layoutX="135.0" layoutY="23.0" prefHeight="29.0" prefWidth="50.0" />
+                  <TextField fx:id="turnOffDoorbellHH" layoutY="23.0" prefHeight="26.0" prefWidth="50.0">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </TextField>
-                  <Label layoutX="56.0" layoutY="39.0" text=":" textFill="WHITE">
+                  <Label layoutX="56.0" layoutY="22.0" text=":" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="turnOnCameraMM" layoutX="67.0" layoutY="39.0" prefHeight="26.0" prefWidth="50.0">
+                  <TextField fx:id="turnOffDoorbellMM" layoutX="67.0" layoutY="22.0" prefHeight="26.0" prefWidth="50.0">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -93,7 +94,37 @@
                   <Font name="System Bold" size="15.0" />
                </font>
             </Button>
-            <Button fx:id="turnOnCameraAtButton" mnemonicParsing="false" onAction="#turnOnCameraAtButtonPressed" prefHeight="29.0" prefWidth="80.0" text="SET" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button fx:id="turnOffDoorbellAtButton" mnemonicParsing="false" onAction="#turnOffDoorbellAtButtonPressed" prefHeight="29.0" prefWidth="80.0" text="SET OFF" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <Label text="TURN ON DOORBELL AT" textFill="WHITE" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <ComboBox fx:id="turnOnDoorbellAmPmComboBox" layoutX="138.0" layoutY="22.0" prefHeight="29.0" prefWidth="50.0" />
+                  <TextField fx:id="turnOnDoorbellHH" layoutX="3.0" layoutY="22.0" prefHeight="26.0" prefWidth="50.0">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="59.0" layoutY="21.0" text=":" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="turnOnDoorbellMM" layoutX="70.0" layoutY="21.0" prefHeight="26.0" prefWidth="50.0">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </Pane>
+            <Button fx:id="turnOnDoorbellAtButton" mnemonicParsing="false" onAction="#turnOnDoorbellAtButtonPressed" prefHeight="29.0" prefWidth="80.0" text="SET OFF" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>

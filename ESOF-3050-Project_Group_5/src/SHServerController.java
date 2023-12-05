@@ -51,17 +51,20 @@ public class SHServerController {
     
     
     
-    //-----------------------------------Methods for Smart Light-----------------------------------
+//-----------------------------------Methods for Smart Light-----------------------------------
+    // Method to turn on the light
     public void turnOnLight(String onOrOff) {
         if (deviceMap.containsKey(0)) {
             ((SmartLight) deviceMap.get(0)).turnOnOff(onOrOff);
         }
     }
     
+    // Method to get light status
     public boolean getStatus() {
     	return ((SmartLight) deviceMap.get(0)).isOn();
 	}
     
+    // Method to turn off the light
     public void turnOffLight(String onOrOff) {
         if (deviceMap.containsKey(0)) {
         	((SmartLight) deviceMap.get(0)).turnOnOff(onOrOff);
@@ -80,7 +83,7 @@ public class SHServerController {
         return ((SmartLight) deviceMap.get(0)).getBrightness();
     }
 
-    
+    // Method to change light color
     public void changeLightColor(String color) {
     	if (deviceMap.containsKey(0)) {
     		((SmartLight) deviceMap.get(0)).changeColor(color);
@@ -102,7 +105,7 @@ public class SHServerController {
     	return false;
     }
     
- // Method to schedule turning on the light
+    // Method to schedule turning on the light
     public void scheduleLightOn(String time, ConnectionToClient client) {
         Timer timer = new Timer();
         String[] timeParts = time.split(":");
@@ -127,7 +130,7 @@ public class SHServerController {
         }, delay);
     }
     
- // Method to schedule turning off the light
+    // Method to schedule turning off the light
     public void scheduleLightOff(String time, ConnectionToClient client) {
         Timer timer = new Timer();
         String[] timeParts = time.split(":");
@@ -142,7 +145,7 @@ public class SHServerController {
             @Override
             public void run() {
                 // Turn off the light
-                turnOnLight("off");
+                turnOffLight("off");
                 try {
                     client.sendToClient("lightscheduledoff" + time);
                 } catch (IOException e) {
@@ -154,7 +157,7 @@ public class SHServerController {
     
     
     
-    //----------------------------------Methods for Thermostat------------------------------
+//----------------------------------Methods for Thermostat------------------------------
     public int getThermostatTemperature() {
     	int temperature = 0;
     	if (deviceMap.containsKey(2)) {
@@ -194,6 +197,14 @@ public class SHServerController {
     		return ((Thermostat) deviceMap.get(2)).isOn();
     	}
     	return false;
+	}
+    
+    public String displayThermostatMode() {
+    	String mode = "";
+    	if (deviceMap.containsKey(2)) {
+    		mode = ((Thermostat) deviceMap.get(2)).getMode();
+    	}
+    	return mode;
 	}
     
     public int displayTemperature() {
@@ -244,9 +255,59 @@ public class SHServerController {
             @Override
             public void run() {
                 // Turn off the thermostat
-            	turnOnThermostat("off");
+            	turnOffThermostat("off");
                 try {
                     client.sendToClient("thermostatscheduledoff" + time);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, delay);
+    }
+    
+    // Method to schedule changing mode to cool for the thermostat
+    public void scheduleThermostatModeCool(String time, ConnectionToClient client) {
+        Timer timer = new Timer();
+        String[] timeParts = time.split(":");
+        int hour = Integer.parseInt(timeParts[0]);
+        int minute = Integer.parseInt(timeParts[1]);
+
+        // Calculate delay until the event
+        long delay = calculateDelay(hour, minute);
+
+        // Schedule the timer task
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Change the thermostat mode to cool
+            	changeThermostatMode("cool");
+                try {
+                    client.sendToClient("thermostatscheduledcool" + time);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, delay);
+    }
+    
+ // Method to schedule changing mode to heat for the thermostat
+    public void scheduleThermostatModeHeat(String time, ConnectionToClient client) {
+        Timer timer = new Timer();
+        String[] timeParts = time.split(":");
+        int hour = Integer.parseInt(timeParts[0]);
+        int minute = Integer.parseInt(timeParts[1]);
+
+        // Calculate delay until the event
+        long delay = calculateDelay(hour, minute);
+
+        // Schedule the timer task
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Change the thermostat mode to heat
+            	changeThermostatMode("heat");
+                try {
+                    client.sendToClient("thermostatscheduledheat" + time);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -256,7 +317,7 @@ public class SHServerController {
 
     
     
-    //-----------------------------------Methods for Smart Lock-------------------------------------    
+//-----------------------------------Methods for Smart Lock-------------------------------------    
     public String lockDoor(String isLockedUnlocked) {
         if (deviceMap.containsKey(1)) {
         	((SmartLock) deviceMap.get(1)).turnOnOff("on");
@@ -328,7 +389,7 @@ public class SHServerController {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                // Lock the smart lock
+                // Unlock the smart lock
             	unlockDoor("unlock");
                 try {
                     client.sendToClient("smartlockscheduledunlock" + time);
@@ -353,7 +414,7 @@ public class SHServerController {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                // Lock the smart lock
+                // Set break-in alert for smart lock
             	getBreakInAlert(true);
                 try {
                     client.sendToClient("smartlockscheduledbreakinalert" + time);
@@ -366,7 +427,7 @@ public class SHServerController {
     
     
 
-    //---------------------------------Methods for Vacuum Robot-------------------------
+//---------------------------------Methods for Vacuum Robot----------------------------
     public String startCleaning() {
     	String isCleaning = "";
         if (deviceMap.containsKey(3)) {
@@ -398,9 +459,34 @@ public class SHServerController {
     	return false;
 	}
     
+ // Method to schedule start cleaning for the vacuum robot
+    public void scheduleVacuumCleaning(String time, ConnectionToClient client) {
+        Timer timer = new Timer();
+        String[] timeParts = time.split(":");
+        int hour = Integer.parseInt(timeParts[0]);
+        int minute = Integer.parseInt(timeParts[1]);
+
+        // Calculate delay until the event
+        long delay = calculateDelay(hour, minute);
+
+        // Schedule the timer task
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Start cleaning on the vacuum robot
+            	startCleaning();
+                try {
+                    client.sendToClient("startcleaningscheduledat" + time);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, delay);
+    }
     
     
-    //--------------------------------Methods for Smart Doorbell-----------------------------
+    
+//--------------------------------Methods for Smart Doorbell-----------------------------
     public void turnOnDoorbell(String onOrOff) {
         if (deviceMap.containsKey(4)) {
         	((SmartDoorbell) deviceMap.get(4)).turnOnOff(onOrOff);
@@ -432,7 +518,81 @@ public class SHServerController {
     	}
     	return false;
     }
+    
+ // Method to schedule turning on the doorbell
+    public void scheduleDoorbellOn(String time, ConnectionToClient client) {
+        Timer timer = new Timer();
+        String[] timeParts = time.split(":");
+        int hour = Integer.parseInt(timeParts[0]);
+        int minute = Integer.parseInt(timeParts[1]);
 
+        // Calculate delay until the event
+        long delay = calculateDelay(hour, minute);
+
+        // Schedule the timer task
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Turn on the doorbell
+            	turnOnDoorbell("on");
+                try {
+                    client.sendToClient("doorbellscheduledon" + time);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, delay);
+    }
+    
+ // Method to schedule turning off the doorbell
+    public void scheduleDoorbellOff(String time, ConnectionToClient client) {
+        Timer timer = new Timer();
+        String[] timeParts = time.split(":");
+        int hour = Integer.parseInt(timeParts[0]);
+        int minute = Integer.parseInt(timeParts[1]);
+
+        // Calculate delay until the event
+        long delay = calculateDelay(hour, minute);
+
+        // Schedule the timer task
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Turn off the doorbell
+            	turnOffDoorbell("off");
+                try {
+                    client.sendToClient("doorbellscheduledoff" + time);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, delay);
+    }
+    
+ // Method to schedule turning on the doorbell night mode
+    public void scheduleNightModeAt(String time, ConnectionToClient client) {
+        Timer timer = new Timer();
+        String[] timeParts = time.split(":");
+        int hour = Integer.parseInt(timeParts[0]);
+        int minute = Integer.parseInt(timeParts[1]);
+
+        // Calculate delay until the event
+        long delay = calculateDelay(hour, minute);
+
+        // Schedule the timer task
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // Activate the doorbell night mode
+            	activateNightModeDoorbell(true);
+                try {
+                    client.sendToClient("nightmodescheduledon" + time);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, delay);
+    }
 }
 
 //End of SHServerController Class
