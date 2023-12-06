@@ -1,3 +1,12 @@
+/**
+* The SmartLight contains all the methods necassary for 
+* the functions of that device.
+* 
+* @author Dhruval Harshilkumar Shah
+* @version December 2023
+*/
+
+
 public class SmartLight extends SmartDevice {
     // Light-specific attributes
     private int brightness;

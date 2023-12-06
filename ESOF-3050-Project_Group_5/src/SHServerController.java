@@ -1,3 +1,13 @@
+/**
+* The SHServerController contains all the methods necassary to
+* make initialize the objects of SmartDevice class and put it 
+* into a map and also call the respective methods for the devices.
+* 
+* @author Dhruval Harshilkumar Shah
+* @version December 2023
+*/
+
+
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;

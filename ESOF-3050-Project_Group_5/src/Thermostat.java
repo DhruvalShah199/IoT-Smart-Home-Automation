@@ -1,3 +1,12 @@
+/**
+* The Thermostat contains all the methods necassary for 
+* the functions of that device.
+* 
+* @author Dhruval Harshilkumar Shah
+* @version December 2023
+*/
+
+
 public class Thermostat extends SmartDevice {
 
 	// Thermostat-specific attributes

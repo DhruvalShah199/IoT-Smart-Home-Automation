@@ -1,3 +1,12 @@
+/**
+* The UserDB contains all the methods necassary to
+* check the credentials entered by the user at 
+* signup and login page
+* 
+* @author Amir Dawood
+* @version December 2023
+*/
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

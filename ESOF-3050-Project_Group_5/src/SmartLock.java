@@ -1,3 +1,12 @@
+/**
+* The SmartLock contains all the methods necassary for 
+* the functions of that device.
+* 
+* @author Dhruval Harshilkumar Shah
+* @version December 2023
+*/
+
+
 public class SmartLock extends SmartDevice {
 
 	// Lock-specific attributes

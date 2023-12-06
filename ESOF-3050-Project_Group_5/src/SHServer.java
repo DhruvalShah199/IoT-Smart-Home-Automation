@@ -1,3 +1,17 @@
+/**
+* The SHServer contains all the methods necassary to
+* make connection to the client, send messages to the 
+* client-side and also overrides the handlemessagesfromclient 
+* method to handle specific messages from the client.
+* It also overrides the connectiontoclient method from 
+* ConnectionToClient class in ocsf to display the client
+* connections.
+* 
+* @author Dhruval Harshilkumar Shah
+* @version December 2023
+*/
+
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,3 +1,14 @@
+/**
+* The SmartDevice contains all the common methods 
+* necassary for all the devices and also to set 
+* the devices' statuses and ids.
+*  
+* 
+* @author Dhruval Harshilkumar Shah
+* @version December 2023
+*/
+
+
 public abstract class SmartDevice {
     // Common attributes for all smart devices
     private int id;
